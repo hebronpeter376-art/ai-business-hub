@@ -2,82 +2,60 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>AI Business Hub</title>
 
-<!-- Unique modern font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 :root{
   --bg:#f4f6f8;
   --panel:#ffffff;
-  --panel-soft:#f8fafc;
+  --soft:#f8fafc;
   --text:#111827;
   --muted:#6b7280;
   --border:#e5e7eb;
   --primary:#2563eb;
-  --primary-hover:#1d4ed8;
+  --hover:#1d4ed8;
   --success:#16a34a;
   --warning:#d97706;
-  --danger:#dc2626;
   --sidebar:#111827;
-  --sidebar-hover:#1f2937;
+  --sidebarHover:#1f2937;
 }
-
-/* =========================
-   GLOBAL
-========================= */
 
 *{
   box-sizing:border-box;
 }
 
-html,
-body{
+html,body{
   margin:0;
   min-height:100%;
-}
-
-body{
-  background:var(--bg);
-  color:var(--text);
-
-  /* UNIQUE FONT */
   font-family:"Space Grotesk",sans-serif;
-
-  letter-spacing:-0.15px;
+  color:var(--text);
+  background:var(--bg);
 }
 
-/* =========================
-   APP
-========================= */
+button,input{
+  font:inherit;
+}
 
 .app{
   display:flex;
   min-height:100vh;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
+/* SIDEBAR */
 
 .sidebar{
   width:245px;
   min-width:245px;
-
   background:var(--sidebar);
-  color:white;
-
+  color:#fff;
   padding:22px 14px;
-
   display:flex;
   flex-direction:column;
-
   min-height:100vh;
 }
 
@@ -88,18 +66,13 @@ body{
 .logo-name{
   font-size:20px;
   font-weight:700;
-  letter-spacing:-.7px;
 }
 
 .logo-sub{
-  color:#9ca3af;
   font-size:11px;
+  color:#9ca3af;
   margin-top:4px;
 }
-
-/* =========================
-   NAVIGATION
-========================= */
 
 .nav{
   display:flex;
@@ -107,170 +80,88 @@ body{
   gap:7px;
 }
 
-/*
-   IMPORTANT:
-   The transform here affects ONLY
-   the sidebar button.
-*/
-
 .nav button{
   width:100%;
-
   border:0;
   background:transparent;
-
   color:#d1d5db;
-
   padding:11px 13px;
-
   border-radius:10px;
-
   text-align:left;
-
   cursor:pointer;
-
-  font-family:inherit;
   font-size:14px;
   font-weight:500;
-
-  transform:scale(1);
-
   transition:
-    transform .28s cubic-bezier(.2,.8,.2,1),
     background .25s ease,
     color .25s ease,
+    transform .25s ease,
     box-shadow .25s ease;
 }
 
-/* Hover */
-
 .nav button:hover{
-  background:var(--sidebar-hover);
-  color:white;
-
+  background:var(--sidebarHover);
+  color:#fff;
   transform:scale(1.025);
 }
 
-/*
-   ACTIVE BUTTON
-
-   Only the sidebar item becomes
-   slightly larger.
-*/
-
 .nav button.active{
-
-  background:var(--sidebar-hover);
-
-  color:white;
-
+  background:var(--sidebarHover);
+  color:#fff;
   transform:scale(1.075);
-
-  box-shadow:
-    0 6px 20px rgba(0,0,0,.22);
-
+  box-shadow:0 6px 20px #0003;
   font-weight:600;
 }
 
-/*
-   Active item gets a subtle
-   left accent.
-*/
-
-.nav button.active::before{
+.nav button.active:before{
   content:"";
-
   display:inline-block;
-
   width:3px;
   height:18px;
-
   background:#60a5fa;
-
   border-radius:10px;
-
   margin-right:8px;
-
   vertical-align:-4px;
-
-  animation:activeBar .3s ease;
 }
-
-@keyframes activeBar{
-
-  from{
-    opacity:0;
-    transform:scaleY(.3);
-  }
-
-  to{
-    opacity:1;
-    transform:scaleY(1);
-  }
-
-}
-
-/* =========================
-   SIDEBAR BOTTOM
-========================= */
 
 .sidebar-bottom{
   margin-top:auto;
-
   border-top:1px solid #374151;
-
   padding-top:15px;
 }
 
 .status{
   display:flex;
-  align-items:center;
-
   gap:7px;
-
+  align-items:center;
   color:#9ca3af;
-
   font-size:12px;
-
   padding:8px 12px;
 }
 
 .status-dot{
   width:7px;
   height:7px;
-
   border-radius:50%;
-
   background:#22c55e;
-
-  box-shadow:
-    0 0 8px rgba(34,197,94,.6);
+  box-shadow:0 0 8px #22c55e99;
 }
 
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 
 .main{
   flex:1;
   min-width:0;
-
   display:flex;
   flex-direction:column;
 }
 
 .topbar{
   height:70px;
-  min-height:70px;
-
   background:var(--panel);
-
   border-bottom:1px solid var(--border);
-
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   padding:0 30px;
 }
 
@@ -282,89 +173,63 @@ body{
 .user-area{
   display:flex;
   align-items:center;
-
   gap:12px;
-
   font-size:13px;
 }
 
 .avatar{
   width:36px;
   height:36px;
-
   border-radius:50%;
-
   background:var(--primary);
-
-  color:white;
-
+  color:#fff;
   display:grid;
   place-items:center;
-
   font-weight:600;
 }
 
-/* =========================
-   PAGE
-========================= */
-
 .page-wrapper{
   flex:1;
-  overflow:hidden;
+  overflow:auto;
 }
 
 .content{
   padding:30px;
-
   max-width:1400px;
   width:100%;
-
   margin:auto;
 }
 
-/* =========================
-   PAGE TRANSITIONS
-========================= */
-
 .page-transition{
-  animation:pageEnter .32s ease forwards;
+  animation:enter .28s ease;
 }
 
 .page-exit{
-  animation:pageExit .18s ease forwards;
+  animation:exit .15s ease;
 }
 
-@keyframes pageEnter{
-
+@keyframes enter{
   from{
     opacity:0;
-    transform:translateX(25px);
+    transform:translateX(20px);
   }
-
   to{
     opacity:1;
-    transform:translateX(0);
+    transform:none;
   }
-
 }
 
-@keyframes pageExit{
-
+@keyframes exit{
   from{
     opacity:1;
-    transform:translateX(0);
   }
-
   to{
     opacity:0;
-    transform:translateX(-20px);
+    transform:translateX(-15px);
   }
-
 }
 
-/* =========================
-   WELCOME
-========================= */
+/* GENERAL */
 
 .welcome{
   margin-bottom:25px;
@@ -372,73 +237,52 @@ body{
 
 .welcome h1{
   margin:0;
-
   font-size:27px;
-
-  letter-spacing:-.8px;
 }
 
 .welcome p{
   margin:6px 0 0;
-
   color:var(--muted);
-
   font-size:14px;
 }
 
-/* =========================
-   CARDS
-========================= */
-
 .cards{
   display:grid;
-
-  grid-template-columns:
-    repeat(4,1fr);
-
+  grid-template-columns:repeat(4,1fr);
   gap:16px;
-
   margin-bottom:25px;
 }
 
-.card{
+.card,
+.panel{
   background:var(--panel);
-
   border:1px solid var(--border);
-
   border-radius:14px;
+}
 
+.card{
   padding:20px;
-
-  transition:
-    transform .2s ease,
-    box-shadow .2s ease;
+  transition:.2s;
 }
 
 .card:hover{
   transform:translateY(-2px);
-
-  box-shadow:
-    0 8px 25px rgba(0,0,0,.06);
+  box-shadow:0 8px 25px #0000000f;
 }
 
 .card-label{
   color:var(--muted);
-
   font-size:12px;
 }
 
 .card-value{
   font-size:28px;
-
   font-weight:700;
-
   margin-top:8px;
 }
 
 .card-change{
   font-size:11px;
-
   margin-top:6px;
 }
 
@@ -450,69 +294,36 @@ body{
   color:var(--warning);
 }
 
-.red{
-  color:var(--danger);
-}
-
-/* =========================
-   GRID
-========================= */
-
 .dashboard-grid{
   display:grid;
-
-  grid-template-columns:
-    1.5fr 1fr;
-
+  grid-template-columns:1.5fr 1fr;
   gap:20px;
 }
 
-/* =========================
-   PANELS
-========================= */
-
 .panel{
-  background:var(--panel);
-
-  border:1px solid var(--border);
-
-  border-radius:14px;
-
   overflow:hidden;
 }
 
 .panel-header{
   padding:17px 20px;
-
-  border-bottom:
-    1px solid var(--border);
-
+  border-bottom:1px solid var(--border);
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   gap:10px;
 }
 
 .panel-title{
   font-weight:600;
-
   font-size:14px;
 }
 
-.panel-action{
+.panel-action,
+.link-btn{
   border:0;
-
   background:transparent;
-
   color:var(--primary);
-
   cursor:pointer;
-
-  font-family:inherit;
-
   font-size:12px;
 }
 
@@ -520,90 +331,59 @@ body{
   padding:20px;
 }
 
-/* =========================
-   LIST
-========================= */
-
 .list{
   padding:4px 0;
 }
 
 .list-item{
   display:flex;
-
   align-items:center;
-
   justify-content:space-between;
-
   gap:15px;
-
   padding:15px 20px;
-
-  border-bottom:
-    1px solid var(--border);
-
-  transition:
-    background .2s ease;
+  border-bottom:1px solid var(--border);
 }
 
 .list-item:last-child{
-  border-bottom:0;
+  border:0;
 }
 
 .list-item:hover{
-  background:var(--panel-soft);
+  background:var(--soft);
 }
 
 .item-left{
   display:flex;
-
   align-items:center;
-
   gap:11px;
-
   min-width:0;
 }
 
 .item-icon{
   width:35px;
   height:35px;
-
   border-radius:9px;
-
-  background:var(--panel-soft);
-
+  background:var(--soft);
   display:grid;
-
   place-items:center;
-
   flex-shrink:0;
 }
 
 .item-title{
   font-size:13px;
-
   font-weight:600;
 }
 
 .item-sub{
   font-size:11px;
-
   color:var(--muted);
-
   margin-top:3px;
 }
 
-/* =========================
-   BADGES
-========================= */
-
 .badge{
   font-size:10px;
-
   padding:5px 8px;
-
   border-radius:20px;
-
   white-space:nowrap;
 }
 
@@ -627,141 +407,29 @@ body{
   color:#b91c1c;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+.primary-btn,
+.secondary-btn{
+  border-radius:9px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-size:13px;
+}
 
 .primary-btn{
   border:0;
-
   background:var(--primary);
-
-  color:white;
-
-  padding:10px 14px;
-
-  border-radius:9px;
-
-  cursor:pointer;
-
-  font-family:inherit;
-
-  font-size:13px;
-
-  transition:
-    background .2s ease,
-    transform .2s ease;
+  color:#fff;
 }
 
 .primary-btn:hover{
-  background:var(--primary-hover);
-
-  transform:translateY(-1px);
+  background:var(--hover);
 }
 
 .secondary-btn{
-  border:
-    1px solid var(--border);
-
+  border:1px solid var(--border);
   background:var(--panel);
-
   color:var(--text);
-
-  padding:10px 14px;
-
-  border-radius:9px;
-
-  cursor:pointer;
-
-  font-family:inherit;
-
-  font-size:13px;
 }
-
-/* =========================
-   CHAT
-========================= */
-
-.chat-box{
-  display:flex;
-
-  flex-direction:column;
-
-  height:520px;
-}
-
-.chat-messages{
-  flex:1;
-
-  padding:20px;
-
-  overflow-y:auto;
-}
-
-.chat-message{
-  max-width:75%;
-
-  padding:11px 14px;
-
-  border-radius:13px;
-
-  margin-bottom:12px;
-
-  font-size:13px;
-
-  line-height:1.5;
-}
-
-.chat-message.ai{
-  background:var(--panel-soft);
-
-  border:
-    1px solid var(--border);
-}
-
-.chat-message.user{
-  background:var(--primary);
-
-  color:white;
-
-  margin-left:auto;
-}
-
-.chat-input{
-  display:flex;
-
-  gap:8px;
-
-  padding:14px;
-
-  border-top:
-    1px solid var(--border);
-}
-
-.chat-input input{
-  flex:1;
-
-  min-width:0;
-
-  border:
-    1px solid var(--border);
-
-  background:var(--panel-soft);
-
-  color:var(--text);
-
-  border-radius:9px;
-
-  padding:11px;
-
-  outline:none;
-
-  font-family:inherit;
-}
-
-/* =========================
-   TABLE
-========================= */
 
 .table-wrap{
   overflow-x:auto;
@@ -769,202 +437,68 @@ body{
 
 table{
   width:100%;
-
   border-collapse:collapse;
 }
 
 th,
 td{
   text-align:left;
-
   padding:14px 18px;
-
-  border-bottom:
-    1px solid var(--border);
-
+  border-bottom:1px solid var(--border);
   font-size:12px;
 }
 
 th{
   color:var(--muted);
-
-  font-weight:600;
-
-  background:var(--panel-soft);
+  background:var(--soft);
 }
 
-/* =========================
-   INFO
-========================= */
-
 .info-box{
-  background:var(--panel-soft);
-
-  border:
-    1px solid var(--border);
-
+  background:var(--soft);
+  border:1px solid var(--border);
   border-radius:12px;
-
   padding:18px;
-
   line-height:1.6;
 }
 
 .info-box p{
   color:var(--muted);
-
   font-size:13px;
 }
 
-/* =========================
-   INTEGRATIONS
-========================= */
+/* INTEGRATIONS */
 
 .integration-grid{
   display:grid;
-
-  grid-template-columns:
-    repeat(3,1fr);
-
+  grid-template-columns:repeat(3,1fr);
   gap:15px;
 }
 
 .integration{
-  border:
-    1px solid var(--border);
-
+  border:1px solid var(--border);
   border-radius:12px;
-
   padding:18px;
-
   background:var(--panel);
 }
 
 .integration-icon{
   font-size:25px;
-
   margin-bottom:12px;
 }
 
 .integration-name{
   font-weight:600;
-
   font-size:14px;
 }
 
 .integration-description{
   color:var(--muted);
-
   font-size:12px;
-
   margin:6px 0 15px;
-
   line-height:1.5;
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media(max-width:1050px){
-
-  .cards{
-    grid-template-columns:
-      repeat(2,1fr);
-  }
-
-  .dashboard-grid{
-    grid-template-columns:1fr;
-  }
-
-  .integration-grid{
-    grid-template-columns:
-      1fr 1fr;
-  }
-
-}
-
-@media(max-width:700px){
-
-  .sidebar{
-    width:68px;
-    min-width:68px;
-
-    padding:15px 8px;
-  }
-
-  .logo-name,
-  .logo-sub,
-  .nav span,
-  .sidebar-bottom{
-    display:none;
-  }
-
-  .logo{
-    padding:8px;
-  }
-
-  .nav button{
-    text-align:center;
-
-    font-size:18px;
-
-    padding:11px 5px;
-  }
-
-  /*
-     On small screens the active
-     zoom is slightly smaller so
-     it doesn't overflow.
-  */
-
-  .nav button.active{
-    transform:scale(1.12);
-  }
-
-  .topbar{
-    padding:0 15px;
-  }
-
-  .user-area strong{
-    display:none;
-  }
-
-  .content{
-    padding:18px;
-  }
-
-  .cards{
-    grid-template-columns:
-      1fr 1fr;
-
-    gap:10px;
-  }
-
-  .integration-grid{
-    grid-template-columns:1fr;
-  }
-
-}
-
-@media(max-width:450px){
-
-  .cards{
-    grid-template-columns:1fr;
-  }
-
-  .welcome h1{
-    font-size:23px;
-  }
-
-  .chat-message{
-    max-width:88%;
-  }
-
-}
-/* =========================
-   MESSAGES PAGE
-========================= */
+/* MESSAGES */
 
 .messages-layout{
   display:grid;
@@ -989,35 +523,30 @@ th{
 .message-search input{
   width:100%;
   border:1px solid var(--border);
-  background:var(--panel-soft);
+  background:var(--soft);
   color:var(--text);
   border-radius:9px;
   padding:10px 12px;
-  outline:none;
-  font-family:inherit;
-  font-size:12px;
+  outline:0;
 }
 
 .conversation-list{
-  overflow-y:auto;
+  overflow:auto;
   flex:1;
 }
 
 .conversation{
-  position:relative;
   display:flex;
   align-items:center;
   gap:11px;
   padding:14px;
   border-bottom:1px solid var(--border);
   cursor:pointer;
-  transition:
-    background .2s ease,
-    transform .2s ease;
+  transition:.2s;
 }
 
 .conversation:hover{
-  background:var(--panel-soft);
+  background:var(--soft);
 }
 
 .conversation.active{
@@ -1072,11 +601,10 @@ th{
   height:20px;
   border-radius:50%;
   background:var(--primary);
-  color:white;
+  color:#fff;
   display:grid;
   place-items:center;
   font-size:9px;
-  font-weight:600;
 }
 
 .chat-customer{
@@ -1093,9 +621,9 @@ th{
 
 .chat-messages{
   flex:1;
-  overflow-y:auto;
+  overflow:auto;
   padding:22px;
-  background:var(--panel-soft);
+  background:var(--soft);
 }
 
 .chat-message{
@@ -1112,7 +640,7 @@ th{
 .chat-message.user{
   margin-left:auto;
   background:var(--primary);
-  color:white;
+  color:#fff;
   border-bottom-right-radius:4px;
 }
 
@@ -1141,24 +669,78 @@ th{
   margin-bottom:8px;
 }
 
-.ai-suggestion .secondary-btn{
-  padding:7px 10px;
-  font-size:11px;
+.chat-input{
+  display:flex;
+  gap:8px;
+  padding:14px;
+  border-top:1px solid var(--border);
 }
 
-.chat-panel .chat-input{
-  background:var(--panel);
+.chat-input input{
+  flex:1;
+  min-width:0;
+  border:1px solid var(--border);
+  background:var(--soft);
+  color:var(--text);
+  border-radius:9px;
+  padding:11px;
+  outline:0;
 }
 
-@media(max-width:900px){
+/* RESPONSIVE */
 
-  .messages-layout{
-    grid-template-columns:280px 1fr;
+@media(max-width:1050px){
+
+  .cards{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+  .integration-grid{
+    grid-template-columns:1fr 1fr;
   }
 
 }
 
 @media(max-width:700px){
+
+  .sidebar{
+    width:68px;
+    min-width:68px;
+    padding:15px 8px;
+  }
+
+  .logo-name,
+  .logo-sub,
+  .nav span,
+  .sidebar-bottom{
+    display:none;
+  }
+
+  .nav button{
+    text-align:center;
+    font-size:18px;
+    padding:11px 5px;
+  }
+
+  .nav button.active{
+    transform:scale(1.12);
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .user-area strong{
+    display:none;
+  }
+
+  .content{
+    padding:18px;
+  }
 
   .messages-layout{
     grid-template-columns:1fr;
@@ -1173,6 +755,26 @@ th{
     min-height:550px;
   }
 
+  .integration-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:450px){
+
+  .cards{
+    grid-template-columns:1fr;
+  }
+
+  .welcome h1{
+    font-size:23px;
+  }
+
+  .chat-message{
+    max-width:88%;
+  }
+
 }
 </style>
 </head>
@@ -1181,24 +783,16 @@ th{
 
 <div class="app">
 
-<!-- =========================
-     SIDEBAR
-========================= -->
+<!-- SIDEBAR -->
 
 <aside class="sidebar">
 
   <div class="logo">
-
-    <div class="logo-name">
-      AI Business Hub
-    </div>
-
+    <div class="logo-name">AI Business Hub</div>
     <div class="logo-sub">
       AI-powered business assistant
     </div>
-
   </div>
-
 
   <nav class="nav">
 
@@ -1240,15 +834,11 @@ th{
 
   </nav>
 
-
   <div class="sidebar-bottom">
 
     <div class="status">
-
       <div class="status-dot"></div>
-
       AI Assistant Online
-
     </div>
 
   </div>
@@ -1256,44 +846,41 @@ th{
 </aside>
 
 
-<!-- =========================
-     MAIN
-========================= -->
+<!-- MAIN -->
 
 <main class="main">
 
-  <header class="topbar">
+<header class="topbar">
 
-    <div
-      class="page-title"
-      id="pageTitle">
-      Dashboard
+  <div
+    class="page-title"
+    id="pageTitle">
+    Dashboard
+  </div>
+
+  <div class="user-area">
+
+    <strong>
+      Business Owner
+    </strong>
+
+    <div class="avatar">
+      B
     </div>
-
-
-    <div class="user-area">
-
-      <strong>
-        Business Owner
-      </strong>
-
-      <div class="avatar">
-        B
-      </div>
-
-    </div>
-
-  </header>
-
-
-  <div class="page-wrapper">
-
-    <section
-      class="content page-transition"
-      id="pageContent">
-    </section>
 
   </div>
+
+</header>
+
+
+<div class="page-wrapper">
+
+<section
+  class="content page-transition"
+  id="pageContent">
+</section>
+
+</div>
 
 </main>
 
@@ -1302,95 +889,95 @@ th{
 
 <script>
 
-/* =========================================
-   PAGE DATA
-========================================= */
+/* =====================================================
+   PAGE CONTENT
+===================================================== */
 
 const pages = {
 
-Dashboard:`
+Dashboard: `
 
 <div class="welcome">
 
-<h1>
-Good morning 👋
-</h1>
+  <h1>
+    Good morning 👋
+  </h1>
 
-<p>
-Here's what's happening with your business today.
-</p>
+  <p>
+    Here's what's happening with your business today.
+  </p>
 
 </div>
 
 
 <div class="cards">
 
-<div class="card">
+  <div class="card">
 
-<div class="card-label">
-New Messages
-</div>
+    <div class="card-label">
+      New Messages
+    </div>
 
-<div class="card-value">
-12
-</div>
+    <div class="card-value">
+      12
+    </div>
 
-<div class="card-change green">
-+4 today
-</div>
+    <div class="card-change green">
+      +4 today
+    </div>
 
-</div>
-
-
-<div class="card">
-
-<div class="card-label">
-Pending Orders
-</div>
-
-<div class="card-value">
-5
-</div>
-
-<div class="card-change orange">
-2 need attention
-</div>
-
-</div>
+  </div>
 
 
-<div class="card">
+  <div class="card">
 
-<div class="card-label">
-Tasks Today
-</div>
+    <div class="card-label">
+      Pending Orders
+    </div>
 
-<div class="card-value">
-3
-</div>
+    <div class="card-value">
+      5
+    </div>
 
-<div class="card-change">
-1 completed
-</div>
+    <div class="card-change orange">
+      2 need attention
+    </div>
 
-</div>
+  </div>
 
 
-<div class="card">
+  <div class="card">
 
-<div class="card-label">
-Customers
-</div>
+    <div class="card-label">
+      Tasks Today
+    </div>
 
-<div class="card-value">
-28
-</div>
+    <div class="card-value">
+      3
+    </div>
 
-<div class="card-change green">
-+6 this week
-</div>
+    <div class="card-change">
+      1 completed
+    </div>
 
-</div>
+  </div>
+
+
+  <div class="card">
+
+    <div class="card-label">
+      Customers
+    </div>
+
+    <div class="card-value">
+      28
+    </div>
+
+    <div class="card-change green">
+      +6 this week
+    </div>
+
+  </div>
 
 </div>
 
@@ -1400,224 +987,224 @@ Customers
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-Recent Conversations
-</div>
+    <div class="panel-title">
+      Recent Conversations
+    </div>
 
-<button
-class="panel-action"
-data-goto="Messages">
-View all
-</button>
+    <button
+      class="panel-action"
+      data-goto="Messages">
+      View all
+    </button>
 
-</div>
-
-
-<div class="list">
+  </div>
 
 
-<div class="list-item">
+  <div class="list">
 
-<div class="item-left">
+    <div class="list-item">
 
-<div class="item-icon">
-👤
-</div>
+      <div class="item-left">
 
-<div>
+        <div class="item-icon">
+          👤
+        </div>
 
-<div class="item-title">
-John
-</div>
+        <div>
 
-<div class="item-sub">
-"Can I order two large pizzas?"
-</div>
+          <div class="item-title">
+            John
+          </div>
 
-</div>
+          <div class="item-sub">
+            "Can I order two large pizzas?"
+          </div>
 
-</div>
+        </div>
 
-<div class="badge badge-blue">
-New
-</div>
+      </div>
 
-</div>
+      <span class="badge badge-blue">
+        New
+      </span>
 
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-👤
-</div>
-
-<div>
-
-<div class="item-title">
-Sarah
-</div>
-
-<div class="item-sub">
-"What time do you close today?"
-</div>
-
-</div>
-
-</div>
-
-<div class="badge badge-green">
-Replied
-</div>
-
-</div>
+    </div>
 
 
-<div class="list-item">
+    <div class="list-item">
 
-<div class="item-left">
+      <div class="item-left">
 
-<div class="item-icon">
-👤
-</div>
+        <div class="item-icon">
+          👤
+        </div>
 
-<div>
+        <div>
 
-<div class="item-title">
-Mike
-</div>
+          <div class="item-title">
+            Sarah
+          </div>
 
-<div class="item-sub">
-"Do you deliver to Ikeja?"
-</div>
+          <div class="item-sub">
+            "What time do you close today?"
+          </div>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-<div class="badge badge-orange">
-Attention
-</div>
+      <span class="badge badge-green">
+        Replied
+      </span>
 
-</div>
+    </div>
 
-</div>
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          👤
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Mike
+          </div>
+
+          <div class="item-sub">
+            "Do you deliver to Ikeja?"
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="badge badge-orange">
+        Attention
+      </span>
+
+    </div>
+
+  </div>
 
 </div>
 
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-Today's Tasks
+    <div class="panel-title">
+      Today's Tasks
+    </div>
+
+    <button
+      class="panel-action"
+      data-goto="Tasks & Reminders">
+      View all
+    </button>
+
+  </div>
+
+
+  <div class="list">
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          📞
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Call supplier
+          </div>
+
+          <div class="item-sub">
+            10:00 AM
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          📦
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Confirm John's order
+          </div>
+
+          <div class="item-sub">
+            1:00 PM
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          📊
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Check inventory
+          </div>
+
+          <div class="item-sub">
+            4:30 PM
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>
 
-<button
-class="panel-action"
-data-goto="Tasks & Reminders">
-View all
-</button>
-
-</div>
-
-
-<div class="list">
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-📞
-</div>
-
-<div>
-
-<div class="item-title">
-Call supplier
-</div>
-
-<div class="item-sub">
-10:00 AM
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-📦
-</div>
-
-<div>
-
-<div class="item-title">
-Confirm John's order
-</div>
-
-<div class="item-sub">
-1:00 PM
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-📊
-</div>
-
-<div>
-
-<div class="item-title">
-Check inventory
-</div>
-
-<div class="item-sub">
-4:30 PM
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 </div>
 
 `,
 
 
-Messages:`
-
-Messages:`
+Messages: `
 
 <div class="welcome">
 
-  <h1>Messages 💬</h1>
+  <h1>
+    Messages 💬
+  </h1>
 
   <p>
     Manage customer conversations and let your AI assistant help you respond.
@@ -1629,903 +1216,827 @@ Messages:`
 <div class="messages-layout">
 
 
-  <!-- =========================
-       CONVERSATION LIST
-  ========================== -->
+<div class="panel conversations-panel">
 
-  <div class="panel conversations-panel">
+  <div class="panel-header">
 
-    <div class="panel-header">
-
-      <div class="panel-title">
-        Conversations
-      </div>
-
-      <div class="badge badge-blue">
-        12 New
-      </div>
-
+    <div class="panel-title">
+      Conversations
     </div>
 
-
-    <div class="message-search">
-
-      <input
-        id="conversationSearch"
-        type="text"
-        placeholder="Search customers..."
-      >
-
-    </div>
-
-
-    <div
-      class="conversation-list"
-      id="conversationList">
-
-
-      <div
-        class="conversation active"
-        data-name="John"
-        data-message="Can I order two large pizzas?">
-
-        <div class="conversation-avatar">
-          J
-        </div>
-
-        <div class="conversation-info">
-
-          <div class="conversation-top">
-
-            <strong>
-              John
-            </strong>
-
-            <span>
-              10:42 AM
-            </span>
-
-          </div>
-
-          <div class="conversation-preview">
-            Can I order two large pizzas?
-          </div>
-
-        </div>
-
-        <div class="unread">
-          2
-        </div>
-
-      </div>
-
-
-      <div
-        class="conversation"
-        data-name="Sarah"
-        data-message="What time do you close today?">
-
-        <div class="conversation-avatar">
-          S
-        </div>
-
-        <div class="conversation-info">
-
-          <div class="conversation-top">
-
-            <strong>
-              Sarah
-            </strong>
-
-            <span>
-              9:31 AM
-            </span>
-
-          </div>
-
-          <div class="conversation-preview">
-            What time do you close today?
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div
-        class="conversation"
-        data-name="Mike"
-        data-message="Do you deliver to Ikeja?">
-
-        <div class="conversation-avatar">
-          M
-        </div>
-
-        <div class="conversation-info">
-
-          <div class="conversation-top">
-
-            <strong>
-              Mike
-            </strong>
-
-            <span>
-              Yesterday
-            </span>
-
-          </div>
-
-          <div class="conversation-preview">
-            Do you deliver to Ikeja?
-          </div>
-
-        </div>
-
-        <div class="unread">
-          1
-        </div>
-
-      </div>
-
-
-      <div
-        class="conversation"
-        data-name="David"
-        data-message="I would like to know your delivery options.">
-
-        <div class="conversation-avatar">
-          D
-        </div>
-
-        <div class="conversation-info">
-
-          <div class="conversation-top">
-
-            <strong>
-              David
-            </strong>
-
-            <span>
-              Yesterday
-            </span>
-
-          </div>
-
-          <div class="conversation-preview">
-            I would like to know your delivery options.
-          </div>
-
-        </div>
-
-      </div>
-
-
+    <div class="badge badge-blue">
+      12 New
     </div>
 
   </div>
 
 
+  <div class="message-search">
 
-  <!-- =========================
-       CHAT WINDOW
-  ========================== -->
+    <input
+      id="conversationSearch"
+      type="text"
+      placeholder="Search customers..."
+    >
 
-  <div class="panel chat-panel">
-
-    <div class="panel-header">
-
-      <div class="chat-customer">
-
-        <div
-          class="conversation-avatar"
-          id="chatAvatar">
-          J
-        </div>
-
-        <div>
-
-          <div
-            class="panel-title"
-            id="chatCustomer">
-            John
-          </div>
-
-          <div class="chat-online">
-            ● Customer conversation
-          </div>
-
-        </div>
-
-      </div>
+  </div>
 
 
-      <div class="badge badge-green">
-        AI Ready
-      </div>
+  <div
+    class="conversation-list"
+    id="conversationList">
 
-    </div>
-
-
-    <!-- CHAT -->
 
     <div
-      class="chat-messages"
-      id="chatMessages">
+      class="conversation active"
+      data-name="John"
+      data-message="Can I order two large pizzas?">
 
+      <div class="conversation-avatar">
+        J
+      </div>
 
-      <div class="chat-message user">
+      <div class="conversation-info">
 
-        Hi, can I order two large pizzas?
+        <div class="conversation-top">
+
+          <strong>
+            John
+          </strong>
+
+          <span>
+            10:42 AM
+          </span>
+
+        </div>
+
+        <div class="conversation-preview">
+          Can I order two large pizzas?
+        </div>
 
       </div>
 
-
-      <div class="chat-message ai">
-
-        Hi John! 👋 Yes, you can.
-
-        Two large pizzas are available.
-        Would you like to place the order now?
-
+      <div class="unread">
+        2
       </div>
-
-
-      <div class="chat-message user">
-
-        Yes please.
-
-      </div>
-
-
-      <div class="chat-message ai">
-
-        Perfect! I'll help you get that order started. 🍕
-
-      </div>
-
 
     </div>
 
 
-    <!-- AI SUGGESTION -->
+    <div
+      class="conversation"
+      data-name="Sarah"
+      data-message="What time do you close today?">
 
-    <div class="ai-suggestion">
-
-      <div class="ai-suggestion-title">
-        🤖 AI Suggested Reply
+      <div class="conversation-avatar">
+        S
       </div>
 
-      <div
-        id="aiSuggestion"
-        class="ai-suggestion-text">
+      <div class="conversation-info">
 
-        "Absolutely! We can prepare two large pizzas
-        for you. Would you like to confirm your order?"
+        <div class="conversation-top">
+
+          <strong>
+            Sarah
+          </strong>
+
+          <span>
+            9:31 AM
+          </span>
+
+        </div>
+
+        <div class="conversation-preview">
+          What time do you close today?
+        </div>
 
       </div>
-
-      <button
-        class="secondary-btn"
-        id="useSuggestion">
-
-        Use Reply
-
-      </button>
 
     </div>
 
 
-    <!-- INPUT -->
+    <div
+      class="conversation"
+      data-name="Mike"
+      data-message="Do you deliver to Ikeja?">
 
-    <form
-      class="chat-input"
-      id="businessChatForm">
+      <div class="conversation-avatar">
+        M
+      </div>
 
-      <input
-        id="businessMessageInput"
-        type="text"
-        placeholder="Reply to customer..."
-        autocomplete="off"
-      >
+      <div class="conversation-info">
 
-      <button
-        class="primary-btn"
-        type="submit">
+        <div class="conversation-top">
 
-        Send
+          <strong>
+            Mike
+          </strong>
 
-      </button>
+          <span>
+            Yesterday
+          </span>
 
-    </form>
+        </div>
+
+        <div class="conversation-preview">
+          Do you deliver to Ikeja?
+        </div>
+
+      </div>
+
+      <div class="unread">
+        1
+      </div>
+
+    </div>
+
+
+    <div
+      class="conversation"
+      data-name="David"
+      data-message="I would like to know your delivery options.">
+
+      <div class="conversation-avatar">
+        D
+      </div>
+
+      <div class="conversation-info">
+
+        <div class="conversation-top">
+
+          <strong>
+            David
+          </strong>
+
+          <span>
+            Yesterday
+          </span>
+
+        </div>
+
+        <div class="conversation-preview">
+          I would like to know your delivery options.
+        </div>
+
+      </div>
+
+    </div>
+
 
   </div>
 
 </div>
 
+
+<div class="panel chat-panel">
+
+  <div class="panel-header">
+
+    <div class="chat-customer">
+
+      <div
+        class="conversation-avatar"
+        id="chatAvatar">
+        J
+      </div>
+
+      <div>
+
+        <div
+          class="panel-title"
+          id="chatCustomer">
+          John
+        </div>
+
+        <div class="chat-online">
+          ● Customer conversation
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="badge badge-green">
+      AI Ready
+    </div>
+
+  </div>
+
+
+  <div
+    class="chat-messages"
+    id="chatMessages">
+
+    <div class="chat-message user">
+      Hi, can I order two large pizzas?
+    </div>
+
+    <div class="chat-message ai">
+      Hi John! 👋 Yes, you can.
+      Two large pizzas are available.
+      Would you like to place the order now?
+    </div>
+
+    <div class="chat-message user">
+      Yes please.
+    </div>
+
+    <div class="chat-message ai">
+      Perfect! I'll help you get that order started. 🍕
+    </div>
+
+  </div>
+
+
+  <div class="ai-suggestion">
+
+    <div class="ai-suggestion-title">
+      🤖 AI Suggested Reply
+    </div>
+
+    <div
+      id="aiSuggestion"
+      class="ai-suggestion-text">
+
+      "Absolutely! We can prepare two large pizzas
+      for you. Would you like to confirm your order?"
+
+    </div>
+
+    <button
+      class="secondary-btn"
+      id="useSuggestion">
+
+      Use Reply
+
+    </button>
+
+  </div>
+
+
+  <form
+    class="chat-input"
+    id="businessChatForm">
+
+    <input
+      id="businessMessageInput"
+      type="text"
+      placeholder="Reply to customer..."
+      autocomplete="off"
+    >
+
+    <button
+      class="primary-btn"
+      type="submit">
+
+      Send
+
+    </button>
+
+  </form>
+
+</div>
+
+</div>
+
 `,
 
-Orders:`
+
+Orders: `
 
 <div class="welcome">
 
-<h1>
-Orders 📦
-</h1>
+  <h1>
+    Orders 📦
+  </h1>
 
-<p>
-Track and manage customer orders.
-</p>
+  <p>
+    Track and manage customer orders.
+  </p>
 
 </div>
 
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-Recent Orders
-</div>
+    <div class="panel-title">
+      Recent Orders
+    </div>
 
-<button class="primary-btn">
-+ New Order
-</button>
+    <button
+      class="primary-btn"
+      onclick="demoAlert('New order form coming next.')">
 
-</div>
+      + New Order
 
+    </button>
 
-<div class="table-wrap">
-
-<table>
-
-<thead>
-
-<tr>
-
-<th>
-Order
-</th>
-
-<th>
-Customer
-</th>
-
-<th>
-Items
-</th>
-
-<th>
-Total
-</th>
-
-<th>
-Status
-</th>
-
-</tr>
-
-</thead>
+  </div>
 
 
-<tbody>
+  <div class="table-wrap">
 
-<tr>
+    <table>
 
-<td>
-#1042
-</td>
+      <thead>
 
-<td>
-John
-</td>
+        <tr>
+          <th>Order</th>
+          <th>Customer</th>
+          <th>Items</th>
+          <th>Total</th>
+          <th>Status</th>
+        </tr>
 
-<td>
-2 Large Pizzas
-</td>
-
-<td>
-₦12,000
-</td>
-
-<td>
-
-<span class="badge badge-orange">
-Pending
-</span>
-
-</td>
-
-</tr>
+      </thead>
 
 
-<tr>
+      <tbody>
 
-<td>
-#1041
-</td>
-
-<td>
-Sarah
-</td>
-
-<td>
-Family Meal
-</td>
-
-<td>
-₦8,500
-</td>
-
-<td>
-
-<span class="badge badge-green">
-Completed
-</span>
-
-</td>
-
-</tr>
+        <tr>
+          <td>#1042</td>
+          <td>John</td>
+          <td>2 Large Pizzas</td>
+          <td>₦12,000</td>
+          <td>
+            <span class="badge badge-orange">
+              Pending
+            </span>
+          </td>
+        </tr>
 
 
-<tr>
+        <tr>
+          <td>#1041</td>
+          <td>Sarah</td>
+          <td>Family Meal</td>
+          <td>₦8,500</td>
+          <td>
+            <span class="badge badge-green">
+              Completed
+            </span>
+          </td>
+        </tr>
 
-<td>
-#1040
-</td>
 
-<td>
-Mike
-</td>
+        <tr>
+          <td>#1040</td>
+          <td>Mike</td>
+          <td>3 Drinks</td>
+          <td>₦3,000</td>
+          <td>
+            <span class="badge badge-blue">
+              Processing
+            </span>
+          </td>
+        </tr>
 
-<td>
-3 Drinks
-</td>
+      </tbody>
 
-<td>
-₦3,000
-</td>
+    </table>
 
-<td>
-
-<span class="badge badge-blue">
-Processing
-</span>
-
-</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-</div>
+  </div>
 
 </div>
 
 `,
 
 
-Customers:`
+Customers: `
 
 <div class="welcome">
 
-<h1>
-Customers 👥
-</h1>
+  <h1>
+    Customers 👥
+  </h1>
 
-<p>
-View and manage your customer relationships.
-</p>
+  <p>
+    View and manage your customer relationships.
+  </p>
 
 </div>
 
 
 <div class="cards">
 
-<div class="card">
+  <div class="card">
 
-<div class="card-label">
-Total Customers
-</div>
+    <div class="card-label">
+      Total Customers
+    </div>
 
-<div class="card-value">
-28
-</div>
+    <div class="card-value">
+      28
+    </div>
 
-</div>
-
-
-<div class="card">
-
-<div class="card-label">
-New This Week
-</div>
-
-<div class="card-value">
-6
-</div>
-
-<div class="card-change green">
-Growing
-</div>
-
-</div>
-
-</div>
+  </div>
 
 
-<div class="panel">
+  <div class="card">
 
-<div class="panel-header">
+    <div class="card-label">
+      New This Week
+    </div>
 
-<div class="panel-title">
-Customer List
-</div>
+    <div class="card-value">
+      6
+    </div>
 
-<button class="primary-btn">
-+ Add Customer
-</button>
+    <div class="card-change green">
+      Growing
+    </div>
 
-</div>
-
-
-<div class="list">
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-👤
-</div>
-
-<div>
-
-<div class="item-title">
-John
-</div>
-
-<div class="item-sub">
-john@example.com
-</div>
-
-</div>
-
-</div>
-
-<span class="badge badge-green">
-Active
-</span>
-
-</div>
-
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-👤
-</div>
-
-<div>
-
-<div class="item-title">
-Sarah
-</div>
-
-<div class="item-sub">
-sarah@example.com
-</div>
-
-</div>
-
-</div>
-
-<span class="badge badge-green">
-Active
-</span>
-
-</div>
-
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-👤
-</div>
-
-<div>
-
-<div class="item-title">
-Mike
-</div>
-
-<div class="item-sub">
-mike@example.com
-</div>
-
-</div>
-
-</div>
-
-<span class="badge badge-orange">
-Follow-up
-</span>
-
-</div>
-
-</div>
-
-</div>
-
-`,
-
-
-"Tasks & Reminders":`
-
-<div class="welcome">
-
-<h1>
-Tasks & Reminders 📅
-</h1>
-
-<p>
-Keep track of everything your business needs to do.
-</p>
+  </div>
 
 </div>
 
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-Today's Tasks
-</div>
+    <div class="panel-title">
+      Customer List
+    </div>
 
-<button class="primary-btn">
-+ Add Task
-</button>
+    <button
+      class="primary-btn"
+      onclick="demoAlert('Customer form coming next.')">
 
-</div>
+      + Add Customer
 
+    </button>
 
-<div class="list">
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-📞
-</div>
-
-<div>
-
-<div class="item-title">
-Call supplier
-</div>
-
-<div class="item-sub">
-Today · 10:00 AM
-</div>
-
-</div>
-
-</div>
-
-<span class="badge badge-orange">
-Pending
-</span>
-
-</div>
+  </div>
 
 
-<div class="list-item">
+  <div class="list">
 
-<div class="item-left">
+    <div class="list-item">
 
-<div class="item-icon">
-📦
-</div>
+      <div class="item-left">
 
-<div>
+        <div class="item-icon">
+          👤
+        </div>
 
-<div class="item-title">
-Confirm John's order
-</div>
+        <div>
 
-<div class="item-sub">
-Today · 1:00 PM
-</div>
+          <div class="item-title">
+            John
+          </div>
 
-</div>
+          <div class="item-sub">
+            john@example.com
+          </div>
 
-</div>
+        </div>
 
-<span class="badge badge-green">
-Done
-</span>
+      </div>
 
-</div>
+      <span class="badge badge-green">
+        Active
+      </span>
+
+    </div>
 
 
-<div class="list-item">
+    <div class="list-item">
 
-<div class="item-left">
+      <div class="item-left">
 
-<div class="item-icon">
-📊
-</div>
+        <div class="item-icon">
+          👤
+        </div>
 
-<div>
+        <div>
 
-<div class="item-title">
-Check inventory
-</div>
+          <div class="item-title">
+            Sarah
+          </div>
 
-<div class="item-sub">
-Today · 4:30 PM
-</div>
+          <div class="item-sub">
+            sarah@example.com
+          </div>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-<span class="badge badge-orange">
-Pending
-</span>
+      <span class="badge badge-green">
+        Active
+      </span>
 
-</div>
+    </div>
 
-</div>
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          👤
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Mike
+          </div>
+
+          <div class="item-sub">
+            mike@example.com
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="badge badge-orange">
+        Follow-up
+      </span>
+
+    </div>
+
+  </div>
 
 </div>
 
 `,
 
 
-Products:`
+"Tasks & Reminders": `
 
 <div class="welcome">
 
-<h1>
-Products 🛍️
-</h1>
+  <h1>
+    Tasks & Reminders 📅
+  </h1>
 
-<p>
-Manage products, prices and inventory.
-</p>
+  <p>
+    Keep track of everything your business needs to do.
+  </p>
 
 </div>
 
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-Product Inventory
-</div>
+    <div class="panel-title">
+      Today's Tasks
+    </div>
 
-<button class="primary-btn">
-+ Add Product
-</button>
+    <button
+      class="primary-btn"
+      onclick="demoAlert('Task creator coming next.')">
 
-</div>
+      + Add Task
 
+    </button>
 
-<div class="list">
-
-<div class="list-item">
-
-<div class="item-left">
-
-<div class="item-icon">
-🍕
-</div>
-
-<div>
-
-<div class="item-title">
-Large Pizza
-</div>
-
-<div class="item-sub">
-₦6,000 · 24 available
-</div>
-
-</div>
-
-</div>
-
-<span class="badge badge-green">
-In Stock
-</span>
-
-</div>
+  </div>
 
 
-<div class="list-item">
+  <div class="list">
 
-<div class="item-left">
+    <div class="list-item">
 
-<div class="item-icon">
-🥤
-</div>
+      <div class="item-left">
 
-<div>
+        <div class="item-icon">
+          📞
+        </div>
 
-<div class="item-title">
-Soft Drink
-</div>
+        <div>
 
-<div class="item-sub">
-₦1,000 · 8 available
-</div>
+          <div class="item-title">
+            Call supplier
+          </div>
 
-</div>
+          <div class="item-sub">
+            Today · 10:00 AM
+          </div>
 
-</div>
+        </div>
 
-<span class="badge badge-orange">
-Low Stock
-</span>
+      </div>
 
-</div>
+      <span class="badge badge-orange">
+        Pending
+      </span>
+
+    </div>
 
 
-<div class="list-item">
+    <div class="list-item">
 
-<div class="item-left">
+      <div class="item-left">
 
-<div class="item-icon">
-🍔
-</div>
+        <div class="item-icon">
+          📦
+        </div>
 
-<div>
+        <div>
 
-<div class="item-title">
-Chicken Burger
-</div>
+          <div class="item-title">
+            Confirm John's order
+          </div>
 
-<div class="item-sub">
-₦4,500 · 31 available
-</div>
+          <div class="item-sub">
+            Today · 1:00 PM
+          </div>
 
-</div>
+        </div>
 
-</div>
+      </div>
 
-<span class="badge badge-green">
-In Stock
-</span>
+      <span class="badge badge-green">
+        Done
+      </span>
 
-</div>
+    </div>
 
-</div>
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          📊
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Check inventory
+          </div>
+
+          <div class="item-sub">
+            Today · 4:30 PM
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="badge badge-orange">
+        Pending
+      </span>
+
+    </div>
+
+  </div>
 
 </div>
 
 `,
 
 
-"Knowledge Base":`
+Products: `
 
 <div class="welcome">
 
-<h1>
-Knowledge Base 🧠
-</h1>
+  <h1>
+    Products 🛍️
+  </h1>
 
-<p>
-Give your AI the information it needs to help your business.
-</p>
+  <p>
+    Manage products, prices and inventory.
+  </p>
+
+</div>
+
+
+<div class="panel">
+
+  <div class="panel-header">
+
+    <div class="panel-title">
+      Product Inventory
+    </div>
+
+    <button
+      class="primary-btn"
+      onclick="demoAlert('Product creator coming next.')">
+
+      + Add Product
+
+    </button>
+
+  </div>
+
+
+  <div class="list">
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          🍕
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Large Pizza
+          </div>
+
+          <div class="item-sub">
+            ₦6,000 · 24 available
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="badge badge-green">
+        In Stock
+      </span>
+
+    </div>
+
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          🥤
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Soft Drink
+          </div>
+
+          <div class="item-sub">
+            ₦1,000 · 8 available
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="badge badge-orange">
+        Low Stock
+      </span>
+
+    </div>
+
+
+    <div class="list-item">
+
+      <div class="item-left">
+
+        <div class="item-icon">
+          🍔
+        </div>
+
+        <div>
+
+          <div class="item-title">
+            Chicken Burger
+          </div>
+
+          <div class="item-sub">
+            ₦4,500 · 31 available
+          </div>
+
+        </div>
+
+      </div>
+
+      <span class="badge badge-green">
+        In Stock
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
+`,
+
+
+"Knowledge Base": `
+
+<div class="welcome">
+
+  <h1>
+    Knowledge Base 🧠
+  </h1>
+
+  <p>
+    Give your AI the information it needs to help your business.
+  </p>
 
 </div>
 
@@ -2535,97 +2046,102 @@ Give your AI the information it needs to help your business.
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-Business Information
-</div>
+    <div class="panel-title">
+      Business Information
+    </div>
 
-<button class="primary-btn">
-+ Add Information
-</button>
+    <button
+      class="primary-btn"
+      onclick="demoAlert('Knowledge editor coming next.')">
 
-</div>
+      + Add Information
+
+    </button>
+
+  </div>
 
 
-<div class="panel-body">
+  <div class="panel-body">
 
-<div class="info-box">
+    <div class="info-box">
 
-<strong>
-Business Description
-</strong>
+      <strong>
+        Business Description
+      </strong>
 
-<p>
-Information about your business, products,
-services and customers will eventually be
-stored here for the AI assistant.
-</p>
+      <p>
+        Information about your business, products,
+        services and customers will eventually be
+        stored here for the AI assistant.
+      </p>
 
-</div>
+    </div>
 
-</div>
+  </div>
 
 </div>
 
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-AI Knowledge
+    <div class="panel-title">
+      AI Knowledge
+    </div>
+
+  </div>
+
+
+  <div class="panel-body">
+
+    <div class="info-box">
+
+      <strong>
+        What the AI can learn
+      </strong>
+
+      <p>
+        Products and prices
+      </p>
+
+      <p>
+        Opening hours
+      </p>
+
+      <p>
+        Delivery policies
+      </p>
+
+      <p>
+        Frequently asked questions
+      </p>
+
+    </div>
+
+  </div>
+
 </div>
 
-</div>
-
-
-<div class="panel-body">
-
-<div class="info-box">
-
-<strong>
-What the AI can learn
-</strong>
-
-<p>
-Products and prices
-</p>
-
-<p>
-Opening hours
-</p>
-
-<p>
-Delivery policies
-</p>
-
-<p>
-Frequently asked questions
-</p>
-
-</div>
-
-</div>
-
-</div>
 
 </div>
 
 `,
 
 
-Integrations:`
+Integrations: `
 
 <div class="welcome">
 
-<h1>
-Integrations 🔗
-</h1>
+  <h1>
+    Integrations 🔗
+  </h1>
 
-<p>
-Connect the tools your business already uses.
-</p>
+  <p>
+    Connect the tools your business already uses.
+  </p>
 
 </div>
 
@@ -2635,126 +2151,127 @@ Connect the tools your business already uses.
 
 <div class="integration">
 
-<div class="integration-icon">
-💬
-</div>
+  <div class="integration-icon">
+    💬
+  </div>
 
-<div class="integration-name">
-WhatsApp
-</div>
+  <div class="integration-name">
+    WhatsApp
+  </div>
 
-<div class="integration-description">
-Connect customer conversations and allow your AI assistant to respond.
-</div>
+  <div class="integration-description">
+    Connect customer conversations and allow
+    your AI assistant to respond.
+  </div>
 
-<span class="badge badge-orange">
-Not Connected
-</span>
-
-</div>
-
-
-<div class="integration">
-
-<div class="integration-icon">
-📧
-</div>
-
-<div class="integration-name">
-Gmail
-</div>
-
-<div class="integration-description">
-Manage business emails and draft customer replies.
-</div>
-
-<span class="badge badge-orange">
-Not Connected
-</span>
+  <span class="badge badge-orange">
+    Not Connected
+  </span>
 
 </div>
 
 
 <div class="integration">
 
-<div class="integration-icon">
-📅
-</div>
+  <div class="integration-icon">
+    📧
+  </div>
 
-<div class="integration-name">
-Google Calendar
-</div>
+  <div class="integration-name">
+    Gmail
+  </div>
 
-<div class="integration-description">
-Manage appointments, meetings and reminders.
-</div>
+  <div class="integration-description">
+    Manage business emails and draft customer replies.
+  </div>
 
-<span class="badge badge-orange">
-Not Connected
-</span>
-
-</div>
-
-
-<div class="integration">
-
-<div class="integration-icon">
-📱
-</div>
-
-<div class="integration-name">
-Facebook
-</div>
-
-<div class="integration-description">
-Manage customer conversations from Facebook.
-</div>
-
-<span class="badge badge-orange">
-Not Connected
-</span>
+  <span class="badge badge-orange">
+    Not Connected
+  </span>
 
 </div>
 
 
 <div class="integration">
 
-<div class="integration-icon">
-📸
-</div>
+  <div class="integration-icon">
+    📅
+  </div>
 
-<div class="integration-name">
-Instagram
-</div>
+  <div class="integration-name">
+    Google Calendar
+  </div>
 
-<div class="integration-description">
-Connect Instagram business conversations.
-</div>
+  <div class="integration-description">
+    Manage appointments, meetings and reminders.
+  </div>
 
-<span class="badge badge-orange">
-Not Connected
-</span>
+  <span class="badge badge-orange">
+    Not Connected
+  </span>
 
 </div>
 
 
 <div class="integration">
 
-<div class="integration-icon">
-⚡
+  <div class="integration-icon">
+    📱
+  </div>
+
+  <div class="integration-name">
+    Facebook
+  </div>
+
+  <div class="integration-description">
+    Manage customer conversations from Facebook.
+  </div>
+
+  <span class="badge badge-orange">
+    Not Connected
+  </span>
+
 </div>
 
-<div class="integration-name">
-Automation
+
+<div class="integration">
+
+  <div class="integration-icon">
+    📸
+  </div>
+
+  <div class="integration-name">
+    Instagram
+  </div>
+
+  <div class="integration-description">
+    Connect Instagram business conversations.
+  </div>
+
+  <span class="badge badge-orange">
+    Not Connected
+  </span>
+
 </div>
 
-<div class="integration-description">
-Connect automation services when needed.
-</div>
 
-<span class="badge badge-orange">
-Not Connected
-</span>
+<div class="integration">
+
+  <div class="integration-icon">
+    ⚡
+  </div>
+
+  <div class="integration-name">
+    Automation
+  </div>
+
+  <div class="integration-description">
+    Connect automation services when needed.
+  </div>
+
+  <span class="badge badge-orange">
+    Not Connected
+  </span>
 
 </div>
 
@@ -2764,17 +2281,17 @@ Not Connected
 `,
 
 
-Settings:`
+Settings: `
 
 <div class="welcome">
 
-<h1>
-Settings ⚙️
-</h1>
+  <h1>
+    Settings ⚙️
+  </h1>
 
-<p>
-Manage your business assistant preferences.
-</p>
+  <p>
+    Manage your business assistant preferences.
+  </p>
 
 </div>
 
@@ -2784,81 +2301,86 @@ Manage your business assistant preferences.
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-Business Settings
-</div>
+    <div class="panel-title">
+      Business Settings
+    </div>
 
-</div>
+  </div>
 
 
-<div class="panel-body">
+  <div class="panel-body">
 
-<div class="info-box">
+    <div class="info-box">
 
-<strong>
-Business Profile
-</strong>
+      <strong>
+        Business Profile
+      </strong>
 
-<p>
-Business name, contact information,
-operating hours and other details
-will be configured here.
-</p>
+      <p>
+        Business name, contact information,
+        operating hours and other details will
+        be configured here.
+      </p>
 
-<button class="primary-btn">
-Configure Business
-</button>
+      <button
+        class="primary-btn"
+        onclick="demoAlert('Business profile settings coming next.')">
 
-</div>
+        Configure Business
 
-</div>
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
 
 <div class="panel">
 
-<div class="panel-header">
+  <div class="panel-header">
 
-<div class="panel-title">
-AI Assistant
+    <div class="panel-title">
+      AI Assistant
+    </div>
+
+  </div>
+
+
+  <div class="panel-body">
+
+    <div class="info-box">
+
+      <strong>
+        Assistant Behaviour
+      </strong>
+
+      <p>
+        Configure how your AI assistant
+        communicates with customers.
+      </p>
+
+      <p>
+        Tone: Professional
+      </p>
+
+      <p>
+        Auto-reply: Disabled
+      </p>
+
+      <p>
+        Human approval: Enabled
+      </p>
+
+    </div>
+
+  </div>
+
 </div>
 
-</div>
-
-
-<div class="panel-body">
-
-<div class="info-box">
-
-<strong>
-Assistant Behaviour
-</strong>
-
-<p>
-Configure how your AI assistant communicates
-with customers.
-</p>
-
-<p>
-Tone: Professional
-</p>
-
-<p>
-Auto-reply: Disabled
-</p>
-
-<p>
-Human approval: Enabled
-</p>
-
-</div>
-
-</div>
-
-</div>
 
 </div>
 
@@ -2867,350 +2389,415 @@ Human approval: Enabled
 };
 
 
-/* =========================================
+/* =====================================================
    ELEMENTS
-========================================= */
+===================================================== */
 
 const pageContent =
-document.getElementById("pageContent");
+  document.getElementById("pageContent");
 
 const pageTitle =
-document.getElementById("pageTitle");
+  document.getElementById("pageTitle");
 
 const navButtons =
-document.querySelectorAll(".nav button");
+  document.querySelectorAll(".nav button");
 
 
-/* =========================================
+/* =====================================================
+   DEMO ALERT
+===================================================== */
+
+function demoAlert(text){
+
+  alert(text);
+
+}
+
+
+/* =====================================================
    CHANGE PAGE
-========================================= */
+===================================================== */
 
 function changePage(pageName){
 
-if(!pages[pageName]) return;
+  if(!pages[pageName]){
+    return;
+  }
+
+  pageContent.classList.remove("page-transition");
+
+  pageContent.classList.add("page-exit");
 
 
-/*
-   Page content transitions separately.
-   The sidebar does NOT get transformed here.
-*/
+  setTimeout(()=>{
 
-pageContent.classList.remove("page-transition");
+    pageContent.innerHTML =
+      pages[pageName];
 
-pageContent.classList.add("page-exit");
+    pageTitle.textContent =
+      pageName;
 
 
-setTimeout(()=>{
+    pageContent.classList.remove(
+      "page-exit"
+    );
 
-pageContent.innerHTML =
-pages[pageName];
+    void pageContent.offsetWidth;
 
-pageTitle.textContent =
-pageName;
+    pageContent.classList.add(
+      "page-transition"
+    );
 
-pageContent.classList.remove("page-exit");
 
-void pageContent.offsetWidth;
+    activateInternalLinks();
 
-pageContent.classList.add("page-transition");
 
-activateInternalLinks();
+    if(pageName === "Messages"){
 
-},180);
+      activateMessageSystem();
+
+    }
+
+  },150);
 
 }
 
 
-/* =========================================
-   SIDEBAR NAVIGATION
-========================================= */
+/* =====================================================
+   SIDEBAR
+===================================================== */
 
 navButtons.forEach(button=>{
 
-button.addEventListener("click",()=>{
+  button.addEventListener("click",()=>{
 
-const pageName =
-button.dataset.page;
+    navButtons.forEach(btn=>{
+      btn.classList.remove("active");
+    });
 
+    button.classList.add("active");
 
-/*
-   Only the sidebar active
-   state changes here.
-*/
+    changePage(
+      button.dataset.page
+    );
 
-navButtons.forEach(btn=>{
-
-btn.classList.remove("active");
-
-});
-
-
-button.classList.add("active");
-
-
-changePage(pageName);
-
-});
+  });
 
 });
 
 
-/* =========================================
-   INTERNAL PAGE LINKS
-========================================= */
+/* =====================================================
+   INTERNAL DASHBOARD LINKS
+===================================================== */
 
 function activateInternalLinks(){
 
-document.querySelectorAll("[data-goto]")
-.forEach(button=>{
+  document
+    .querySelectorAll("[data-goto]")
+    .forEach(button=>{
 
-button.addEventListener("click",()=>{
+      button.addEventListener(
+        "click",
+        ()=>{
 
-const pageName =
-button.dataset.goto;
-
-
-navButtons.forEach(btn=>{
-
-btn.classList.toggle(
-"active",
-btn.dataset.page === pageName
-);
-
-});
+          const pageName =
+            button.dataset.goto;
 
 
-changePage(pageName);
+          navButtons.forEach(btn=>{
 
-});
+            btn.classList.toggle(
+              "active",
+              btn.dataset.page === pageName
+            );
 
-});
+          });
+
+
+          changePage(pageName);
+
+        }
+      );
+
+    });
 
 }
 
 
-/* =========================================
-   INITIAL PAGE
-========================================= */
-
-pageContent.innerHTML =
-pages.Dashboard;
-
-activateInternalLinks();
-/* =========================================
-   MESSAGES PAGE INTERACTIONS
-========================================= */
+/* =====================================================
+   MESSAGE SYSTEM
+===================================================== */
 
 function activateMessageSystem(){
 
   const conversations =
-    document.querySelectorAll(".conversation");
+    document.querySelectorAll(
+      ".conversation"
+    );
 
   const search =
-    document.getElementById("conversationSearch");
+    document.getElementById(
+      "conversationSearch"
+    );
 
   const customer =
-    document.getElementById("chatCustomer");
+    document.getElementById(
+      "chatCustomer"
+    );
 
   const avatar =
-    document.getElementById("chatAvatar");
+    document.getElementById(
+      "chatAvatar"
+    );
 
   const chatMessages =
-    document.getElementById("chatMessages");
+    document.getElementById(
+      "chatMessages"
+    );
 
-  const messageInput =
-    document.getElementById("businessMessageInput");
+  const input =
+    document.getElementById(
+      "businessMessageInput"
+    );
 
-  const chatForm =
-    document.getElementById("businessChatForm");
+  const form =
+    document.getElementById(
+      "businessChatForm"
+    );
 
   const suggestion =
-    document.getElementById("aiSuggestion");
+    document.getElementById(
+      "aiSuggestion"
+    );
 
   const useSuggestion =
-    document.getElementById("useSuggestion");
+    document.getElementById(
+      "useSuggestion"
+    );
 
 
-  /* =========================
-     SELECT CONVERSATION
-  ========================== */
+  /* SELECT CONVERSATION */
 
-  conversations.forEach(conversation => {
+  conversations.forEach(
+    conversation=>{
 
-    conversation.addEventListener("click",()=>{
+      conversation.addEventListener(
+        "click",
+        ()=>{
 
-      conversations.forEach(item=>{
-        item.classList.remove("active");
-      });
-
-      conversation.classList.add("active");
-
-      const name =
-        conversation.dataset.name;
-
-      const firstLetter =
-        name.charAt(0);
-
-      const latestMessage =
-        conversation.dataset.message;
-
-      customer.textContent = name;
-
-      avatar.textContent = firstLetter;
+          conversations.forEach(
+            c=>{
+              c.classList.remove(
+                "active"
+              );
+            }
+          );
 
 
-      /*
-         Simple demo conversation
-         for the selected customer.
-      */
-
-      chatMessages.innerHTML = `
-
-        <div class="chat-message user">
-          ${latestMessage}
-        </div>
-
-        <div class="chat-message ai">
-          Thanks for contacting us, ${name}! 👋
-          How can we help you today?
-        </div>
-
-      `;
-
-      suggestion.textContent =
-        `"Hi ${name}! Thanks for reaching out.
-        I'd be happy to help you with that."`;
-
-    });
-
-  });
+          conversation.classList.add(
+            "active"
+          );
 
 
-  /* =========================
-     SEARCH
-  ========================== */
+          const name =
+            conversation.dataset.name;
+
+          const latest =
+            conversation.dataset.message;
+
+
+          customer.textContent =
+            name;
+
+          avatar.textContent =
+            name.charAt(0);
+
+
+          chatMessages.innerHTML =
+            "";
+
+
+          addChatMessage(
+            latest,
+            "user"
+          );
+
+
+          addChatMessage(
+            `Thanks for contacting us, ${name}! 👋 How can we help you today?`,
+            "ai"
+          );
+
+
+          suggestion.textContent =
+            `"Hi ${name}! Thanks for reaching out. I'd be happy to help you with that."`;
+
+        }
+      );
+
+    }
+  );
+
+
+  /* SEARCH */
 
   if(search){
 
-    search.addEventListener("input",()=>{
+    search.addEventListener(
+      "input",
+      ()=>{
 
-      const value =
-        search.value.toLowerCase().trim();
+        const value =
+          search.value
+            .toLowerCase()
+            .trim();
 
-      conversations.forEach(conversation=>{
 
-        const name =
-          conversation.dataset.name.toLowerCase();
+        conversations.forEach(
+          conversation=>{
 
-        const message =
-          conversation.dataset.message.toLowerCase();
+            const name =
+              conversation.dataset.name
+                .toLowerCase();
 
-        const matches =
-          name.includes(value) ||
-          message.includes(value);
+            const message =
+              conversation.dataset.message
+                .toLowerCase();
 
-        conversation.style.display =
-          matches ? "flex" : "none";
 
-      });
+            const matches =
+              name.includes(value) ||
+              message.includes(value);
 
-    });
+
+            conversation.style.display =
+              matches
+              ? "flex"
+              : "none";
+
+          }
+        );
+
+      }
+    );
 
   }
 
 
-  /* =========================
-     USE AI SUGGESTION
-  ========================== */
+  /* ADD CHAT MESSAGE */
+
+  function addChatMessage(
+    text,
+    type
+  ){
+
+    const message =
+      document.createElement(
+        "div"
+      );
+
+
+    message.className =
+      "chat-message " + type;
+
+
+    message.textContent =
+      text;
+
+
+    chatMessages.appendChild(
+      message
+    );
+
+
+    chatMessages.scrollTop =
+      chatMessages.scrollHeight;
+
+  }
+
+
+  /* USE AI SUGGESTION */
 
   if(useSuggestion){
 
-    useSuggestion.addEventListener("click",()=>{
+    useSuggestion.addEventListener(
+      "click",
+      ()=>{
 
-      const text =
-        suggestion.textContent
-        .replace(/^"|"$/g,"")
-        .trim();
+        input.value =
+          suggestion.textContent
+            .replace(/^"|"$/g,"")
+            .trim();
 
-      messageInput.value = text;
 
-      messageInput.focus();
+        input.focus();
 
-    });
+      }
+    );
 
   }
 
 
-  /* =========================
-     SEND MESSAGE
-  ========================== */
+  /* SEND MESSAGE */
 
-  if(chatForm){
+  if(form){
 
-    chatForm.addEventListener("submit",(event)=>{
+    form.addEventListener(
+      "submit",
+      event=>{
 
-      event.preventDefault();
-
-      const text =
-        messageInput.value.trim();
-
-      if(!text) return;
+        event.preventDefault();
 
 
-      const message =
-        document.createElement("div");
-
-      message.className =
-        "chat-message user";
-
-      message.textContent =
-        text;
-
-      chatMessages.appendChild(message);
+        const text =
+          input.value.trim();
 
 
-      messageInput.value = "";
+        if(!text){
+          return;
+        }
 
-      chatMessages.scrollTop =
-        chatMessages.scrollHeight;
+
+        addChatMessage(
+          text,
+          "user"
+        );
 
 
-      /*
-         Demo AI response.
-         We'll replace this with
-         the real AI later.
-      */
+        input.value =
+          "";
 
-      setTimeout(()=>{
 
-        const reply =
-          document.createElement("div");
+        setTimeout(
+          ()=>{
 
-        reply.className =
-          "chat-message ai";
+            addChatMessage(
+              "Thanks for your message! 🤖 I'm processing your request.",
+              "ai"
+            );
 
-        reply.textContent =
-          "Thanks for your message! 🤖 I'm processing your request.";
+          },
+          600
+        );
 
-        chatMessages.appendChild(reply);
-
-        chatMessages.scrollTop =
-          chatMessages.scrollHeight;
-
-      },700);
-
-    });
+      }
+    );
 
   }
 
 }
 
 
-/* =========================================
-   START MESSAGE SYSTEM
-========================================= */
+/* =====================================================
+   INITIALIZE DASHBOARD
+===================================================== */
 
-activateMessageSystem();
+pageContent.innerHTML =
+  pages.Dashboard;
+
+
+activateInternalLinks();
+
 </script>
 
 </body>
