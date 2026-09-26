@@ -365,6 +365,44 @@ body{
   }
 
 }
+  /* PAGE TRANSITIONS */
+
+.page-transition{
+  animation: pageEnter .32s ease forwards;
+}
+
+.page-exit{
+  animation: pageExit .18s ease forwards;
+}
+
+@keyframes pageEnter{
+  from{
+    opacity:0;
+    transform:translateX(25px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+}
+
+@keyframes pageExit{
+  from{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+  to{
+    opacity:0;
+    transform:translateX(-20px);
+  }
+}
+
+.content{
+  position:relative;
+  overflow:hidden;
+}
 </style>
 </head>
 
@@ -448,7 +486,7 @@ body{
 
     </header>
 
-    <section class="content">
+    <section class="content" id="pageContent">
 
       <div class="welcome">
         <h1>Good morning 👋</h1>
@@ -700,6 +738,197 @@ body{
   </main>
 
 </div>
+<script>
 
+const pageContent = document.getElementById("pageContent");
+const navButtons = document.querySelectorAll(".nav button");
+
+const pages = {
+
+  Dashboard: `
+    <div class="welcome">
+      <h1>Good morning 👋</h1>
+      <p>Here's what's happening with your business today.</p>
+    </div>
+
+    <div class="cards">
+
+      <div class="card">
+        <div class="card-label">New Messages</div>
+        <div class="card-value">12</div>
+        <div class="card-change green">+4 today</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Pending Orders</div>
+        <div class="card-value">5</div>
+        <div class="card-change orange">2 need attention</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Tasks Today</div>
+        <div class="card-value">3</div>
+        <div class="card-change">1 completed</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Customers</div>
+        <div class="card-value">28</div>
+        <div class="card-change green">+6 this week</div>
+      </div>
+
+    </div>
+  `,
+
+  Messages: `
+    <div class="welcome">
+      <h1>Messages 💬</h1>
+      <p>Manage customer conversations from one place.</p>
+    </div>
+
+    <div class="dashboard-grid">
+
+      <div class="panel">
+
+        <div class="panel-header">
+          <div class="panel-title">Customer Conversations</div>
+          <div class="badge badge-green">AI Online</div>
+        </div>
+
+        <div class="list">
+
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-icon">👤</div>
+              <div>
+                <div class="item-title">John</div>
+                <div class="item-sub">
+                  Can I order two large pizzas?
+                </div>
+              </div>
+            </div>
+
+            <div class="badge badge-blue">New</div>
+          </div>
+
+          <div class="list-item">
+            <div class="item-left">
+              <div class="item-icon">👤</div>
+              <div>
+                <div class="item-title">Sarah</div>
+                <div class="item-sub">
+                  What time do you close today?
+                </div>
+              </div>
+            </div>
+
+            <div class="badge badge-green">Replied</div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <div class="panel-header">
+          <div class="panel-title">AI Assistant</div>
+        </div>
+
+        <div style="padding:20px">
+
+          <div style="
+            background:var(--panel2);
+            padding:15px;
+            border-radius:12px;
+            margin-bottom:12px;
+          ">
+            🤖 <strong>AI Assistant</strong>
+
+            <div style="
+              margin-top:8px;
+              font-size:13px;
+              color:var(--muted);
+              line-height:1.5;
+            ">
+              I can help answer customer questions,
+              process orders and manage your business
+              conversations.
+            </div>
+          </div>
+
+          <input
+            type="text"
+            placeholder="Ask the AI assistant..."
+            style="
+              width:100%;
+              padding:13px;
+              border:1px solid var(--border);
+              border-radius:9px;
+              outline:none;
+              background:var(--panel2);
+              color:var(--text);
+            "
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+  `
+};
+
+
+function changePage(pageName){
+
+  if(!pages[pageName]) return;
+
+  pageContent.classList.remove("page-transition");
+  pageContent.classList.add("page-exit");
+
+  setTimeout(()=>{
+
+    pageContent.innerHTML = pages[pageName];
+
+    pageContent.classList.remove("page-exit");
+    pageContent.classList.add("page-transition");
+
+  },180);
+
+}
+
+
+navButtons.forEach(button => {
+
+  button.addEventListener("click",()=>{
+
+    const pageName = button.innerText
+      .replace("📊","")
+      .replace("💬","")
+      .replace("📦","")
+      .replace("👥","")
+      .replace("📅","")
+      .replace("🛍️","")
+      .replace("🧠","")
+      .replace("🔗","")
+      .replace("⚙️","")
+      .trim();
+
+    navButtons.forEach(btn=>{
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    changePage(pageName);
+
+    document.querySelector(".page-title").textContent = pageName;
+
+  });
+
+});
+
+</script>
 </body>
 </html>
