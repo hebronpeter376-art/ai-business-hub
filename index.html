@@ -3,58 +3,92 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>AI Business Hub</title>
 
+<!-- Unique modern font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
+
 :root{
   --bg:#f4f6f8;
   --panel:#ffffff;
-  --panel2:#f8fafc;
+  --panel-soft:#f8fafc;
   --text:#111827;
   --muted:#6b7280;
   --border:#e5e7eb;
   --primary:#2563eb;
-  --primary-dark:#1d4ed8;
+  --primary-hover:#1d4ed8;
   --success:#16a34a;
   --warning:#d97706;
   --danger:#dc2626;
+  --sidebar:#111827;
+  --sidebar-hover:#1f2937;
 }
+
+/* =========================
+   GLOBAL
+========================= */
 
 *{
   box-sizing:border-box;
 }
 
+html,
 body{
   margin:0;
-  min-height:100vh;
+  min-height:100%;
+}
+
+body{
   background:var(--bg);
   color:var(--text);
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+
+  /* UNIQUE FONT */
+  font-family:"Space Grotesk",sans-serif;
+
+  letter-spacing:-0.15px;
 }
+
+/* =========================
+   APP
+========================= */
 
 .app{
   display:flex;
   min-height:100vh;
 }
 
-/* SIDEBAR */
+/* =========================
+   SIDEBAR
+========================= */
 
 .sidebar{
   width:245px;
-  background:#111827;
+  min-width:245px;
+
+  background:var(--sidebar);
   color:white;
+
   padding:22px 14px;
+
   display:flex;
   flex-direction:column;
+
+  min-height:100vh;
 }
 
 .logo{
-  padding:4px 12px 26px;
+  padding:4px 12px 25px;
 }
 
 .logo-name{
   font-size:20px;
-  font-weight:800;
+  font-weight:700;
+  letter-spacing:-.7px;
 }
 
 .logo-sub{
@@ -63,98 +97,274 @@ body{
   margin-top:4px;
 }
 
+/* =========================
+   NAVIGATION
+========================= */
+
 .nav{
   display:flex;
   flex-direction:column;
-  gap:5px;
+  gap:7px;
 }
+
+/*
+   IMPORTANT:
+   The transform here affects ONLY
+   the sidebar button.
+*/
 
 .nav button{
   width:100%;
+
   border:0;
   background:transparent;
+
   color:#d1d5db;
+
   padding:11px 13px;
-  border-radius:9px;
+
+  border-radius:10px;
+
   text-align:left;
+
   cursor:pointer;
+
+  font-family:inherit;
   font-size:14px;
+  font-weight:500;
+
+  transform:scale(1);
+
+  transition:
+    transform .28s cubic-bezier(.2,.8,.2,1),
+    background .25s ease,
+    color .25s ease,
+    box-shadow .25s ease;
 }
 
-.nav button:hover,
-.nav button.active{
-  background:#1f2937;
+/* Hover */
+
+.nav button:hover{
+  background:var(--sidebar-hover);
   color:white;
+
+  transform:scale(1.025);
 }
+
+/*
+   ACTIVE BUTTON
+
+   Only the sidebar item becomes
+   slightly larger.
+*/
+
+.nav button.active{
+
+  background:var(--sidebar-hover);
+
+  color:white;
+
+  transform:scale(1.075);
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,.22);
+
+  font-weight:600;
+}
+
+/*
+   Active item gets a subtle
+   left accent.
+*/
+
+.nav button.active::before{
+  content:"";
+
+  display:inline-block;
+
+  width:3px;
+  height:18px;
+
+  background:#60a5fa;
+
+  border-radius:10px;
+
+  margin-right:8px;
+
+  vertical-align:-4px;
+
+  animation:activeBar .3s ease;
+}
+
+@keyframes activeBar{
+
+  from{
+    opacity:0;
+    transform:scaleY(.3);
+  }
+
+  to{
+    opacity:1;
+    transform:scaleY(1);
+  }
+
+}
+
+/* =========================
+   SIDEBAR BOTTOM
+========================= */
 
 .sidebar-bottom{
   margin-top:auto;
+
   border-top:1px solid #374151;
+
   padding-top:15px;
 }
 
 .status{
   display:flex;
   align-items:center;
+
   gap:7px;
+
   color:#9ca3af;
+
   font-size:12px;
+
   padding:8px 12px;
 }
 
 .status-dot{
   width:7px;
   height:7px;
+
   border-radius:50%;
+
   background:#22c55e;
+
+  box-shadow:
+    0 0 8px rgba(34,197,94,.6);
 }
 
-/* MAIN */
+/* =========================
+   MAIN
+========================= */
 
 .main{
   flex:1;
   min-width:0;
+
+  display:flex;
+  flex-direction:column;
 }
 
 .topbar{
   height:70px;
+  min-height:70px;
+
   background:var(--panel);
+
   border-bottom:1px solid var(--border);
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   padding:0 30px;
 }
 
 .page-title{
   font-size:18px;
-  font-weight:750;
+  font-weight:600;
 }
 
 .user-area{
   display:flex;
   align-items:center;
+
   gap:12px;
+
+  font-size:13px;
 }
 
 .avatar{
   width:36px;
   height:36px;
+
   border-radius:50%;
+
   background:var(--primary);
+
   color:white;
+
   display:grid;
   place-items:center;
-  font-weight:700;
+
+  font-weight:600;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.page-wrapper{
+  flex:1;
+  overflow:hidden;
 }
 
 .content{
   padding:30px;
+
   max-width:1400px;
+  width:100%;
+
   margin:auto;
 }
 
-/* DASHBOARD */
+/* =========================
+   PAGE TRANSITIONS
+========================= */
+
+.page-transition{
+  animation:pageEnter .32s ease forwards;
+}
+
+.page-exit{
+  animation:pageExit .18s ease forwards;
+}
+
+@keyframes pageEnter{
+
+  from{
+    opacity:0;
+    transform:translateX(25px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+}
+
+@keyframes pageExit{
+
+  from{
+    opacity:1;
+    transform:translateX(0);
+  }
+
+  to{
+    opacity:0;
+    transform:translateX(-20px);
+  }
+
+}
+
+/* =========================
+   WELCOME
+========================= */
 
 .welcome{
   margin-bottom:25px;
@@ -162,41 +372,73 @@ body{
 
 .welcome h1{
   margin:0;
+
   font-size:27px;
+
+  letter-spacing:-.8px;
 }
 
 .welcome p{
   margin:6px 0 0;
+
   color:var(--muted);
+
+  font-size:14px;
 }
+
+/* =========================
+   CARDS
+========================= */
 
 .cards{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:16px;
+
   margin-bottom:25px;
 }
 
 .card{
   background:var(--panel);
+
   border:1px solid var(--border);
+
   border-radius:14px;
+
   padding:20px;
+
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.card:hover{
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,.06);
 }
 
 .card-label{
   color:var(--muted);
+
   font-size:12px;
 }
 
 .card-value{
   font-size:28px;
-  font-weight:750;
+
+  font-weight:700;
+
   margin-top:8px;
 }
 
 .card-change{
   font-size:11px;
+
   margin-top:6px;
 }
 
@@ -212,41 +454,75 @@ body{
   color:var(--danger);
 }
 
-/* GRID */
+/* =========================
+   GRID
+========================= */
 
 .dashboard-grid{
   display:grid;
-  grid-template-columns:1.5fr 1fr;
+
+  grid-template-columns:
+    1.5fr 1fr;
+
   gap:20px;
 }
 
+/* =========================
+   PANELS
+========================= */
+
 .panel{
   background:var(--panel);
+
   border:1px solid var(--border);
+
   border-radius:14px;
+
   overflow:hidden;
 }
 
 .panel-header{
   padding:17px 20px;
-  border-bottom:1px solid var(--border);
+
+  border-bottom:
+    1px solid var(--border);
+
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
+  gap:10px;
 }
 
 .panel-title{
-  font-weight:700;
+  font-weight:600;
+
   font-size:14px;
 }
 
 .panel-action{
   border:0;
+
   background:transparent;
+
   color:var(--primary);
+
   cursor:pointer;
+
+  font-family:inherit;
+
   font-size:12px;
 }
+
+.panel-body{
+  padding:20px;
+}
+
+/* =========================
+   LIST
+========================= */
 
 .list{
   padding:4px 0;
@@ -254,48 +530,80 @@ body{
 
 .list-item{
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
+
+  gap:15px;
+
   padding:15px 20px;
-  border-bottom:1px solid var(--border);
+
+  border-bottom:
+    1px solid var(--border);
+
+  transition:
+    background .2s ease;
 }
 
 .list-item:last-child{
   border-bottom:0;
 }
 
+.list-item:hover{
+  background:var(--panel-soft);
+}
+
 .item-left{
   display:flex;
+
   align-items:center;
+
   gap:11px;
+
   min-width:0;
 }
 
 .item-icon{
   width:35px;
   height:35px;
+
   border-radius:9px;
-  background:var(--panel2);
+
+  background:var(--panel-soft);
+
   display:grid;
+
   place-items:center;
+
   flex-shrink:0;
 }
 
 .item-title{
   font-size:13px;
+
   font-weight:600;
 }
 
 .item-sub{
   font-size:11px;
+
   color:var(--muted);
+
   margin-top:3px;
 }
 
+/* =========================
+   BADGES
+========================= */
+
 .badge{
   font-size:10px;
+
   padding:5px 8px;
+
   border-radius:20px;
+
   white-space:nowrap;
 }
 
@@ -314,16 +622,264 @@ body{
   color:#15803d;
 }
 
-/* RESPONSIVE */
+.badge-red{
+  background:#fee2e2;
+  color:#b91c1c;
+}
 
-@media(max-width:1000px){
+/* =========================
+   BUTTONS
+========================= */
+
+.primary-btn{
+  border:0;
+
+  background:var(--primary);
+
+  color:white;
+
+  padding:10px 14px;
+
+  border-radius:9px;
+
+  cursor:pointer;
+
+  font-family:inherit;
+
+  font-size:13px;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+.primary-btn:hover{
+  background:var(--primary-hover);
+
+  transform:translateY(-1px);
+}
+
+.secondary-btn{
+  border:
+    1px solid var(--border);
+
+  background:var(--panel);
+
+  color:var(--text);
+
+  padding:10px 14px;
+
+  border-radius:9px;
+
+  cursor:pointer;
+
+  font-family:inherit;
+
+  font-size:13px;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-box{
+  display:flex;
+
+  flex-direction:column;
+
+  height:520px;
+}
+
+.chat-messages{
+  flex:1;
+
+  padding:20px;
+
+  overflow-y:auto;
+}
+
+.chat-message{
+  max-width:75%;
+
+  padding:11px 14px;
+
+  border-radius:13px;
+
+  margin-bottom:12px;
+
+  font-size:13px;
+
+  line-height:1.5;
+}
+
+.chat-message.ai{
+  background:var(--panel-soft);
+
+  border:
+    1px solid var(--border);
+}
+
+.chat-message.user{
+  background:var(--primary);
+
+  color:white;
+
+  margin-left:auto;
+}
+
+.chat-input{
+  display:flex;
+
+  gap:8px;
+
+  padding:14px;
+
+  border-top:
+    1px solid var(--border);
+}
+
+.chat-input input{
+  flex:1;
+
+  min-width:0;
+
+  border:
+    1px solid var(--border);
+
+  background:var(--panel-soft);
+
+  color:var(--text);
+
+  border-radius:9px;
+
+  padding:11px;
+
+  outline:none;
+
+  font-family:inherit;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+
+  border-collapse:collapse;
+}
+
+th,
+td{
+  text-align:left;
+
+  padding:14px 18px;
+
+  border-bottom:
+    1px solid var(--border);
+
+  font-size:12px;
+}
+
+th{
+  color:var(--muted);
+
+  font-weight:600;
+
+  background:var(--panel-soft);
+}
+
+/* =========================
+   INFO
+========================= */
+
+.info-box{
+  background:var(--panel-soft);
+
+  border:
+    1px solid var(--border);
+
+  border-radius:12px;
+
+  padding:18px;
+
+  line-height:1.6;
+}
+
+.info-box p{
+  color:var(--muted);
+
+  font-size:13px;
+}
+
+/* =========================
+   INTEGRATIONS
+========================= */
+
+.integration-grid{
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:15px;
+}
+
+.integration{
+  border:
+    1px solid var(--border);
+
+  border-radius:12px;
+
+  padding:18px;
+
+  background:var(--panel);
+}
+
+.integration-icon{
+  font-size:25px;
+
+  margin-bottom:12px;
+}
+
+.integration-name{
+  font-weight:600;
+
+  font-size:14px;
+}
+
+.integration-description{
+  color:var(--muted);
+
+  font-size:12px;
+
+  margin:6px 0 15px;
+
+  line-height:1.5;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1050px){
 
   .cards{
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:
+      repeat(2,1fr);
   }
 
   .dashboard-grid{
     grid-template-columns:1fr;
+  }
+
+  .integration-grid{
+    grid-template-columns:
+      1fr 1fr;
   }
 
 }
@@ -331,7 +887,9 @@ body{
 @media(max-width:700px){
 
   .sidebar{
-    width:65px;
+    width:68px;
+    min-width:68px;
+
     padding:15px 8px;
   }
 
@@ -348,11 +906,28 @@ body{
 
   .nav button{
     text-align:center;
+
     font-size:18px;
+
+    padding:11px 5px;
+  }
+
+  /*
+     On small screens the active
+     zoom is slightly smaller so
+     it doesn't overflow.
+  */
+
+  .nav button.active{
+    transform:scale(1.12);
   }
 
   .topbar{
     padding:0 15px;
+  }
+
+  .user-area strong{
+    display:none;
   }
 
   .content{
@@ -360,49 +935,34 @@ body{
   }
 
   .cards{
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:
+      1fr 1fr;
+
     gap:10px;
   }
 
-}
-  /* PAGE TRANSITIONS */
-
-.page-transition{
-  animation: pageEnter .32s ease forwards;
-}
-
-.page-exit{
-  animation: pageExit .18s ease forwards;
-}
-
-@keyframes pageEnter{
-  from{
-    opacity:0;
-    transform:translateX(25px);
+  .integration-grid{
+    grid-template-columns:1fr;
   }
 
-  to{
-    opacity:1;
-    transform:translateX(0);
-  }
 }
 
-@keyframes pageExit{
-  from{
-    opacity:1;
-    transform:translateX(0);
+@media(max-width:450px){
+
+  .cards{
+    grid-template-columns:1fr;
   }
 
-  to{
-    opacity:0;
-    transform:translateX(-20px);
+  .welcome h1{
+    font-size:23px;
   }
+
+  .chat-message{
+    max-width:88%;
+  }
+
 }
 
-.content{
-  position:relative;
-  overflow:hidden;
-}
 </style>
 </head>
 
@@ -410,525 +970,1677 @@ body{
 
 <div class="app">
 
-  <aside class="sidebar">
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-    <div class="logo">
-      <div class="logo-name">AI Business Hub</div>
-      <div class="logo-sub">AI-powered business assistant</div>
+<aside class="sidebar">
+
+  <div class="logo">
+
+    <div class="logo-name">
+      AI Business Hub
     </div>
 
-    <nav class="nav">
-
-      <button class="active">
-        📊 <span>Dashboard</span>
-      </button>
-
-      <button>
-        💬 <span>Messages</span>
-      </button>
-
-      <button>
-        📦 <span>Orders</span>
-      </button>
-
-      <button>
-        👥 <span>Customers</span>
-      </button>
-
-      <button>
-        📅 <span>Tasks & Reminders</span>
-      </button>
-
-      <button>
-        🛍️ <span>Products</span>
-      </button>
-
-      <button>
-        🧠 <span>Knowledge Base</span>
-      </button>
-
-      <button>
-        🔗 <span>Integrations</span>
-      </button>
-
-      <button>
-        ⚙️ <span>Settings</span>
-      </button>
-
-    </nav>
-
-    <div class="sidebar-bottom">
-      <div class="status">
-        <div class="status-dot"></div>
-        AI Assistant Online
-      </div>
+    <div class="logo-sub">
+      AI-powered business assistant
     </div>
 
-  </aside>
+  </div>
 
-  <main class="main">
 
-    <header class="topbar">
+  <nav class="nav">
 
-      <div class="page-title">
-        Dashboard
+    <button class="active" data-page="Dashboard">
+      📊 <span>Dashboard</span>
+    </button>
+
+    <button data-page="Messages">
+      💬 <span>Messages</span>
+    </button>
+
+    <button data-page="Orders">
+      📦 <span>Orders</span>
+    </button>
+
+    <button data-page="Customers">
+      👥 <span>Customers</span>
+    </button>
+
+    <button data-page="Tasks & Reminders">
+      📅 <span>Tasks & Reminders</span>
+    </button>
+
+    <button data-page="Products">
+      🛍️ <span>Products</span>
+    </button>
+
+    <button data-page="Knowledge Base">
+      🧠 <span>Knowledge Base</span>
+    </button>
+
+    <button data-page="Integrations">
+      🔗 <span>Integrations</span>
+    </button>
+
+    <button data-page="Settings">
+      ⚙️ <span>Settings</span>
+    </button>
+
+  </nav>
+
+
+  <div class="sidebar-bottom">
+
+    <div class="status">
+
+      <div class="status-dot"></div>
+
+      AI Assistant Online
+
+    </div>
+
+  </div>
+
+</aside>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="main">
+
+  <header class="topbar">
+
+    <div
+      class="page-title"
+      id="pageTitle">
+      Dashboard
+    </div>
+
+
+    <div class="user-area">
+
+      <strong>
+        Business Owner
+      </strong>
+
+      <div class="avatar">
+        B
       </div>
 
-      <div class="user-area">
-        <div>
-          <strong>Business Owner</strong>
-        </div>
+    </div>
 
-        <div class="avatar">
-          B
-        </div>
-      </div>
+  </header>
 
-    </header>
 
-    <section class="content" id="pageContent">
+  <div class="page-wrapper">
 
-      <div class="welcome">
-        <h1>Good morning 👋</h1>
-        <p>Here's what's happening with your business today.</p>
-      </div>
-
-      <div class="cards">
-
-        <div class="card">
-          <div class="card-label">New Messages</div>
-          <div class="card-value">12</div>
-          <div class="card-change green">+4 today</div>
-        </div>
-
-        <div class="card">
-          <div class="card-label">Pending Orders</div>
-          <div class="card-value">5</div>
-          <div class="card-change orange">2 need attention</div>
-        </div>
-
-        <div class="card">
-          <div class="card-label">Tasks Today</div>
-          <div class="card-value">3</div>
-          <div class="card-change">1 completed</div>
-        </div>
-
-        <div class="card">
-          <div class="card-label">Customers</div>
-          <div class="card-value">28</div>
-          <div class="card-change green">+6 this week</div>
-        </div>
-
-      </div>
-
-      <div class="dashboard-grid">
-
-        <div class="panel">
-
-          <div class="panel-header">
-            <div class="panel-title">
-              Recent Conversations
-            </div>
-
-            <button class="panel-action">
-              View all
-            </button>
-          </div>
-
-          <div class="list">
-
-            <div class="list-item">
-
-              <div class="item-left">
-
-                <div class="item-icon">
-                  👤
-                </div>
-
-                <div>
-                  <div class="item-title">
-                    John
-                  </div>
-
-                  <div class="item-sub">
-                    "Can I order two large pizzas?"
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="badge badge-blue">
-                New
-              </div>
-
-            </div>
-
-            <div class="list-item">
-
-              <div class="item-left">
-
-                <div class="item-icon">
-                  👤
-                </div>
-
-                <div>
-                  <div class="item-title">
-                    Sarah
-                  </div>
-
-                  <div class="item-sub">
-                    "What time do you close today?"
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="badge badge-green">
-                Replied
-              </div>
-
-            </div>
-
-            <div class="list-item">
-
-              <div class="item-left">
-
-                <div class="item-icon">
-                  👤
-                </div>
-
-                <div>
-                  <div class="item-title">
-                    Mike
-                  </div>
-
-                  <div class="item-sub">
-                    "Do you deliver to Ikeja?"
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="badge badge-orange">
-                Attention
-              </div>
-
-            </div>
-
-            <div class="list-item">
-
-              <div class="item-left">
-
-                <div class="item-icon">
-                  👤
-                </div>
-
-                <div>
-                  <div class="item-title">
-                    Grace
-                  </div>
-
-                  <div class="item-sub">
-                    "I'd like to place an order."
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="badge badge-blue">
-                New
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="panel">
-
-          <div class="panel-header">
-
-            <div class="panel-title">
-              Today's Tasks
-            </div>
-
-            <button class="panel-action">
-              View all
-            </button>
-
-          </div>
-
-          <div class="list">
-
-            <div class="list-item">
-
-              <div class="item-left">
-
-                <div class="item-icon">
-                  📞
-                </div>
-
-                <div>
-                  <div class="item-title">
-                    Call supplier
-                  </div>
-
-                  <div class="item-sub">
-                    10:00 AM
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="list-item">
-
-              <div class="item-left">
-
-                <div class="item-icon">
-                  📦
-                </div>
-
-                <div>
-                  <div class="item-title">
-                    Confirm John's order
-                  </div>
-
-                  <div class="item-sub">
-                    1:00 PM
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="list-item">
-
-              <div class="item-left">
-
-                <div class="item-icon">
-                  📊
-                </div>
-
-                <div>
-                  <div class="item-title">
-                    Check inventory
-                  </div>
-
-                  <div class="item-sub">
-                    4:30 PM
-                  </div>
-                </div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
+    <section
+      class="content page-transition"
+      id="pageContent">
     </section>
 
-  </main>
+  </div>
+
+</main>
 
 </div>
+
+
 <script>
 
-const pageContent = document.getElementById("pageContent");
-const navButtons = document.querySelectorAll(".nav button");
+/* =========================================
+   PAGE DATA
+========================================= */
 
 const pages = {
 
-  Dashboard: `
-    <div class="welcome">
-      <h1>Good morning 👋</h1>
-      <p>Here's what's happening with your business today.</p>
-    </div>
+Dashboard:`
 
-    <div class="cards">
+<div class="welcome">
 
-      <div class="card">
-        <div class="card-label">New Messages</div>
-        <div class="card-value">12</div>
-        <div class="card-change green">+4 today</div>
-      </div>
+<h1>
+Good morning 👋
+</h1>
 
-      <div class="card">
-        <div class="card-label">Pending Orders</div>
-        <div class="card-value">5</div>
-        <div class="card-change orange">2 need attention</div>
-      </div>
+<p>
+Here's what's happening with your business today.
+</p>
 
-      <div class="card">
-        <div class="card-label">Tasks Today</div>
-        <div class="card-value">3</div>
-        <div class="card-change">1 completed</div>
-      </div>
+</div>
 
-      <div class="card">
-        <div class="card-label">Customers</div>
-        <div class="card-value">28</div>
-        <div class="card-change green">+6 this week</div>
-      </div>
 
-    </div>
-  `,
+<div class="cards">
 
-  Messages: `
-    <div class="welcome">
-      <h1>Messages 💬</h1>
-      <p>Manage customer conversations from one place.</p>
-    </div>
+<div class="card">
 
-    <div class="dashboard-grid">
+<div class="card-label">
+New Messages
+</div>
 
-      <div class="panel">
+<div class="card-value">
+12
+</div>
 
-        <div class="panel-header">
-          <div class="panel-title">Customer Conversations</div>
-          <div class="badge badge-green">AI Online</div>
-        </div>
+<div class="card-change green">
++4 today
+</div>
 
-        <div class="list">
+</div>
 
-          <div class="list-item">
-            <div class="item-left">
-              <div class="item-icon">👤</div>
-              <div>
-                <div class="item-title">John</div>
-                <div class="item-sub">
-                  Can I order two large pizzas?
-                </div>
-              </div>
-            </div>
 
-            <div class="badge badge-blue">New</div>
-          </div>
+<div class="card">
 
-          <div class="list-item">
-            <div class="item-left">
-              <div class="item-icon">👤</div>
-              <div>
-                <div class="item-title">Sarah</div>
-                <div class="item-sub">
-                  What time do you close today?
-                </div>
-              </div>
-            </div>
+<div class="card-label">
+Pending Orders
+</div>
 
-            <div class="badge badge-green">Replied</div>
-          </div>
+<div class="card-value">
+5
+</div>
 
-        </div>
+<div class="card-change orange">
+2 need attention
+</div>
 
-      </div>
+</div>
 
-      <div class="panel">
 
-        <div class="panel-header">
-          <div class="panel-title">AI Assistant</div>
-        </div>
+<div class="card">
 
-        <div style="padding:20px">
+<div class="card-label">
+Tasks Today
+</div>
 
-          <div style="
-            background:var(--panel2);
-            padding:15px;
-            border-radius:12px;
-            margin-bottom:12px;
-          ">
-            🤖 <strong>AI Assistant</strong>
+<div class="card-value">
+3
+</div>
 
-            <div style="
-              margin-top:8px;
-              font-size:13px;
-              color:var(--muted);
-              line-height:1.5;
-            ">
-              I can help answer customer questions,
-              process orders and manage your business
-              conversations.
-            </div>
-          </div>
+<div class="card-change">
+1 completed
+</div>
 
-          <input
-            type="text"
-            placeholder="Ask the AI assistant..."
-            style="
-              width:100%;
-              padding:13px;
-              border:1px solid var(--border);
-              border-radius:9px;
-              outline:none;
-              background:var(--panel2);
-              color:var(--text);
-            "
-          >
+</div>
 
-        </div>
 
-      </div>
+<div class="card">
 
-    </div>
-  `
+<div class="card-label">
+Customers
+</div>
+
+<div class="card-value">
+28
+</div>
+
+<div class="card-change green">
++6 this week
+</div>
+
+</div>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Recent Conversations
+</div>
+
+<button
+class="panel-action"
+data-goto="Messages">
+View all
+</button>
+
+</div>
+
+
+<div class="list">
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+John
+</div>
+
+<div class="item-sub">
+"Can I order two large pizzas?"
+</div>
+
+</div>
+
+</div>
+
+<div class="badge badge-blue">
+New
+</div>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+Sarah
+</div>
+
+<div class="item-sub">
+"What time do you close today?"
+</div>
+
+</div>
+
+</div>
+
+<div class="badge badge-green">
+Replied
+</div>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+Mike
+</div>
+
+<div class="item-sub">
+"Do you deliver to Ikeja?"
+</div>
+
+</div>
+
+</div>
+
+<div class="badge badge-orange">
+Attention
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Today's Tasks
+</div>
+
+<button
+class="panel-action"
+data-goto="Tasks & Reminders">
+View all
+</button>
+
+</div>
+
+
+<div class="list">
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+📞
+</div>
+
+<div>
+
+<div class="item-title">
+Call supplier
+</div>
+
+<div class="item-sub">
+10:00 AM
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+📦
+</div>
+
+<div>
+
+<div class="item-title">
+Confirm John's order
+</div>
+
+<div class="item-sub">
+1:00 PM
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+📊
+</div>
+
+<div>
+
+<div class="item-title">
+Check inventory
+</div>
+
+<div class="item-sub">
+4:30 PM
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`,
+
+
+Messages:`
+
+<div class="welcome">
+
+<h1>
+Messages 💬
+</h1>
+
+<p>
+Manage customer conversations from one place.
+</p>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Customer Conversations
+</div>
+
+<div class="badge badge-green">
+AI Online
+</div>
+
+</div>
+
+
+<div class="list">
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+John
+</div>
+
+<div class="item-sub">
+Can I order two large pizzas?
+</div>
+
+</div>
+
+</div>
+
+<div class="badge badge-blue">
+New
+</div>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+Sarah
+</div>
+
+<div class="item-sub">
+What time do you close today?
+</div>
+
+</div>
+
+</div>
+
+<div class="badge badge-green">
+Replied
+</div>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+Mike
+</div>
+
+<div class="item-sub">
+Do you deliver to Ikeja?
+</div>
+
+</div>
+
+</div>
+
+<div class="badge badge-orange">
+Attention
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+AI Assistant
+</div>
+
+</div>
+
+
+<div class="chat-box">
+
+<div class="chat-messages">
+
+<div class="chat-message ai">
+
+🤖 Hello! I'm your business AI assistant.
+
+</div>
+
+
+<div class="chat-message user">
+
+Show me the latest customer messages.
+
+</div>
+
+
+<div class="chat-message ai">
+
+You currently have 12 new messages.
+3 require your attention.
+
+</div>
+
+</div>
+
+
+<div class="chat-input">
+
+<input
+type="text"
+placeholder="Ask your AI assistant..."
+>
+
+<button class="primary-btn">
+Send
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`,
+
+
+Orders:`
+
+<div class="welcome">
+
+<h1>
+Orders 📦
+</h1>
+
+<p>
+Track and manage customer orders.
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Recent Orders
+</div>
+
+<button class="primary-btn">
++ New Order
+</button>
+
+</div>
+
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>
+Order
+</th>
+
+<th>
+Customer
+</th>
+
+<th>
+Items
+</th>
+
+<th>
+Total
+</th>
+
+<th>
+Status
+</th>
+
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr>
+
+<td>
+#1042
+</td>
+
+<td>
+John
+</td>
+
+<td>
+2 Large Pizzas
+</td>
+
+<td>
+₦12,000
+</td>
+
+<td>
+
+<span class="badge badge-orange">
+Pending
+</span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+#1041
+</td>
+
+<td>
+Sarah
+</td>
+
+<td>
+Family Meal
+</td>
+
+<td>
+₦8,500
+</td>
+
+<td>
+
+<span class="badge badge-green">
+Completed
+</span>
+
+</td>
+
+</tr>
+
+
+<tr>
+
+<td>
+#1040
+</td>
+
+<td>
+Mike
+</td>
+
+<td>
+3 Drinks
+</td>
+
+<td>
+₦3,000
+</td>
+
+<td>
+
+<span class="badge badge-blue">
+Processing
+</span>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+`,
+
+
+Customers:`
+
+<div class="welcome">
+
+<h1>
+Customers 👥
+</h1>
+
+<p>
+View and manage your customer relationships.
+</p>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card">
+
+<div class="card-label">
+Total Customers
+</div>
+
+<div class="card-value">
+28
+</div>
+
+</div>
+
+
+<div class="card">
+
+<div class="card-label">
+New This Week
+</div>
+
+<div class="card-value">
+6
+</div>
+
+<div class="card-change green">
+Growing
+</div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Customer List
+</div>
+
+<button class="primary-btn">
++ Add Customer
+</button>
+
+</div>
+
+
+<div class="list">
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+John
+</div>
+
+<div class="item-sub">
+john@example.com
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-green">
+Active
+</span>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+Sarah
+</div>
+
+<div class="item-sub">
+sarah@example.com
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-green">
+Active
+</span>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+👤
+</div>
+
+<div>
+
+<div class="item-title">
+Mike
+</div>
+
+<div class="item-sub">
+mike@example.com
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-orange">
+Follow-up
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+`,
+
+
+"Tasks & Reminders":`
+
+<div class="welcome">
+
+<h1>
+Tasks & Reminders 📅
+</h1>
+
+<p>
+Keep track of everything your business needs to do.
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Today's Tasks
+</div>
+
+<button class="primary-btn">
++ Add Task
+</button>
+
+</div>
+
+
+<div class="list">
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+📞
+</div>
+
+<div>
+
+<div class="item-title">
+Call supplier
+</div>
+
+<div class="item-sub">
+Today · 10:00 AM
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-orange">
+Pending
+</span>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+📦
+</div>
+
+<div>
+
+<div class="item-title">
+Confirm John's order
+</div>
+
+<div class="item-sub">
+Today · 1:00 PM
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-green">
+Done
+</span>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+📊
+</div>
+
+<div>
+
+<div class="item-title">
+Check inventory
+</div>
+
+<div class="item-sub">
+Today · 4:30 PM
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-orange">
+Pending
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+`,
+
+
+Products:`
+
+<div class="welcome">
+
+<h1>
+Products 🛍️
+</h1>
+
+<p>
+Manage products, prices and inventory.
+</p>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Product Inventory
+</div>
+
+<button class="primary-btn">
++ Add Product
+</button>
+
+</div>
+
+
+<div class="list">
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+🍕
+</div>
+
+<div>
+
+<div class="item-title">
+Large Pizza
+</div>
+
+<div class="item-sub">
+₦6,000 · 24 available
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-green">
+In Stock
+</span>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+🥤
+</div>
+
+<div>
+
+<div class="item-title">
+Soft Drink
+</div>
+
+<div class="item-sub">
+₦1,000 · 8 available
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-orange">
+Low Stock
+</span>
+
+</div>
+
+
+<div class="list-item">
+
+<div class="item-left">
+
+<div class="item-icon">
+🍔
+</div>
+
+<div>
+
+<div class="item-title">
+Chicken Burger
+</div>
+
+<div class="item-sub">
+₦4,500 · 31 available
+</div>
+
+</div>
+
+</div>
+
+<span class="badge badge-green">
+In Stock
+</span>
+
+</div>
+
+</div>
+
+</div>
+
+`,
+
+
+"Knowledge Base":`
+
+<div class="welcome">
+
+<h1>
+Knowledge Base 🧠
+</h1>
+
+<p>
+Give your AI the information it needs to help your business.
+</p>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Business Information
+</div>
+
+<button class="primary-btn">
++ Add Information
+</button>
+
+</div>
+
+
+<div class="panel-body">
+
+<div class="info-box">
+
+<strong>
+Business Description
+</strong>
+
+<p>
+Information about your business, products,
+services and customers will eventually be
+stored here for the AI assistant.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+AI Knowledge
+</div>
+
+</div>
+
+
+<div class="panel-body">
+
+<div class="info-box">
+
+<strong>
+What the AI can learn
+</strong>
+
+<p>
+Products and prices
+</p>
+
+<p>
+Opening hours
+</p>
+
+<p>
+Delivery policies
+</p>
+
+<p>
+Frequently asked questions
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`,
+
+
+Integrations:`
+
+<div class="welcome">
+
+<h1>
+Integrations 🔗
+</h1>
+
+<p>
+Connect the tools your business already uses.
+</p>
+
+</div>
+
+
+<div class="integration-grid">
+
+
+<div class="integration">
+
+<div class="integration-icon">
+💬
+</div>
+
+<div class="integration-name">
+WhatsApp
+</div>
+
+<div class="integration-description">
+Connect customer conversations and allow your AI assistant to respond.
+</div>
+
+<span class="badge badge-orange">
+Not Connected
+</span>
+
+</div>
+
+
+<div class="integration">
+
+<div class="integration-icon">
+📧
+</div>
+
+<div class="integration-name">
+Gmail
+</div>
+
+<div class="integration-description">
+Manage business emails and draft customer replies.
+</div>
+
+<span class="badge badge-orange">
+Not Connected
+</span>
+
+</div>
+
+
+<div class="integration">
+
+<div class="integration-icon">
+📅
+</div>
+
+<div class="integration-name">
+Google Calendar
+</div>
+
+<div class="integration-description">
+Manage appointments, meetings and reminders.
+</div>
+
+<span class="badge badge-orange">
+Not Connected
+</span>
+
+</div>
+
+
+<div class="integration">
+
+<div class="integration-icon">
+📱
+</div>
+
+<div class="integration-name">
+Facebook
+</div>
+
+<div class="integration-description">
+Manage customer conversations from Facebook.
+</div>
+
+<span class="badge badge-orange">
+Not Connected
+</span>
+
+</div>
+
+
+<div class="integration">
+
+<div class="integration-icon">
+📸
+</div>
+
+<div class="integration-name">
+Instagram
+</div>
+
+<div class="integration-description">
+Connect Instagram business conversations.
+</div>
+
+<span class="badge badge-orange">
+Not Connected
+</span>
+
+</div>
+
+
+<div class="integration">
+
+<div class="integration-icon">
+⚡
+</div>
+
+<div class="integration-name">
+Automation
+</div>
+
+<div class="integration-description">
+Connect automation services when needed.
+</div>
+
+<span class="badge badge-orange">
+Not Connected
+</span>
+
+</div>
+
+
+</div>
+
+`,
+
+
+Settings:`
+
+<div class="welcome">
+
+<h1>
+Settings ⚙️
+</h1>
+
+<p>
+Manage your business assistant preferences.
+</p>
+
+</div>
+
+
+<div class="dashboard-grid">
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+Business Settings
+</div>
+
+</div>
+
+
+<div class="panel-body">
+
+<div class="info-box">
+
+<strong>
+Business Profile
+</strong>
+
+<p>
+Business name, contact information,
+operating hours and other details
+will be configured here.
+</p>
+
+<button class="primary-btn">
+Configure Business
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+AI Assistant
+</div>
+
+</div>
+
+
+<div class="panel-body">
+
+<div class="info-box">
+
+<strong>
+Assistant Behaviour
+</strong>
+
+<p>
+Configure how your AI assistant communicates
+with customers.
+</p>
+
+<p>
+Tone: Professional
+</p>
+
+<p>
+Auto-reply: Disabled
+</p>
+
+<p>
+Human approval: Enabled
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+`
+
 };
 
 
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const pageContent =
+document.getElementById("pageContent");
+
+const pageTitle =
+document.getElementById("pageTitle");
+
+const navButtons =
+document.querySelectorAll(".nav button");
+
+
+/* =========================================
+   CHANGE PAGE
+========================================= */
+
 function changePage(pageName){
 
-  if(!pages[pageName]) return;
+if(!pages[pageName]) return;
 
-  pageContent.classList.remove("page-transition");
-  pageContent.classList.add("page-exit");
 
-  setTimeout(()=>{
+/*
+   Page content transitions separately.
+   The sidebar does NOT get transformed here.
+*/
 
-    pageContent.innerHTML = pages[pageName];
+pageContent.classList.remove("page-transition");
 
-    pageContent.classList.remove("page-exit");
-    pageContent.classList.add("page-transition");
+pageContent.classList.add("page-exit");
 
-  },180);
+
+setTimeout(()=>{
+
+pageContent.innerHTML =
+pages[pageName];
+
+pageTitle.textContent =
+pageName;
+
+pageContent.classList.remove("page-exit");
+
+void pageContent.offsetWidth;
+
+pageContent.classList.add("page-transition");
+
+activateInternalLinks();
+
+},180);
 
 }
 
 
-navButtons.forEach(button => {
+/* =========================================
+   SIDEBAR NAVIGATION
+========================================= */
 
-  button.addEventListener("click",()=>{
+navButtons.forEach(button=>{
 
-    const pageName = button.innerText
-      .replace("📊","")
-      .replace("💬","")
-      .replace("📦","")
-      .replace("👥","")
-      .replace("📅","")
-      .replace("🛍️","")
-      .replace("🧠","")
-      .replace("🔗","")
-      .replace("⚙️","")
-      .trim();
+button.addEventListener("click",()=>{
 
-    navButtons.forEach(btn=>{
-      btn.classList.remove("active");
-    });
+const pageName =
+button.dataset.page;
 
-    button.classList.add("active");
 
-    changePage(pageName);
+/*
+   Only the sidebar active
+   state changes here.
+*/
 
-    document.querySelector(".page-title").textContent = pageName;
+navButtons.forEach(btn=>{
 
-  });
+btn.classList.remove("active");
 
 });
 
+
+button.classList.add("active");
+
+
+changePage(pageName);
+
+});
+
+});
+
+
+/* =========================================
+   INTERNAL PAGE LINKS
+========================================= */
+
+function activateInternalLinks(){
+
+document.querySelectorAll("[data-goto]")
+.forEach(button=>{
+
+button.addEventListener("click",()=>{
+
+const pageName =
+button.dataset.goto;
+
+
+navButtons.forEach(btn=>{
+
+btn.classList.toggle(
+"active",
+btn.dataset.page === pageName
+);
+
+});
+
+
+changePage(pageName);
+
+});
+
+});
+
+}
+
+
+/* =========================================
+   INITIAL PAGE
+========================================= */
+
+pageContent.innerHTML =
+pages.Dashboard;
+
+activateInternalLinks();
+
 </script>
+
 </body>
 </html>
