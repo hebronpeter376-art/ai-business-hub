@@ -962,7 +962,218 @@ th{
   }
 
 }
+/* =========================
+   MESSAGES PAGE
+========================= */
 
+.messages-layout{
+  display:grid;
+  grid-template-columns:340px 1fr;
+  gap:20px;
+  height:calc(100vh - 180px);
+  min-height:520px;
+}
+
+.conversations-panel,
+.chat-panel{
+  min-height:0;
+  display:flex;
+  flex-direction:column;
+}
+
+.message-search{
+  padding:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.message-search input{
+  width:100%;
+  border:1px solid var(--border);
+  background:var(--panel-soft);
+  color:var(--text);
+  border-radius:9px;
+  padding:10px 12px;
+  outline:none;
+  font-family:inherit;
+  font-size:12px;
+}
+
+.conversation-list{
+  overflow-y:auto;
+  flex:1;
+}
+
+.conversation{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  cursor:pointer;
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+.conversation:hover{
+  background:var(--panel-soft);
+}
+
+.conversation.active{
+  background:#eff6ff;
+  transform:translateX(3px);
+}
+
+.conversation-avatar{
+  width:38px;
+  height:38px;
+  min-width:38px;
+  border-radius:50%;
+  background:#dbeafe;
+  color:#1d4ed8;
+  display:grid;
+  place-items:center;
+  font-size:13px;
+  font-weight:700;
+}
+
+.conversation-info{
+  min-width:0;
+  flex:1;
+}
+
+.conversation-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.conversation-top strong{
+  font-size:13px;
+}
+
+.conversation-top span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.conversation-preview{
+  color:var(--muted);
+  font-size:11px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-top:4px;
+}
+
+.unread{
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:var(--primary);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-size:9px;
+  font-weight:600;
+}
+
+.chat-customer{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.chat-online{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.chat-messages{
+  flex:1;
+  overflow-y:auto;
+  padding:22px;
+  background:var(--panel-soft);
+}
+
+.chat-message{
+  max-width:72%;
+  width:max-content;
+  padding:11px 14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  font-size:12px;
+  line-height:1.5;
+  white-space:pre-line;
+}
+
+.chat-message.user{
+  margin-left:auto;
+  background:var(--primary);
+  color:white;
+  border-bottom-right-radius:4px;
+}
+
+.chat-message.ai{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-bottom-left-radius:4px;
+}
+
+.ai-suggestion{
+  padding:13px 15px;
+  border-top:1px solid var(--border);
+  background:#f8fafc;
+}
+
+.ai-suggestion-title{
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.ai-suggestion-text{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.5;
+  margin-bottom:8px;
+}
+
+.ai-suggestion .secondary-btn{
+  padding:7px 10px;
+  font-size:11px;
+}
+
+.chat-panel .chat-input{
+  background:var(--panel);
+}
+
+@media(max-width:900px){
+
+  .messages-layout{
+    grid-template-columns:280px 1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .messages-layout{
+    grid-template-columns:1fr;
+    height:auto;
+  }
+
+  .conversations-panel{
+    max-height:300px;
+  }
+
+  .chat-panel{
+    min-height:550px;
+  }
+
+}
 </style>
 </head>
 
@@ -1402,189 +1613,336 @@ Check inventory
 
 Messages:`
 
+Messages:`
+
 <div class="welcome">
 
-<h1>
-Messages 💬
-</h1>
+  <h1>Messages 💬</h1>
 
-<p>
-Manage customer conversations from one place.
-</p>
+  <p>
+    Manage customer conversations and let your AI assistant help you respond.
+  </p>
 
 </div>
 
 
-<div class="dashboard-grid">
+<div class="messages-layout">
 
-<div class="panel">
 
-<div class="panel-header">
+  <!-- =========================
+       CONVERSATION LIST
+  ========================== -->
 
-<div class="panel-title">
-Customer Conversations
-</div>
+  <div class="panel conversations-panel">
 
-<div class="badge badge-green">
-AI Online
-</div>
+    <div class="panel-header">
 
-</div>
+      <div class="panel-title">
+        Conversations
+      </div>
 
+      <div class="badge badge-blue">
+        12 New
+      </div>
 
-<div class="list">
+    </div>
 
-<div class="list-item">
 
-<div class="item-left">
+    <div class="message-search">
 
-<div class="item-icon">
-👤
-</div>
+      <input
+        id="conversationSearch"
+        type="text"
+        placeholder="Search customers..."
+      >
 
-<div>
+    </div>
 
-<div class="item-title">
-John
-</div>
 
-<div class="item-sub">
-Can I order two large pizzas?
-</div>
+    <div
+      class="conversation-list"
+      id="conversationList">
 
-</div>
 
-</div>
+      <div
+        class="conversation active"
+        data-name="John"
+        data-message="Can I order two large pizzas?">
 
-<div class="badge badge-blue">
-New
-</div>
+        <div class="conversation-avatar">
+          J
+        </div>
 
-</div>
+        <div class="conversation-info">
 
+          <div class="conversation-top">
 
-<div class="list-item">
+            <strong>
+              John
+            </strong>
 
-<div class="item-left">
+            <span>
+              10:42 AM
+            </span>
 
-<div class="item-icon">
-👤
-</div>
+          </div>
 
-<div>
+          <div class="conversation-preview">
+            Can I order two large pizzas?
+          </div>
 
-<div class="item-title">
-Sarah
-</div>
+        </div>
 
-<div class="item-sub">
-What time do you close today?
-</div>
+        <div class="unread">
+          2
+        </div>
 
-</div>
+      </div>
 
-</div>
 
-<div class="badge badge-green">
-Replied
-</div>
+      <div
+        class="conversation"
+        data-name="Sarah"
+        data-message="What time do you close today?">
 
-</div>
+        <div class="conversation-avatar">
+          S
+        </div>
 
+        <div class="conversation-info">
 
-<div class="list-item">
+          <div class="conversation-top">
 
-<div class="item-left">
+            <strong>
+              Sarah
+            </strong>
 
-<div class="item-icon">
-👤
-</div>
+            <span>
+              9:31 AM
+            </span>
 
-<div>
+          </div>
 
-<div class="item-title">
-Mike
-</div>
+          <div class="conversation-preview">
+            What time do you close today?
+          </div>
 
-<div class="item-sub">
-Do you deliver to Ikeja?
-</div>
+        </div>
 
-</div>
+      </div>
 
-</div>
 
-<div class="badge badge-orange">
-Attention
-</div>
+      <div
+        class="conversation"
+        data-name="Mike"
+        data-message="Do you deliver to Ikeja?">
 
-</div>
+        <div class="conversation-avatar">
+          M
+        </div>
 
-</div>
+        <div class="conversation-info">
 
-</div>
+          <div class="conversation-top">
 
+            <strong>
+              Mike
+            </strong>
 
-<div class="panel">
+            <span>
+              Yesterday
+            </span>
 
-<div class="panel-header">
+          </div>
 
-<div class="panel-title">
-AI Assistant
-</div>
+          <div class="conversation-preview">
+            Do you deliver to Ikeja?
+          </div>
 
-</div>
+        </div>
 
+        <div class="unread">
+          1
+        </div>
 
-<div class="chat-box">
+      </div>
 
-<div class="chat-messages">
 
-<div class="chat-message ai">
+      <div
+        class="conversation"
+        data-name="David"
+        data-message="I would like to know your delivery options.">
 
-🤖 Hello! I'm your business AI assistant.
+        <div class="conversation-avatar">
+          D
+        </div>
 
-</div>
+        <div class="conversation-info">
 
+          <div class="conversation-top">
 
-<div class="chat-message user">
+            <strong>
+              David
+            </strong>
 
-Show me the latest customer messages.
+            <span>
+              Yesterday
+            </span>
 
-</div>
+          </div>
 
+          <div class="conversation-preview">
+            I would like to know your delivery options.
+          </div>
 
-<div class="chat-message ai">
+        </div>
 
-You currently have 12 new messages.
-3 require your attention.
+      </div>
 
-</div>
 
-</div>
+    </div>
 
+  </div>
 
-<div class="chat-input">
 
-<input
-type="text"
-placeholder="Ask your AI assistant..."
->
 
-<button class="primary-btn">
-Send
-</button>
+  <!-- =========================
+       CHAT WINDOW
+  ========================== -->
 
-</div>
+  <div class="panel chat-panel">
 
-</div>
+    <div class="panel-header">
 
-</div>
+      <div class="chat-customer">
+
+        <div
+          class="conversation-avatar"
+          id="chatAvatar">
+          J
+        </div>
+
+        <div>
+
+          <div
+            class="panel-title"
+            id="chatCustomer">
+            John
+          </div>
+
+          <div class="chat-online">
+            ● Customer conversation
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="badge badge-green">
+        AI Ready
+      </div>
+
+    </div>
+
+
+    <!-- CHAT -->
+
+    <div
+      class="chat-messages"
+      id="chatMessages">
+
+
+      <div class="chat-message user">
+
+        Hi, can I order two large pizzas?
+
+      </div>
+
+
+      <div class="chat-message ai">
+
+        Hi John! 👋 Yes, you can.
+
+        Two large pizzas are available.
+        Would you like to place the order now?
+
+      </div>
+
+
+      <div class="chat-message user">
+
+        Yes please.
+
+      </div>
+
+
+      <div class="chat-message ai">
+
+        Perfect! I'll help you get that order started. 🍕
+
+      </div>
+
+
+    </div>
+
+
+    <!-- AI SUGGESTION -->
+
+    <div class="ai-suggestion">
+
+      <div class="ai-suggestion-title">
+        🤖 AI Suggested Reply
+      </div>
+
+      <div
+        id="aiSuggestion"
+        class="ai-suggestion-text">
+
+        "Absolutely! We can prepare two large pizzas
+        for you. Would you like to confirm your order?"
+
+      </div>
+
+      <button
+        class="secondary-btn"
+        id="useSuggestion">
+
+        Use Reply
+
+      </button>
+
+    </div>
+
+
+    <!-- INPUT -->
+
+    <form
+      class="chat-input"
+      id="businessChatForm">
+
+      <input
+        id="businessMessageInput"
+        type="text"
+        placeholder="Reply to customer..."
+        autocomplete="off"
+      >
+
+      <button
+        class="primary-btn"
+        type="submit">
+
+        Send
+
+      </button>
+
+    </form>
+
+  </div>
 
 </div>
 
 `,
-
 
 Orders:`
 
@@ -2639,7 +2997,220 @@ pageContent.innerHTML =
 pages.Dashboard;
 
 activateInternalLinks();
+/* =========================================
+   MESSAGES PAGE INTERACTIONS
+========================================= */
 
+function activateMessageSystem(){
+
+  const conversations =
+    document.querySelectorAll(".conversation");
+
+  const search =
+    document.getElementById("conversationSearch");
+
+  const customer =
+    document.getElementById("chatCustomer");
+
+  const avatar =
+    document.getElementById("chatAvatar");
+
+  const chatMessages =
+    document.getElementById("chatMessages");
+
+  const messageInput =
+    document.getElementById("businessMessageInput");
+
+  const chatForm =
+    document.getElementById("businessChatForm");
+
+  const suggestion =
+    document.getElementById("aiSuggestion");
+
+  const useSuggestion =
+    document.getElementById("useSuggestion");
+
+
+  /* =========================
+     SELECT CONVERSATION
+  ========================== */
+
+  conversations.forEach(conversation => {
+
+    conversation.addEventListener("click",()=>{
+
+      conversations.forEach(item=>{
+        item.classList.remove("active");
+      });
+
+      conversation.classList.add("active");
+
+      const name =
+        conversation.dataset.name;
+
+      const firstLetter =
+        name.charAt(0);
+
+      const latestMessage =
+        conversation.dataset.message;
+
+      customer.textContent = name;
+
+      avatar.textContent = firstLetter;
+
+
+      /*
+         Simple demo conversation
+         for the selected customer.
+      */
+
+      chatMessages.innerHTML = `
+
+        <div class="chat-message user">
+          ${latestMessage}
+        </div>
+
+        <div class="chat-message ai">
+          Thanks for contacting us, ${name}! 👋
+          How can we help you today?
+        </div>
+
+      `;
+
+      suggestion.textContent =
+        `"Hi ${name}! Thanks for reaching out.
+        I'd be happy to help you with that."`;
+
+    });
+
+  });
+
+
+  /* =========================
+     SEARCH
+  ========================== */
+
+  if(search){
+
+    search.addEventListener("input",()=>{
+
+      const value =
+        search.value.toLowerCase().trim();
+
+      conversations.forEach(conversation=>{
+
+        const name =
+          conversation.dataset.name.toLowerCase();
+
+        const message =
+          conversation.dataset.message.toLowerCase();
+
+        const matches =
+          name.includes(value) ||
+          message.includes(value);
+
+        conversation.style.display =
+          matches ? "flex" : "none";
+
+      });
+
+    });
+
+  }
+
+
+  /* =========================
+     USE AI SUGGESTION
+  ========================== */
+
+  if(useSuggestion){
+
+    useSuggestion.addEventListener("click",()=>{
+
+      const text =
+        suggestion.textContent
+        .replace(/^"|"$/g,"")
+        .trim();
+
+      messageInput.value = text;
+
+      messageInput.focus();
+
+    });
+
+  }
+
+
+  /* =========================
+     SEND MESSAGE
+  ========================== */
+
+  if(chatForm){
+
+    chatForm.addEventListener("submit",(event)=>{
+
+      event.preventDefault();
+
+      const text =
+        messageInput.value.trim();
+
+      if(!text) return;
+
+
+      const message =
+        document.createElement("div");
+
+      message.className =
+        "chat-message user";
+
+      message.textContent =
+        text;
+
+      chatMessages.appendChild(message);
+
+
+      messageInput.value = "";
+
+      chatMessages.scrollTop =
+        chatMessages.scrollHeight;
+
+
+      /*
+         Demo AI response.
+         We'll replace this with
+         the real AI later.
+      */
+
+      setTimeout(()=>{
+
+        const reply =
+          document.createElement("div");
+
+        reply.className =
+          "chat-message ai";
+
+        reply.textContent =
+          "Thanks for your message! 🤖 I'm processing your request.";
+
+        chatMessages.appendChild(reply);
+
+        chatMessages.scrollTop =
+          chatMessages.scrollHeight;
+
+      },700);
+
+    });
+
+  }
+
+}
+
+
+/* =========================================
+   START MESSAGE SYSTEM
+========================================= */
+
+activateMessageSystem();
 </script>
 
 </body>
