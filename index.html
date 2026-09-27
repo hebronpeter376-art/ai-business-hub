@@ -2,4418 +2,487 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>AI Business Hub</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-  rel="stylesheet"
->
-
 <style>
-
-/* =====================================================
-   VARIABLES
-===================================================== */
-
 :root{
-  --bg:#f4f6f8;
-  --panel:#ffffff;
-  --soft:#f8fafc;
-  --text:#111827;
-  --muted:#6b7280;
-  --border:#e5e7eb;
-
-  --primary:#2563eb;
-  --hover:#1d4ed8;
-
-  --success:#16a34a;
-  --warning:#d97706;
-
-  --sidebar:#111827;
-  --sidebarHover:#1f2937;
-
-  --sidebar-width:245px;
-  --sidebar-collapsed:0px;
-
-  --transition:.28s ease;
+ --bg:#f3f6fb;--panel:#fff;--panel2:#f8fafc;--text:#0f172a;--muted:#64748b;
+ --line:#e2e8f0;--accent:#4f46e5;--accent2:#06b6d4;--good:#10b981;
+ --shadow:0 12px 35px rgba(15,23,42,.07);--sidebar:270px
+}
+body.dark{
+ --bg:#070c16;--panel:#0f1726;--panel2:#0b1320;--text:#f8fafc;--muted:#94a3b8;
+ --line:#1e293b;--shadow:0 15px 40px rgba(0,0,0,.3)
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+ font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ background:radial-gradient(circle at 15% 10%,rgba(79,70,229,.1),transparent 28%),
+ radial-gradient(circle at 90% 85%,rgba(6,182,212,.08),transparent 25%),var(--bg);
+ color:var(--text);min-height:100vh;transition:.25s
+}
+button,input,textarea{font:inherit}button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{
+ position:fixed;left:0;top:0;bottom:0;width:var(--sidebar);padding:20px 14px;
+ background:rgba(255,255,255,.82);backdrop-filter:blur(18px);
+ border-right:1px solid var(--line);z-index:30;transition:.25s;display:flex;flex-direction:column
+}
+.dark .sidebar{background:rgba(8,13,24,.88)}
+.sidebar.collapsed{width:82px}
+.brand{display:flex;align-items:center;gap:12px;padding:3px 8px 25px;overflow:hidden}
+.logo{
+ width:40px;height:40px;border-radius:13px;flex:none;display:grid;place-items:center;
+ color:#fff;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));
+ box-shadow:0 8px 22px rgba(79,70,229,.3)
+}
+.brand strong{display:block;font-size:15px;white-space:nowrap}
+.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px;white-space:nowrap}
+.collapsed .brand-copy,.collapsed .nav-title,.collapsed .section-label{display:none}
+.section-label{font-size:10px;color:var(--muted);padding:0 10px 8px;letter-spacing:.08em}
+.nav{display:grid;gap:4px}
+.nav button{
+ width:100%;display:flex;align-items:center;gap:13px;padding:11px 10px;border:0;
+ border-radius:12px;background:transparent;color:var(--muted);text-align:left
+}
+.nav button:hover{background:var(--panel2);color:var(--text)}
+.nav button.active{background:rgba(79,70,229,.1);color:var(--accent);font-weight:700}
+.nav-icon{width:21px;text-align:center;font-size:18px;flex:none}
+.bottom{margin-top:auto}
+.main{margin-left:var(--sidebar);width:calc(100% - var(--sidebar));transition:.25s}
+.sidebar.collapsed~.main{margin-left:82px;width:calc(100% - 82px)}
+.topbar{
+ height:74px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;
+ position:sticky;top:0;z-index:20;border-bottom:1px solid var(--line);
+ background:rgba(255,255,255,.66);backdrop-filter:blur(18px)
+}
+.dark .topbar{background:rgba(7,12,22,.72)}
+.top-left{display:flex;align-items:center;gap:13px}
+.topbar h1{font-size:20px}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+.circle{
+ width:38px;height:38px;border-radius:11px;background:var(--panel);
+ border:1px solid var(--line);color:var(--text);box-shadow:var(--shadow)
+}
+.content{max-width:1500px;margin:auto;padding:28px}
+.page{display:none}.page.active{display:block}
+.hero{
+ padding:28px;border:1px solid var(--line);border-radius:22px;background:
+ linear-gradient(135deg,rgba(79,70,229,.09),rgba(6,182,212,.04)),var(--panel);
+ box-shadow:var(--shadow);overflow:hidden;position:relative
+}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;
+ right:-80px;top:-110px;background:rgba(99,102,241,.08)}
+.hero h2{font-size:27px;margin-bottom:8px}.hero p{max-width:700px;color:var(--muted);line-height:1.6}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:var(--shadow)}
+.label{font-size:11px;color:var(--muted);letter-spacing:.06em}
+.value{font-size:28px;font-weight:850;margin-top:8px}.green{color:var(--good);font-size:12px;margin-top:7px}
+.head{display:flex;align-items:center;justify-content:space-between;margin:28px 0 13px}
+.primary,.secondary{padding:10px 15px;border-radius:11px;font-weight:700}
+.primary{background:linear-gradient(135deg,var(--accent),#6366f1);color:#fff;box-shadow:0 8px 20px rgba(79,70,229,.2)}
+.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}
+.empty{text-align:center;padding:55px 20px;border:1px dashed var(--line);border-radius:18px;background:var(--panel2);color:var(--muted)}
+.empty .big{font-size:34px;margin-bottom:9px}
+.ai-layout{display:grid;grid-template-columns:1fr 300px;gap:18px;height:calc(100vh - 130px);min-height:560px}
+.chat{display:flex;flex-direction:column;overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow)}
+.chat-head{display:flex;align-items:center;gap:12px;padding:17px 20px;border-bottom:1px solid var(--line)}
+.ai-avatar{
+ width:42px;height:42px;flex:none;border-radius:14px;display:grid;place-items:center;
+ position:relative;background:linear-gradient(145deg,#111827,#312e81,#0891b2);
+ box-shadow:0 7px 20px rgba(79,70,229,.28)
+}
+.ai-avatar:after{content:"";position:absolute;inset:-3px;border:1px solid rgba(99,102,241,.4);border-radius:16px}
+.face{width:24px;height:18px;position:relative}.face i{position:absolute;top:4px;width:4px;height:6px;border-radius:50%;background:#fff;box-shadow:0 0 7px #67e8f9}
+.face i:first-child{left:3px}.face i:nth-child(2){right:3px}
+.face b{position:absolute;bottom:0;left:7px;width:9px;height:3px;border-bottom:2px solid #fff;border-radius:0 0 8px 8px}
+.chat-title strong{display:block;font-size:14px}.chat-title span{font-size:11px;color:var(--muted)}
+.messages{flex:1;overflow:auto;padding:22px}
+.msg{display:flex;gap:10px;margin-bottom:18px;max-width:84%}.msg.user{margin-left:auto;flex-direction:row-reverse}
+.bubble{padding:12px 15px;border:1px solid var(--line);border-radius:15px;background:var(--panel2);line-height:1.55;font-size:14px;white-space:pre-wrap}
+.msg.user .bubble{background:var(--accent);border-color:var(--accent);color:#fff}
+.composer{display:flex;gap:9px;padding:15px;border-top:1px solid var(--line)}
+.composer textarea{flex:1;height:46px;resize:none;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);outline:0}
+.send{width:48px;border-radius:12px;background:var(--accent);color:#fff;font-size:18px}
+.side{display:grid;align-content:start;gap:14px}
+.info-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}
+.search{width:100%;padding:12px;border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:12px}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,1fr)}.ai-layout{grid-template-columns:1fr}.side{display:none}}
+@media(max-width:700px){
+ .sidebar{width:82px}.sidebar .brand-copy,.sidebar .nav-title,.sidebar .section-label{display:none}
+ .main,.sidebar.collapsed~.main{margin-left:82px;width:calc(100% - 82px)}
+ .content{padding:16px}.topbar{padding:0 16px}.grid{grid-template-columns:1fr 1fr}
+ .hero h2{font-size:22px}
 }
 
-/* DARK THEME */
-html.dark-theme{
-  color-scheme:dark;
+/* ===== SMOOTH 2026 MOTION SYSTEM ===== */
+:root{
+  --ease-smooth:cubic-bezier(.22,1,.36,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
+  --ease-spring:cubic-bezier(.16,1,.3,1);
 }
-
-.dark-theme{
-  --bg:#0b1120;
-  --panel:#111827;
-  --soft:#172033;
-  --text:#f3f4f6;
-  --muted:#9ca3af;
-  --border:#263244;
-  --primary:#3b82f6;
-  --hover:#2563eb;
-  --sidebar:#070b14;
-  --sidebarHover:#182235;
-}
-
-.dark-theme .topbar{
-  box-shadow:0 1px 0 rgba(255,255,255,.03);
-}
-
-.dark-theme .conversation.active{
-  background:#172554;
-}
-
-.dark-theme .conversation-avatar{
-  background:#1e3a8a;
-  color:#bfdbfe;
-}
-
-.dark-theme th{
-  background:#172033;
-}
-
-.dark-theme .ai-suggestion{
-  background:#111827;
-}
-
-
-/* =====================================================
-   RESET
-===================================================== */
 
 *{
-  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
 }
 
-html,
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  margin:0;
-  min-height:100%;
-  font-family:"Space Grotesk",sans-serif;
-  color:var(--text);
-  background:var(--bg);
+  transition:
+    background-color .45s var(--ease-soft),
+    color .35s var(--ease-soft);
 }
-
-button,
-input{
-  font:inherit;
-}
-
-
-/* =====================================================
-   APP
-===================================================== */
-
-.app{
-  display:flex;
-  min-height:100vh;
-  width:100%;
-}
-
-
-/* =====================================================
-   SIDEBAR
-===================================================== */
 
 .sidebar{
-  width:var(--sidebar-width);
-  min-width:var(--sidebar-width);
-
-  background:var(--sidebar);
-  color:#fff;
-
-  padding:22px 14px;
-
-  display:flex;
-  flex-direction:column;
-
-  min-height:100vh;
-
-  overflow:hidden;
-
   transition:
-    width var(--transition),
-    min-width var(--transition),
-    padding var(--transition),
-    transform var(--transition);
+    width .42s var(--ease-smooth),
+    background-color .35s var(--ease-soft),
+    box-shadow .35s var(--ease-soft);
 }
 
-
-/* COLLAPSED SIDEBAR */
-
-.app.sidebar-collapsed .sidebar{
-  width:0;
-  min-width:0;
-  padding-left:0;
-  padding-right:0;
-}
-
-
-/* =====================================================
-   LOGO
-===================================================== */
-
-.logo{
-  padding:4px 12px 25px;
-  white-space:nowrap;
-
+.main{
   transition:
-    opacity .18s ease,
-    transform .18s ease;
+    margin-left .42s var(--ease-smooth),
+    width .42s var(--ease-smooth);
 }
 
-.logo-name{
-  font-size:20px;
-  font-weight:700;
-}
-
-.logo-sub{
-  font-size:11px;
-  color:#9ca3af;
-  margin-top:4px;
-}
-
-
-/* Hide sidebar contents when collapsed */
-
-.app.sidebar-collapsed .logo,
-.app.sidebar-collapsed .nav,
-.app.sidebar-collapsed .sidebar-bottom{
-  opacity:0;
-  transform:translateX(-15px);
-  pointer-events:none;
-}
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-.nav{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-
+.topbar{
   transition:
-    opacity .18s ease,
-    transform .18s ease;
+    background-color .35s var(--ease-soft),
+    border-color .35s var(--ease-soft);
 }
 
-.nav button{
-  width:100%;
-
-  border:0;
-  background:transparent;
-
-  color:#d1d5db;
-
-  padding:11px 13px;
-
-  border-radius:10px;
-
-  text-align:left;
-
-  cursor:pointer;
-
-  font-size:14px;
-  font-weight:500;
-
+.nav button,
+.circle,
+.primary,
+.secondary,
+.card,
+.hero,
+.empty,
+.ai-avatar,
+.send,
+.composer textarea{
   transition:
-    background .25s ease,
-    color .25s ease,
-    transform .25s ease,
-    box-shadow .25s ease;
+    transform .28s var(--ease-smooth),
+    background-color .3s var(--ease-soft),
+    border-color .3s var(--ease-soft),
+    color .3s var(--ease-soft),
+    box-shadow .3s var(--ease-smooth),
+    opacity .25s var(--ease-soft);
 }
 
 .nav button:hover{
-  background:var(--sidebarHover);
-  color:#fff;
-  transform:scale(1.025);
+  transform:translateX(4px);
 }
 
-.nav button.active{
-  background:var(--sidebarHover);
-  color:#fff;
-
-  transform:scale(1.075);
-
-  box-shadow:0 6px 20px #0003;
-
-  font-weight:600;
+.nav button:active,
+.circle:active,
+.primary:active,
+.secondary:active,
+.send:active{
+  transform:scale(.95);
 }
 
-.nav button.active::before{
-  content:"";
-
-  display:inline-block;
-
-  width:3px;
-  height:18px;
-
-  background:#60a5fa;
-
-  border-radius:10px;
-
-  margin-right:8px;
-
-  vertical-align:-4px;
+.primary:hover,
+.send:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 28px rgba(79,70,229,.28);
 }
 
-
-/* =====================================================
-   SIDEBAR BOTTOM
-===================================================== */
-
-.sidebar-bottom{
-  margin-top:auto;
-
-  border-top:1px solid #374151;
-
-  padding-top:15px;
-
-  transition:
-    opacity .18s ease,
-    transform .18s ease;
-}
-
-.status{
-  display:flex;
-  gap:7px;
-  align-items:center;
-
-  color:#9ca3af;
-
-  font-size:12px;
-
-  padding:8px 12px;
-
-  white-space:nowrap;
-}
-
-.status-dot{
-  width:7px;
-  height:7px;
-
-  border-radius:50%;
-
-  background:#22c55e;
-
-  box-shadow:0 0 8px #22c55e99;
-
-  flex-shrink:0;
-}
-
-
-/* =====================================================
-   MAIN
-===================================================== */
-
-.main{
-  flex:1;
-
-  min-width:0;
-
-  display:flex;
-  flex-direction:column;
-
-  transition:width var(--transition);
-}
-
-
-/* =====================================================
-   TOPBAR
-===================================================== */
-
-.topbar{
-  height:70px;
-
-  background:var(--panel);
-
-  border-bottom:1px solid var(--border);
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  padding:0 30px;
-
-  flex-shrink:0;
-}
-
-
-/* =====================================================
-   TOPBAR LEFT
-===================================================== */
-
-.topbar-left{
-  display:flex;
-  align-items:center;
-  gap:15px;
-
-  min-width:0;
-}
-
-
-/* =====================================================
-   HAMBURGER BUTTON
-===================================================== */
-
-.menu-toggle{
-  width:42px;
-  height:42px;
-
-  border:1px solid var(--border);
-
-  background:var(--panel);
-
-  color:var(--text);
-
-  border-radius:10px;
-
-  display:grid;
-  place-items:center;
-
-  cursor:pointer;
-
-  font-size:21px;
-
-  line-height:1;
-
-  transition:
-    background .2s ease,
-    color .2s ease,
-    transform .2s ease,
-    border-color .2s ease;
-}
-
-.menu-toggle:hover{
-  background:var(--soft);
-
-  border-color:#d1d5db;
-
-  transform:scale(1.04);
-}
-
-.menu-toggle:active{
-  transform:scale(.96);
-}
-
-.theme-toggle{
-  width:42px;
-  height:42px;
-  border:1px solid var(--border);
-  background:var(--panel);
-  color:var(--text);
-  border-radius:10px;
-  display:grid;
-  place-items:center;
-  cursor:pointer;
-  font-size:18px;
-  transition:background .2s ease,color .2s ease,transform .2s ease,border-color .2s ease;
-}
-
-.theme-toggle:hover{
-  background:var(--soft);
-  transform:scale(1.04);
-}
-
-.theme-toggle:active{
-  transform:scale(.96);
-}
-
-.topbar-actions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-
-/* =====================================================
-   PAGE TITLE
-===================================================== */
-
-.page-title{
-  font-size:18px;
-  font-weight:600;
-
-  white-space:nowrap;
-
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-
-/* =====================================================
-   USER AREA
-===================================================== */
-
-.user-area{
-  display:flex;
-
-  align-items:center;
-
-  gap:12px;
-
-  font-size:13px;
-}
-
-.avatar{
-  width:36px;
-  height:36px;
-
-  border-radius:50%;
-
-  background:var(--primary);
-
-  color:#fff;
-
-  display:grid;
-
-  place-items:center;
-
-  font-weight:600;
-
-  flex-shrink:0;
-}
-
-
-/* =====================================================
-   PAGE WRAPPER
-===================================================== */
-
-.page-wrapper{
-  flex:1;
-
-  overflow:auto;
-}
-
-
-/* =====================================================
-   CONTENT
-===================================================== */
-
-.content{
-  padding:30px;
-
-  max-width:1400px;
-
-  width:100%;
-
-  margin:auto;
-}
-
-
-/* =====================================================
-   PAGE ANIMATIONS
-===================================================== */
-
-.page-transition{
-  animation:enter .28s ease;
-}
-
-.page-exit{
-  animation:exit .15s ease;
-}
-
-@keyframes enter{
-
-  from{
-    opacity:0;
-    transform:translateX(20px);
-  }
-
-  to{
-    opacity:1;
-    transform:none;
-  }
-
-}
-
-@keyframes exit{
-
-  from{
-    opacity:1;
-  }
-
-  to{
-    opacity:0;
-    transform:translateX(-15px);
-  }
-
-}
-
-
-/* =====================================================
-   GENERAL
-===================================================== */
-
-.welcome{
-  margin-bottom:25px;
-}
-
-.welcome h1{
-  margin:0;
-  font-size:27px;
-}
-
-.welcome p{
-  margin:6px 0 0;
-
-  color:var(--muted);
-
-  font-size:14px;
-}
-
-
-/* =====================================================
-   CARDS
-===================================================== */
-
-.cards{
-  display:grid;
-
-  grid-template-columns:repeat(4,1fr);
-
-  gap:16px;
-
-  margin-bottom:25px;
-}
-
-.card,
-.panel{
-  background:var(--panel);
-
-  border:1px solid var(--border);
-
-  border-radius:14px;
+.secondary:hover,
+.circle:hover{
+  transform:translateY(-2px);
+  border-color:rgba(79,70,229,.35);
 }
 
 .card{
-  padding:20px;
-
-  transition:.2s;
+  transition:
+    transform .35s var(--ease-smooth),
+    box-shadow .35s var(--ease-smooth),
+    border-color .3s var(--ease-soft),
+    background-color .3s var(--ease-soft);
 }
 
 .card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 18px 40px rgba(15,23,42,.10);
+}
+
+.dark .card:hover{
+  box-shadow:0 18px 40px rgba(0,0,0,.28);
+}
+
+.hero{
+  transition:
+    transform .4s var(--ease-smooth),
+    box-shadow .4s var(--ease-smooth),
+    border-color .3s var(--ease-soft);
+}
+
+.hero:hover{
   transform:translateY(-2px);
-
-  box-shadow:0 8px 25px #0000000f;
-}
-
-.card-label{
-  color:var(--muted);
-
-  font-size:12px;
-}
-
-.card-value{
-  font-size:28px;
-
-  font-weight:700;
-
-  margin-top:8px;
-}
-
-.card-change{
-  font-size:11px;
-
-  margin-top:6px;
-}
-
-.green{
-  color:var(--success);
-}
-
-.orange{
-  color:var(--warning);
-}
-
-
-/* =====================================================
-   DASHBOARD GRID
-===================================================== */
-
-.dashboard-grid{
-  display:grid;
-
-  grid-template-columns:1.5fr 1fr;
-
-  gap:20px;
-}
-
-.panel{
-  overflow:hidden;
-}
-
-.panel-header{
-  padding:17px 20px;
-
-  border-bottom:1px solid var(--border);
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:10px;
-}
-
-.panel-title{
-  font-weight:600;
-
-  font-size:14px;
-}
-
-.panel-action,
-.link-btn{
-  border:0;
-
-  background:transparent;
-
-  color:var(--primary);
-
-  cursor:pointer;
-
-  font-size:12px;
-}
-
-.panel-body{
-  padding:20px;
-}
-
-
-/* =====================================================
-   LISTS
-===================================================== */
-
-.list{
-  padding:4px 0;
-}
-
-.list-item{
-  display:flex;
-
-  align-items:center;
-
-  justify-content:space-between;
-
-  gap:15px;
-
-  padding:15px 20px;
-
-  border-bottom:1px solid var(--border);
-}
-
-.list-item:last-child{
-  border:0;
-}
-
-.list-item:hover{
-  background:var(--soft);
-}
-
-.item-left{
-  display:flex;
-
-  align-items:center;
-
-  gap:11px;
-
-  min-width:0;
-}
-
-.item-icon{
-  width:35px;
-  height:35px;
-
-  border-radius:9px;
-
-  background:var(--soft);
-
-  display:grid;
-
-  place-items:center;
-
-  flex-shrink:0;
-}
-
-.item-title{
-  font-size:13px;
-
-  font-weight:600;
-}
-
-.item-sub{
-  font-size:11px;
-
-  color:var(--muted);
-
-  margin-top:3px;
-}
-
-
-/* =====================================================
-   BADGES
-===================================================== */
-
-.badge{
-  font-size:10px;
-
-  padding:5px 8px;
-
-  border-radius:20px;
-
-  white-space:nowrap;
-}
-
-.badge-blue{
-  background:#dbeafe;
-
-  color:#1d4ed8;
-}
-
-.badge-orange{
-  background:#fef3c7;
-
-  color:#b45309;
-}
-
-.badge-green{
-  background:#dcfce7;
-
-  color:#15803d;
-}
-
-.badge-red{
-  background:#fee2e2;
-
-  color:#b91c1c;
-}
-
-
-/* =====================================================
-   BUTTONS
-===================================================== */
-
-.primary-btn,
-.secondary-btn{
-  border-radius:9px;
-
-  padding:10px 14px;
-
-  cursor:pointer;
-
-  font-size:13px;
-}
-
-.primary-btn{
-  border:0;
-
-  background:var(--primary);
-
-  color:#fff;
-}
-
-.primary-btn:hover{
-  background:var(--hover);
-}
-
-.secondary-btn{
-  border:1px solid var(--border);
-
-  background:var(--panel);
-
-  color:var(--text);
-}
-
-
-/* =====================================================
-   TABLE
-===================================================== */
-
-.table-wrap{
-  overflow-x:auto;
-}
-
-table{
-  width:100%;
-
-  border-collapse:collapse;
-}
-
-th,
-td{
-  text-align:left;
-
-  padding:14px 18px;
-
-  border-bottom:1px solid var(--border);
-
-  font-size:12px;
-}
-
-th{
-  color:var(--muted);
-
-  background:var(--soft);
-}
-
-
-/* =====================================================
-   INFO BOX
-===================================================== */
-
-.info-box{
-  background:var(--soft);
-
-  border:1px solid var(--border);
-
-  border-radius:12px;
-
-  padding:18px;
-
-  line-height:1.6;
-}
-
-.info-box p{
-  color:var(--muted);
-
-  font-size:13px;
-}
-
-
-/* =====================================================
-   INTEGRATIONS
-===================================================== */
-
-.integration-grid{
-  display:grid;
-
-  grid-template-columns:repeat(3,1fr);
-
-  gap:15px;
-}
-
-.integration{
-  border:1px solid var(--border);
-
-  border-radius:12px;
-
-  padding:18px;
-
-  background:var(--panel);
-}
-
-.integration-icon{
-  font-size:25px;
-
-  margin-bottom:12px;
-}
-
-.integration-name{
-  font-weight:600;
-
-  font-size:14px;
-}
-
-.integration-description{
-  color:var(--muted);
-
-  font-size:12px;
-
-  margin:6px 0 15px;
-
-  line-height:1.5;
-}
-
-
-/* =====================================================
-   MESSAGES
-===================================================== */
-
-.messages-layout{
-  display:grid;
-
-  grid-template-columns:340px 1fr;
-
-  gap:20px;
-
-  height:calc(100vh - 180px);
-
-  min-height:520px;
-}
-
-.conversations-panel,
-.chat-panel{
-  min-height:0;
-
-  display:flex;
-
-  flex-direction:column;
-}
-
-.message-search{
-  padding:12px;
-
-  border-bottom:1px solid var(--border);
-}
-
-.message-search input{
-  width:100%;
-
-  border:1px solid var(--border);
-
-  background:var(--soft);
-
-  color:var(--text);
-
-  border-radius:9px;
-
-  padding:10px 12px;
-
-  outline:0;
-}
-
-.conversation-list{
-  overflow:auto;
-
-  flex:1;
-}
-
-.conversation{
-  display:flex;
-
-  align-items:center;
-
-  gap:11px;
-
-  padding:14px;
-
-  border-bottom:1px solid var(--border);
-
-  cursor:pointer;
-
-  transition:.2s;
-}
-
-.conversation:hover{
-  background:var(--soft);
-}
-
-.conversation.active{
-  background:#eff6ff;
-
-  transform:translateX(3px);
-}
-
-.conversation-avatar{
-  width:38px;
-  height:38px;
-
-  min-width:38px;
-
-  border-radius:50%;
-
-  background:#dbeafe;
-
-  color:#1d4ed8;
-
-  display:grid;
-
-  place-items:center;
-
-  font-size:13px;
-
-  font-weight:700;
-}
-
-.conversation-info{
-  min-width:0;
-
-  flex:1;
-}
-
-.conversation-top{
-  display:flex;
-
-  justify-content:space-between;
-
-  gap:10px;
-}
-
-.conversation-top strong{
-  font-size:13px;
-}
-
-.conversation-top span{
-  color:var(--muted);
-
-  font-size:10px;
-}
-
-.conversation-preview{
-  color:var(--muted);
-
-  font-size:11px;
-
-  white-space:nowrap;
-
-  overflow:hidden;
-
-  text-overflow:ellipsis;
-
-  margin-top:4px;
-}
-
-.unread{
-  width:20px;
-  height:20px;
-
-  border-radius:50%;
-
-  background:var(--primary);
-
-  color:#fff;
-
-  display:grid;
-
-  place-items:center;
-
-  font-size:9px;
-}
-
-.chat-customer{
-  display:flex;
-
-  align-items:center;
-
-  gap:10px;
-}
-
-.chat-online{
-  color:var(--muted);
-
-  font-size:10px;
-
-  margin-top:3px;
-}
-
-.chat-messages{
-  flex:1;
-
-  overflow:auto;
-
-  padding:22px;
-
-  background:var(--soft);
-}
-
-.chat-message{
-  max-width:72%;
-
-  width:max-content;
-
-  padding:11px 14px;
-
-  border-radius:14px;
-
-  margin-bottom:12px;
-
-  font-size:12px;
-
-  line-height:1.5;
-
-  white-space:pre-line;
-}
-
-.chat-message.user{
-  margin-left:auto;
-
-  background:var(--primary);
-
-  color:#fff;
-
-  border-bottom-right-radius:4px;
-}
-
-.chat-message.ai{
-  background:var(--panel);
-
-  border:1px solid var(--border);
-
-  border-bottom-left-radius:4px;
-}
-
-.ai-suggestion{
-  padding:13px 15px;
-
-  border-top:1px solid var(--border);
-
-  background:#f8fafc;
-}
-
-.ai-suggestion-title{
-  font-size:11px;
-
-  font-weight:700;
-
-  margin-bottom:5px;
-}
-
-.ai-suggestion-text{
-  color:var(--muted);
-
-  font-size:11px;
-
-  line-height:1.5;
-
-  margin-bottom:8px;
-}
-
-.chat-input{
-  display:flex;
-
-  gap:8px;
-
-  padding:14px;
-
-  border-top:1px solid var(--border);
-}
-
-.chat-input input{
-  flex:1;
-
-  min-width:0;
-
-  border:1px solid var(--border);
-
-  background:var(--soft);
-
-  color:var(--text);
-
-  border-radius:9px;
-
-  padding:11px;
-
-  outline:0;
-}
-
-
-/* =====================================================
-   MOBILE SIDEBAR OVERLAY
-===================================================== */
-
-.sidebar-overlay{
-  display:none;
-
-  position:fixed;
-
-  inset:0;
-
-  background:#0008;
-
-  z-index:90;
-
-  opacity:0;
-
-  pointer-events:none;
-
-  transition:opacity .25s ease;
-}
-
-
-.primary-btn:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
-
-.ai-thinking{
-  animation:aiPulse 1.2s ease-in-out infinite;
-}
-
-@keyframes aiPulse{
-  0%,100%{opacity:.55;}
-  50%{opacity:1;}
-}
-  /* OWNER AI ASSISTANT */
-
-.ai-assistant-panel{
-  display:flex;
-  flex-direction:column;
-  height:calc(100vh - 280px);
-  min-height:520px;
-  overflow:hidden;
-}
-
-.owner-chat-messages{
-  flex:1;
-  overflow-y:auto;
-  padding:24px;
-  background:var(--soft);
-}
-
-.owner-message{
-  max-width:75%;
-  width:max-content;
-  padding:13px 16px;
-  border-radius:14px;
-  margin-bottom:14px;
-  font-size:13px;
-  line-height:1.6;
-}
-
-.owner-message.ai{
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-bottom-left-radius:4px;
-}
-
-.owner-message.user{
-  margin-left:auto;
-  background:var(--primary);
-  color:#fff;
-  border-bottom-right-radius:4px;
-}
-
-.owner-message-label{
-  font-size:10px;
-  font-weight:700;
-  color:var(--muted);
-  margin-bottom:5px;
-}
-
-.owner-message.user .owner-message-label{
-  color:#dbeafe;
-}
-
-.owner-chat-input{
-  display:flex;
-  gap:9px;
-  padding:15px;
-  background:var(--panel);
-  border-top:1px solid var(--border);
-}
-
-.owner-chat-input input{
-  flex:1;
-  min-width:0;
-  border:1px solid var(--border);
-  background:var(--soft);
-  color:var(--text);
-  border-radius:10px;
-  padding:12px 13px;
-  outline:none;
-  transition:border-color .2s ease,
-             box-shadow .2s ease;
-}
-
-.owner-chat-input input:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 3px #2563eb22;
-}
-
-.owner-chat-input button{
-  min-width:75px;
-}
-
-@media(max-width:700px){
-
-  .ai-assistant-panel{
-    height:calc(100vh - 240px);
-    min-height:450px;
-  }
-
-  .owner-message{
-    max-width:88%;
-  }
-
-}
-  /* 2026 AI AVATAR */
-
-.ai-message-row{
-  display:flex;
-  align-items:flex-start;
-  gap:12px;
+  box-shadow:0 18px 45px rgba(15,23,42,.09);
 }
 
 .ai-avatar{
-  width:42px;
-  height:42px;
-  position:relative;
-  flex-shrink:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  animation:aiFloat 4s ease-in-out infinite;
 }
 
-.ai-avatar-glow{
-  position:absolute;
-  width:34px;
-  height:34px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);
-  filter:blur(9px);
-  opacity:.5;
-  animation:aiGlow 3s ease-in-out infinite;
+.ai-avatar:hover{
+  transform:scale(1.07) rotate(-2deg);
 }
 
-.ai-avatar-core{
-  width:38px;
-  height:38px;
-  position:relative;
-  border-radius:50%;
-  background:linear-gradient(145deg,#111827,#312e81,#06b6d4);
-  border:1px solid rgba(255,255,255,.25);
-  box-shadow:0 4px 18px rgba(79,70,229,.4);
-  display:flex;
-  align-items:center;
-  justify-content:center;
+@keyframes aiFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-3px)}
 }
 
-.ai-avatar-face{
-  width:24px;
-  height:19px;
-  position:relative;
+.page.active{
+  animation:pageEnter .5s var(--ease-smooth) both;
 }
 
-.ai-eye{
-  position:absolute;
-  top:5px;
-  width:4px;
-  height:6px;
-  border-radius:50%;
-  background:#fff;
-  box-shadow:0 0 8px #67e8f9;
-}
-
-.ai-eye.left{
-  left:4px;
-}
-
-.ai-eye.right{
-  right:4px;
-}
-
-.ai-mouth{
-  position:absolute;
-  width:8px;
-  height:3px;
-  left:8px;
-  bottom:1px;
-  border-bottom:2px solid #fff;
-  border-radius:0 0 10px 10px;
-}
-
-.ai-avatar-ring{
-  position:absolute;
-  inset:-3px;
-  border-radius:50%;
-  border:1px solid rgba(99,102,241,.5);
-  animation:aiRing 3s linear infinite;
-}
-
-.ai-spark{
-  position:absolute;
-  color:#fff;
-  font-size:9px;
-  text-shadow:0 0 8px #67e8f9;
-  animation:aiSpark 2.5s ease-in-out infinite;
-}
-
-.spark-1{
-  top:-6px;
-  right:0;
-}
-
-.spark-2{
-  bottom:-5px;
-  left:0;
-}
-
-@keyframes aiGlow{
-  0%,100%{
-    transform:scale(.9);
-    opacity:.35;
+@keyframes pageEnter{
+  0%{
+    opacity:0;
+    transform:translateY(14px) scale(.985);
   }
-  50%{
-    transform:scale(1.15);
-    opacity:.65;
+  60%{
+    opacity:1;
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0) scale(1);
   }
 }
 
-@keyframes aiRing{
+.hero{
+  animation:heroEnter .6s var(--ease-smooth) both;
+}
+
+@keyframes heroEnter{
   from{
-    transform:rotate(0deg);
+    opacity:0;
+    transform:translateY(12px);
   }
   to{
-    transform:rotate(360deg);
-  }
-}
-
-@keyframes aiSpark{
-  0%,100%{
-    transform:scale(.7);
-    opacity:.4;
-  }
-  50%{
-    transform:scale(1.2);
     opacity:1;
+    transform:translateY(0);
   }
 }
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media(max-width:1050px){
-
-  .cards{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .dashboard-grid{
-    grid-template-columns:1fr;
-  }
-
-  .integration-grid{
-    grid-template-columns:1fr 1fr;
-  }
-
+.grid .card{
+  opacity:0;
+  animation:cardEnter .55s var(--ease-smooth) forwards;
 }
 
+.grid .card:nth-child(1){animation-delay:.04s}
+.grid .card:nth-child(2){animation-delay:.09s}
+.grid .card:nth-child(3){animation-delay:.14s}
+.grid .card:nth-child(4){animation-delay:.19s}
 
-@media(max-width:700px){
-
-  .sidebar{
-    position:fixed;
-
-    top:0;
-    left:0;
-
-    z-index:100;
-
-    width:260px;
-
-    min-width:260px;
-
-    height:100vh;
-
-    transform:translateX(-100%);
-
-    box-shadow:8px 0 30px #0004;
+@keyframes cardEnter{
+  from{
+    opacity:0;
+    transform:translateY(12px) scale(.985);
   }
-
-
-  /* Open mobile sidebar */
-
-  .app.mobile-sidebar-open .sidebar{
-    transform:translateX(0);
-  }
-
-
-  /* Do not use desktop collapsed behaviour on mobile */
-
-  .app.sidebar-collapsed .sidebar{
-    width:260px;
-
-    min-width:260px;
-
-    padding:22px 14px;
-
-    transform:translateX(-100%);
-  }
-
-  .app.mobile-sidebar-open.sidebar-collapsed .sidebar{
-    transform:translateX(0);
-  }
-
-
-  .app.mobile-sidebar-open .sidebar-overlay{
+  to{
     opacity:1;
-
-    pointer-events:auto;
+    transform:translateY(0) scale(1);
   }
+}
 
+.msg{
+  animation:messageEnter .35s var(--ease-smooth) both;
+}
 
-  .sidebar-overlay{
-    display:block;
+@keyframes messageEnter{
+  from{
+    opacity:0;
+    transform:translateY(8px) scale(.985);
   }
-
-
-  .app.sidebar-collapsed .logo,
-  .app.sidebar-collapsed .nav,
-  .app.sidebar-collapsed .sidebar-bottom{
+  to{
     opacity:1;
-
-    transform:none;
-
-    pointer-events:auto;
+    transform:translateY(0) scale(1);
   }
-
-
-  .topbar{
-    padding:0 15px;
-  }
-
-  .topbar-left{
-    gap:10px;
-  }
-
-  .page-title{
-    font-size:16px;
-  }
-
-  .user-area strong{
-    display:none;
-  }
-
-  .content{
-    padding:18px;
-  }
-
-  .messages-layout{
-    grid-template-columns:1fr;
-
-    height:auto;
-  }
-
-  .conversations-panel{
-    max-height:300px;
-  }
-
-  .chat-panel{
-    min-height:550px;
-  }
-
-  .integration-grid{
-    grid-template-columns:1fr;
-  }
-
 }
 
+.composer textarea:focus{
+  border-color:rgba(79,70,229,.6);
+  box-shadow:0 0 0 4px rgba(79,70,229,.09);
+  transition:
+    border-color .25s var(--ease-soft),
+    box-shadow .3s var(--ease-smooth);
+}
 
-@media(max-width:450px){
+button:disabled{
+  cursor:not-allowed;
+  opacity:.55;
+  transform:none!important;
+}
 
-  .cards{
-    grid-template-columns:1fr;
+#thinking .bubble{
+  animation:thinkingPulse 1.25s ease-in-out infinite;
+}
+
+@keyframes thinkingPulse{
+  0%,100%{opacity:.5}
+  50%{opacity:1}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
   }
-
-  .welcome h1{
-    font-size:23px;
-  }
-
-  .chat-message{
-    max-width:88%;
-  }
-
-  .topbar{
-    height:64px;
-  }
-
-  .menu-toggle,
-  .theme-toggle{
-    width:38px;
-    height:38px;
-  }
-
-}
-
-
-/* =====================================================
-   ACCESSIBILITY
-===================================================== */
-
-.menu-toggle:focus-visible,
-button:focus-visible,
-input:focus-visible{
-  outline:3px solid #93c5fd;
-
-  outline-offset:2px;
-}
-
-
-/* Modern 2026 icon system */
-[data-lucide]{
-  width:18px;
-  height:18px;
-  stroke-width:2;
-  flex-shrink:0;
-  vertical-align:middle;
-}
-.nav button [data-lucide]{
-  width:18px;
-  height:18px;
-  margin-right:9px;
-}
-.item-icon [data-lucide], .integration-icon [data-lucide]{
-  width:20px;
-  height:20px;
-}
-.conversation-avatar [data-lucide]{
-  width:18px;
-  height:18px;
-}
-.theme-toggle [data-lucide], .menu-toggle [data-lucide]{
-  width:19px;
-  height:19px;
 }
 
 </style>
-<script src="https://unpkg.com/lucide@latest"></script>
 </head>
-
-
 <body>
-
-
-<div class="app" id="app">
-
-
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
-
+<div class="app">
 <aside class="sidebar" id="sidebar">
-
-
-  <div class="logo">
-
-    <div class="logo-name">
-      AI Business Hub
-    </div>
-
-    <div class="logo-sub">
-      AI-powered business assistant
-    </div>
-
-  </div>
-
-
-  <nav class="nav">
-
-
-    <button class="active" data-page="Dashboard">
-      <i data-lucide="layout-dashboard"></i> <span>Dashboard</span>
-    </button>
-
-
-    <button data-page="Messages">
-      <i data-lucide="message-circle"></i> <span>Messages</span>
-    </button>
-
-
-    <button data-page="Orders">
-      <i data-lucide="package"></i> <span>Orders</span>
-    </button>
-
-
-    <button data-page="Customers">
-      <i data-lucide="users"></i> <span>Customers</span>
-    </button>
-
-
-    <button data-page="Tasks & Reminders">
-      <i data-lucide="calendar-days"></i> <span>Tasks & Reminders</span>
-    </button>
-
-
-    <button data-page="Products">
-      <i data-lucide="shopping-bag"></i> <span>Products</span>
-    </button>
-
-
-    <button data-page="Knowledge Base">
-      <i data-lucide="brain"></i> <span>Knowledge Base</span>
-    </button>
-
-
-    <button data-page="Integrations">
-      <i data-lucide="link-2"></i> <span>Integrations</span>
-    </button>
-
-
-    <button data-page="Settings">
-      <i data-lucide="settings"></i> <span>Settings</span>
-    </button>
-
-
-  </nav>
-
-
-  <div class="sidebar-bottom">
-
-    <div class="status">
-
-      <div class="status-dot"></div>
-
-      AI Assistant Online
-
-    </div>
-
-  </div>
-
-
+ <div class="brand">
+  <div class="logo">BH</div>
+  <div class="brand-copy"><strong>AI Business Hub</strong><small>Business command center</small></div>
+ </div>
+ <div class="section-label">WORKSPACE</div>
+ <nav class="nav">
+  <button class="active" data-page="dashboard"><span class="nav-icon">⌂</span><span class="nav-title">Dashboard</span></button>
+  <button data-page="ai"><span class="nav-icon">✦</span><span class="nav-title">Owner AI</span></button>
+  <button data-page="messages"><span class="nav-icon">◌</span><span class="nav-title">Messages</span></button>
+  <button data-page="orders"><span class="nav-icon">▣</span><span class="nav-title">Orders</span></button>
+  <button data-page="customers"><span class="nav-icon">♙</span><span class="nav-title">Customers</span></button>
+  <button data-page="tasks"><span class="nav-icon">✓</span><span class="nav-title">Tasks</span></button>
+  <button data-page="products"><span class="nav-icon">◇</span><span class="nav-title">Products</span></button>
+  <button data-page="knowledge"><span class="nav-icon">▤</span><span class="nav-title">Knowledge Base</span></button>
+  <button data-page="integrations"><span class="nav-icon">⌘</span><span class="nav-title">Integrations</span></button>
+ </nav>
+ <div class="bottom nav">
+  <button id="theme"><span class="nav-icon">☼</span><span class="nav-title">Light / Dark</span></button>
+  <button id="collapse"><span class="nav-icon">‹</span><span class="nav-title">Collapse sidebar</span></button>
+ </div>
 </aside>
 
-
-<!-- MOBILE OVERLAY -->
-
-<div
-  class="sidebar-overlay"
-  id="sidebarOverlay">
-</div>
-
-
-<!-- =====================================================
-     MAIN
-===================================================== -->
-
 <main class="main">
-
-
 <header class="topbar">
-
-
-  <div class="topbar-left">
-
-
-    <!-- MENU BUTTON -->
-
-    <button
-      class="menu-toggle"
-      id="menuToggle"
-      type="button"
-      aria-label="Toggle navigation menu"
-      aria-expanded="true">
-
-      ☰
-
-    </button>
-
-
-    <div
-      class="page-title"
-      id="pageTitle">
-
-      Dashboard
-
-    </div>
-
-
-  </div>
-
-
-  <div class="topbar-actions">
-
-    <button
-      class="theme-toggle"
-      id="themeToggle"
-      type="button"
-      aria-label="Switch theme"
-      title="Switch theme">
-      <i data-lucide="moon"></i>
-    </button>
-
-    <div class="user-area">
-
-      <strong>
-        Business Owner
-      </strong>
-
-      <div class="avatar">
-        B
-      </div>
-
-    </div>
-
-  </div>
-
-
+ <div class="top-left">
+  <button class="circle" id="mobile">☰</button>
+  <div><h1 id="title">Dashboard</h1><div class="sub" id="subtitle">Your business command center</div></div>
+ </div>
+ <button class="circle" id="themeTop">☼</button>
 </header>
 
+<section class="content">
+<div class="page active" id="dashboard">
+ <div class="hero"><h2>Run your business with more clarity.</h2><p>AI Business Hub brings customer communication, orders, products, tasks and your private AI business assistant into one professional workspace.</p></div>
+ <div class="grid">
+  <div class="card"><div class="label">CUSTOMERS</div><div class="value">0</div><div class="green">Ready for real data</div></div>
+  <div class="card"><div class="label">ORDERS</div><div class="value">0</div><div class="green">No orders yet</div></div>
+  <div class="card"><div class="label">MESSAGES</div><div class="value">0</div><div class="green">Inbox is clear</div></div>
+  <div class="card"><div class="label">TASKS</div><div class="value">0</div><div class="green">Nothing pending</div></div>
+ </div>
+ <div class="head"><h3>Workspace</h3><button class="primary" onclick="openPage('ai')">Open Owner AI</button></div>
+ <div class="grid">
+  <div class="card"><div class="label">AI COPILOT</div><h3 style="margin-top:8px">Business decisions</h3><p class="sub" style="line-height:1.7;margin-top:8px">Ask your private AI about planning, operations, customers and organization.</p></div>
+  <div class="card"><div class="label">CUSTOMER SUPPORT</div><h3 style="margin-top:8px">Conversations</h3><p class="sub" style="line-height:1.7;margin-top:8px">Prepare the hub for real customer messages.</p></div>
+  <div class="card"><div class="label">OPERATIONS</div><h3 style="margin-top:8px">Orders & tasks</h3><p class="sub" style="line-height:1.7;margin-top:8px">Your workspace is ready for actual business records.</p></div>
+  <div class="card"><div class="label">KNOWLEDGE</div><h3 style="margin-top:8px">Business brain</h3><p class="sub" style="line-height:1.7;margin-top:8px">Store verified business information for the AI.</p></div>
+ </div>
+</div>
 
-<div class="page-wrapper">
+<div class="page" id="ai">
+ <div class="ai-layout">
+  <div class="chat">
+   <div class="chat-head"><div class="ai-avatar"><div class="face"><i></i><i></i><b></b></div></div><div class="chat-title"><strong>Owner AI Assistant</strong><span>Private business copilot</span></div></div>
+   <div class="messages" id="messages">
+    <div class="msg"><div class="ai-avatar"><div class="face"><i></i><i></i><b></b></div></div><div class="bubble">I'm ready to help you manage your business. Ask me about customers, orders, products, tasks, marketing, planning or business operations.</div></div>
+   </div>
+   <div class="composer"><textarea id="input" placeholder="Ask your Owner AI something..."></textarea><button class="send" id="send">➤</button></div>
+  </div>
+  <div class="side">
+   <div class="card"><strong>AI MODE</strong><div class="info-row"><span>Access</span><b>Owner</b></div><div class="info-row"><span>Privacy</span><b>Private</b></div><div class="info-row"><span>API</span><b style="color:var(--good)">Connected</b></div></div>
+   <div class="card"><strong>WHAT YOU CAN ASK</strong><p class="sub" style="line-height:1.9;margin-top:9px">Business planning<br>Customer support<br>Orders & operations<br>Marketing ideas<br>Tasks & organization<br>Business analysis</p></div>
+  </div>
+ </div>
+</div>
 
-
-<section
-  class="content page-transition"
-  id="pageContent">
+<div class="page" id="messages"><div class="hero"><h2>Messages</h2><p>Your customer communication workspace.</p></div><div class="head"><h3>Inbox</h3><button class="secondary">Refresh</button></div><div class="empty"><div class="big">◌</div><h3>No messages yet</h3><p>Your inbox is ready for real customer conversations.</p></div></div>
+<div class="page" id="orders"><div class="hero"><h2>Orders</h2><p>Track customer orders and keep fulfillment organized.</p></div><div class="head"><h3>Order list</h3><button class="primary">+ New order</button></div><div class="empty"><div class="big">▣</div><h3>No orders yet</h3><p>Your order workspace is ready for real records.</p></div></div>
+<div class="page" id="customers"><div class="hero"><h2>Customers</h2><p>Keep customer information organized in one place.</p></div><div class="head"><h3>Customer directory</h3><button class="primary">+ Add customer</button></div><input class="search" placeholder="Search customers..."><div class="empty" style="margin-top:14px"><div class="big">♙</div><h3>No customers yet</h3><p>Your customer database is ready for real records.</p></div></div>
+<div class="page" id="tasks"><div class="hero"><h2>Tasks & Reminders</h2><p>Keep business work visible and organized.</p></div><div class="head"><h3>Tasks</h3><button class="primary">+ New task</button></div><div class="empty"><div class="big">✓</div><h3>No tasks yet</h3><p>Create tasks when you are ready.</p></div></div>
+<div class="page" id="products"><div class="hero"><h2>Products</h2><p>Manage products, services, pricing and availability.</p></div><div class="head"><h3>Catalog</h3><button class="primary">+ Add product</button></div><div class="empty"><div class="big">◇</div><h3>No products yet</h3><p>Your catalog is ready for real products.</p></div></div>
+<div class="page" id="knowledge"><div class="hero"><h2>Knowledge Base</h2><p>Give the AI reliable information about products, services, policies and frequently asked questions.</p></div><div class="head"><h3>Business knowledge</h3><button class="primary">+ Add knowledge</button></div><div class="empty"><div class="big">▤</div><h3>No knowledge added yet</h3><p>Add verified business information here for the AI to use later.</p></div></div>
+<div class="page" id="integrations"><div class="hero"><h2>Integrations</h2><p>Connect the tools your business uses as AI Business Hub grows.</p></div><div class="grid"><div class="card"><h3>AI API</h3><p class="sub" style="margin-top:7px">Cloudflare Worker</p><div class="green">● Connected</div></div><div class="card"><h3>Messages</h3><p class="sub" style="margin-top:7px">Customer communication</p><div class="sub">○ Not connected</div></div><div class="card"><h3>Orders</h3><p class="sub" style="margin-top:7px">Order management</p><div class="sub">○ Not connected</div></div><div class="card"><h3>Knowledge</h3><p class="sub" style="margin-top:7px">Business information</p><div class="sub">○ Not configured</div></div></div></div>
 </section>
-
-
-</div>
-
-
 </main>
-
-
 </div>
-
 
 <script>
-
-
-/* =====================================================
-   PAGE CONTENT
-===================================================== */
-
-const pages = {
-
-
-/* =====================================================
-   DASHBOARD
-===================================================== */
-
-Dashboard: `
-
-<div class="welcome">
-
-  <h1>
-    Good morning 👋
-  </h1>
-
-  <p>
-    Here's what's happening with your business today.
-  </p>
-
-</div>
-
-
-<div class="cards">
-
-
-  <div class="card">
-
-    <div class="card-label">
-      New Messages
-    </div>
-
-    <div class="card-value">
-      12
-    </div>
-
-    <div class="card-change green">
-      +4 today
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="card-label">
-      Pending Orders
-    </div>
-
-    <div class="card-value">
-      5
-    </div>
-
-    <div class="card-change orange">
-      2 need attention
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="card-label">
-      Tasks Today
-    </div>
-
-    <div class="card-value">
-      3
-    </div>
-
-    <div class="card-change">
-      1 completed
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="card-label">
-      Customers
-    </div>
-
-    <div class="card-value">
-      28
-    </div>
-
-    <div class="card-change green">
-      +6 this week
-    </div>
-
-  </div>
-
-
-</div>
-
-
-<div class="dashboard-grid">
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Recent Conversations
-    </div>
-
-    <button
-      class="panel-action"
-      data-goto="Messages">
-
-      View all
-
-    </button>
-
-  </div>
-
-
-  <div class="list">
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="user-round"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            John
-          </div>
-
-          <div class="item-sub">
-            "Can I order two large pizzas?"
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-blue">
-        New
-      </span>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="user-round"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Sarah
-          </div>
-
-          <div class="item-sub">
-            "What time do you close today?"
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-green">
-        Replied
-      </span>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="user-round"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Mike
-          </div>
-
-          <div class="item-sub">
-            "Do you deliver to Ikeja?"
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-orange">
-        Attention
-      </span>
-
-    </div>
-
-
-  </div>
-
-</div>
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Today's Tasks
-    </div>
-
-    <button
-      class="panel-action"
-      data-goto="Tasks & Reminders">
-
-      View all
-
-    </button>
-
-  </div>
-
-
-  <div class="list">
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="phone"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Call supplier
-          </div>
-
-          <div class="item-sub">
-            10:00 AM
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="package"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Confirm John's order
-          </div>
-
-          <div class="item-sub">
-            1:00 PM
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="layout-dashboard"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Check inventory
-          </div>
-
-          <div class="item-sub">
-            4:30 PM
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-
-
-  </div>
-
-</div>
-
-
-</div>
-
-`,
-    "AI Assistant": `
-
-    <div class="welcome">
-
-      <h1>
-        AI Assistant 🤖
-      </h1>
-
-      <p>
-        Your private AI business copilot. Ask questions,
-        plan tasks, analyze your business, and get help
-        managing daily operations.
-      </p>
-
-    </div>
-
-    <div class="panel ai-assistant-panel">
-
-      <div class="panel-header">
-
-        <div>
-
-          <div class="panel-title">
-            Owner AI
-          </div>
-
-          <div class="chat-online">
-            ● Private business assistant
-          </div>
-
-        </div>
-
-        <button
-          class="secondary-btn"
-          id="clearOwnerChat">
-          Clear
-        </button>
-
-      </div>
-
-      <div
-        class="owner-chat-messages"
-        id="ownerChatMessages">
-
-       <div class="owner-message ai">
-
- <div class="owner-message ai">
-
-  <div class="ai-message-row">
-
-    <div class="ai-avatar" aria-label="AI Assistant">
-
-      <div class="ai-avatar-glow"></div>
-
-      <div class="ai-avatar-core">
-
-        <div class="ai-avatar-ring"></div>
-
-        <div class="ai-avatar-face">
-
-          <span class="ai-eye left"></span>
-          <span class="ai-eye right"></span>
-
-          <span class="ai-mouth"></span>
-
-        </div>
-
-        <span class="ai-spark spark-1">✦</span>
-        <span class="ai-spark spark-2">✧</span>
-
-      </div>
-
-    </div>
-
-    <div>
-
-      <div class="owner-message ai">
-
-  <div class="ai-message-row">
-
-    <div class="ai-avatar" aria-label="AI Assistant">
-
-      <div class="ai-avatar-glow"></div>
-
-      <div class="ai-avatar-core">
-
-        <div class="ai-avatar-ring"></div>
-
-        <div class="ai-avatar-face">
-
-          <span class="ai-eye left"></span>
-          <span class="ai-eye right"></span>
-
-          <span class="ai-mouth"></span>
-
-        </div>
-
-        <span class="ai-spark spark-1">✦</span>
-        <span class="ai-spark spark-2">✧</span>
-
-      </div>
-
-    </div>
-
-    <div>
-
-      <div class="owner-message-label">
-        AI Assistant
-      </div>
-
-      <div>
-        Hello! I'm your private AI business assistant.
-        How can I help you today?
-      </div>
-
-    </div>
-
-  </div>
-
-</div>
-
-      <form
-        class="owner-chat-input"
-        id="ownerChatForm">
-
-        <input
-          id="ownerMessageInput"
-          type="text"
-          placeholder="Ask your business assistant..."
-          autocomplete="off"
-        >
-
-        <button
-          class="primary-btn"
-          type="submit">
-          Send
-        </button>
-
-      </form>
-
-    </div>
-
-  `,
-
-
-/* =====================================================
-   MESSAGES
-===================================================== */
-
-Messages: `
-
-<div class="welcome">
-
-  <h1>
-    Messages <i data-lucide="message-circle"></i>
-  </h1>
-
-  <p>
-    Manage customer conversations and let your AI assistant help you respond.
-  </p>
-
-</div>
-
-
-<div class="messages-layout">
-
-
-<div class="panel conversations-panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Conversations
-    </div>
-
-    <div class="badge badge-blue">
-      12 New
-    </div>
-
-  </div>
-
-
-  <div class="message-search">
-
-    <input
-      id="conversationSearch"
-      type="text"
-      placeholder="Search customers..."
-    >
-
-  </div>
-
-
-  <div
-    class="conversation-list"
-    id="conversationList">
-
-
-    <div
-      class="conversation active"
-      data-name="John"
-      data-message="Can I order two large pizzas?">
-
-      <div class="conversation-avatar">
-        J
-      </div>
-
-      <div class="conversation-info">
-
-        <div class="conversation-top">
-
-          <strong>
-            John
-          </strong>
-
-          <span>
-            10:42 AM
-          </span>
-
-        </div>
-
-        <div class="conversation-preview">
-          Can I order two large pizzas?
-        </div>
-
-      </div>
-
-      <div class="unread">
-        2
-      </div>
-
-    </div>
-
-
-    <div
-      class="conversation"
-      data-name="Sarah"
-      data-message="What time do you close today?">
-
-      <div class="conversation-avatar">
-        S
-      </div>
-
-      <div class="conversation-info">
-
-        <div class="conversation-top">
-
-          <strong>
-            Sarah
-          </strong>
-
-          <span>
-            9:31 AM
-          </span>
-
-        </div>
-
-        <div class="conversation-preview">
-          What time do you close today?
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div
-      class="conversation"
-      data-name="Mike"
-      data-message="Do you deliver to Ikeja?">
-
-      <div class="conversation-avatar">
-        M
-      </div>
-
-      <div class="conversation-info">
-
-        <div class="conversation-top">
-
-          <strong>
-            Mike
-          </strong>
-
-          <span>
-            Yesterday
-          </span>
-
-        </div>
-
-        <div class="conversation-preview">
-          Do you deliver to Ikeja?
-        </div>
-
-      </div>
-
-      <div class="unread">
-        1
-      </div>
-
-    </div>
-
-
-    <div
-      class="conversation"
-      data-name="David"
-      data-message="I would like to know your delivery options.">
-
-      <div class="conversation-avatar">
-        D
-      </div>
-
-      <div class="conversation-info">
-
-        <div class="conversation-top">
-
-          <strong>
-            David
-          </strong>
-
-          <span>
-            Yesterday
-          </span>
-
-        </div>
-
-        <div class="conversation-preview">
-          I would like to know your delivery options.
-        </div>
-
-      </div>
-
-    </div>
-
-
-  </div>
-
-</div>
-
-
-<div class="panel chat-panel">
-
-
-  <div class="panel-header">
-
-    <div class="chat-customer">
-
-      <div
-        class="conversation-avatar"
-        id="chatAvatar">
-
-        J
-
-      </div>
-
-      <div>
-
-        <div
-          class="panel-title"
-          id="chatCustomer">
-
-          John
-
-        </div>
-
-        <div class="chat-online">
-          ● Customer conversation
-        </div>
-
-      </div>
-
-    </div>
-
-
-    <div class="badge badge-green">
-      AI Ready
-    </div>
-
-  </div>
-
-
-  <div
-    class="chat-messages"
-    id="chatMessages">
-
-
-    <div class="chat-message user">
-      Hi, can I order two large pizzas?
-    </div>
-
-
-    <div class="chat-message ai">
-      Hi John! 👋 Yes, you can.
-      Two large pizzas are available.
-      Would you like to place the order now?
-    </div>
-
-
-    <div class="chat-message user">
-      Yes please.
-    </div>
-
-
-    <div class="chat-message ai">
-      Perfect! I'll help you get that order started. <i data-lucide="pizza"></i>
-    </div>
-
-
-  </div>
-
-
-  <div class="ai-suggestion">
-
-    <div class="ai-suggestion-title">
-      🤖 AI Suggested Reply
-    </div>
-
-    <div
-      id="aiSuggestion"
-      class="ai-suggestion-text">
-
-      "Absolutely! We can prepare two large pizzas
-      for you. Would you like to confirm your order?"
-
-    </div>
-
-    <button
-      class="secondary-btn"
-      id="useSuggestion">
-
-      Use Reply
-
-    </button>
-
-  </div>
-
-
-  <form
-    class="chat-input"
-    id="businessChatForm">
-
-    <input
-      id="businessMessageInput"
-      type="text"
-      placeholder="Reply to customer..."
-      autocomplete="off"
-    >
-
-    <button
-      class="primary-btn"
-      type="submit">
-
-      Send
-
-    </button>
-
-  </form>
-
-
-</div>
-
-</div>
-
-`,
-
-
-/* =====================================================
-   ORDERS
-===================================================== */
-
-Orders: `
-
-<div class="welcome">
-
-  <h1>
-    Orders <i data-lucide="package"></i>
-  </h1>
-
-  <p>
-    Track and manage customer orders.
-  </p>
-
-</div>
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Recent Orders
-    </div>
-
-    <button
-      class="primary-btn"
-      onclick="demoAlert('New order form coming next.')">
-
-      + New Order
-
-    </button>
-
-  </div>
-
-
-  <div class="table-wrap">
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th>Order</th>
-          <th>Customer</th>
-          <th>Items</th>
-          <th>Total</th>
-          <th>Status</th>
-        </tr>
-
-      </thead>
-
-
-      <tbody>
-
-        <tr>
-          <td>#1042</td>
-          <td>John</td>
-          <td>2 Large Pizzas</td>
-          <td>₦12,000</td>
-
-          <td>
-            <span class="badge badge-orange">
-              Pending
-            </span>
-          </td>
-        </tr>
-
-
-        <tr>
-          <td>#1041</td>
-          <td>Sarah</td>
-          <td>Family Meal</td>
-          <td>₦8,500</td>
-
-          <td>
-            <span class="badge badge-green">
-              Completed
-            </span>
-          </td>
-        </tr>
-
-
-        <tr>
-          <td>#1040</td>
-          <td>Mike</td>
-          <td>3 Drinks</td>
-          <td>₦3,000</td>
-
-          <td>
-            <span class="badge badge-blue">
-              Processing
-            </span>
-          </td>
-        </tr>
-
-
-      </tbody>
-
-    </table>
-
-  </div>
-
-</div>
-
-`,
-
-
-/* =====================================================
-   CUSTOMERS
-===================================================== */
-
-Customers: `
-
-<div class="welcome">
-
-  <h1>
-    Customers <i data-lucide="users"></i>
-  </h1>
-
-  <p>
-    View and manage your customer relationships.
-  </p>
-
-</div>
-
-
-<div class="cards">
-
-
-  <div class="card">
-
-    <div class="card-label">
-      Total Customers
-    </div>
-
-    <div class="card-value">
-      28
-    </div>
-
-  </div>
-
-
-  <div class="card">
-
-    <div class="card-label">
-      New This Week
-    </div>
-
-    <div class="card-value">
-      6
-    </div>
-
-    <div class="card-change green">
-      Growing
-    </div>
-
-  </div>
-
-
-</div>
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Customer List
-    </div>
-
-    <button
-      class="primary-btn"
-      onclick="demoAlert('Customer form coming next.')">
-
-      + Add Customer
-
-    </button>
-
-  </div>
-
-
-  <div class="list">
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="user-round"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            John
-          </div>
-
-          <div class="item-sub">
-            john@example.com
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-green">
-        Active
-      </span>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="user-round"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Sarah
-          </div>
-
-          <div class="item-sub">
-            sarah@example.com
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-green">
-        Active
-      </span>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="user-round"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Mike
-          </div>
-
-          <div class="item-sub">
-            mike@example.com
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-orange">
-        Follow-up
-      </span>
-
-    </div>
-
-
-  </div>
-
-</div>
-
-`,
-
-
-/* =====================================================
-   TASKS
-===================================================== */
-
-"Tasks & Reminders": `
-
-<div class="welcome">
-
-  <h1>
-    Tasks & Reminders <i data-lucide="calendar-days"></i>
-  </h1>
-
-  <p>
-    Keep track of everything your business needs to do.
-  </p>
-
-</div>
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Today's Tasks
-    </div>
-
-    <button
-      class="primary-btn"
-      onclick="demoAlert('Task creator coming next.')">
-
-      + Add Task
-
-    </button>
-
-  </div>
-
-
-  <div class="list">
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="phone"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Call supplier
-          </div>
-
-          <div class="item-sub">
-            Today · 10:00 AM
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-orange">
-        Pending
-      </span>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="package"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Confirm John's order
-          </div>
-
-          <div class="item-sub">
-            Today · 1:00 PM
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-green">
-        Done
-      </span>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="layout-dashboard"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Check inventory
-          </div>
-
-          <div class="item-sub">
-            Today · 4:30 PM
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-orange">
-        Pending
-      </span>
-
-    </div>
-
-
-  </div>
-
-</div>
-
-`,
-
-
-/* =====================================================
-   PRODUCTS
-===================================================== */
-
-Products: `
-
-<div class="welcome">
-
-  <h1>
-    Products <i data-lucide="shopping-bag"></i>
-  </h1>
-
-  <p>
-    Manage products, prices and inventory.
-  </p>
-
-</div>
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Product Inventory
-    </div>
-
-    <button
-      class="primary-btn"
-      onclick="demoAlert('Product creator coming next.')">
-
-      + Add Product
-
-    </button>
-
-  </div>
-
-
-  <div class="list">
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="pizza"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Large Pizza
-          </div>
-
-          <div class="item-sub">
-            ₦6,000 · 24 available
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-green">
-        In Stock
-      </span>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="cup-soda"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Soft Drink
-          </div>
-
-          <div class="item-sub">
-            ₦1,000 · 8 available
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-orange">
-        Low Stock
-      </span>
-
-    </div>
-
-
-    <div class="list-item">
-
-      <div class="item-left">
-
-        <div class="item-icon">
-          <i data-lucide="sandwich"></i>
-        </div>
-
-        <div>
-
-          <div class="item-title">
-            Chicken Burger
-          </div>
-
-          <div class="item-sub">
-            ₦4,500 · 31 available
-          </div>
-
-        </div>
-
-      </div>
-
-      <span class="badge badge-green">
-        In Stock
-      </span>
-
-    </div>
-
-
-  </div>
-
-</div>
-
-`,
-
-
-/* =====================================================
-   KNOWLEDGE BASE
-===================================================== */
-
-"Knowledge Base": `
-
-<div class="welcome">
-
-  <h1>
-    Knowledge Base <i data-lucide="brain"></i>
-  </h1>
-
-  <p>
-    Give your AI the information it needs to help your business.
-  </p>
-
-</div>
-
-
-<div class="dashboard-grid">
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Business Information
-    </div>
-
-    <button
-      class="primary-btn"
-      onclick="demoAlert('Knowledge editor coming next.')">
-
-      + Add Information
-
-    </button>
-
-  </div>
-
-
-  <div class="panel-body">
-
-    <div class="info-box">
-
-      <strong>
-        Business Description
-      </strong>
-
-      <p>
-        Information about your business, products,
-        services and customers will eventually be
-        stored here for the AI assistant.
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      AI Knowledge
-    </div>
-
-  </div>
-
-
-  <div class="panel-body">
-
-    <div class="info-box">
-
-      <strong>
-        What the AI can learn
-      </strong>
-
-      <p>
-        Products and prices
-      </p>
-
-      <p>
-        Opening hours
-      </p>
-
-      <p>
-        Delivery policies
-      </p>
-
-      <p>
-        Frequently asked questions
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-</div>
-
-`,
-
-
-/* =====================================================
-   INTEGRATIONS
-===================================================== */
-
-Integrations: `
-
-<div class="welcome">
-
-  <h1>
-    Integrations <i data-lucide="link-2"></i>
-  </h1>
-
-  <p>
-    Connect the tools your business already uses.
-  </p>
-
-</div>
-
-
-<div class="integration-grid">
-
-
-<div class="integration">
-
-  <div class="integration-icon">
-    <i data-lucide="message-circle"></i>
-  </div>
-
-  <div class="integration-name">
-    WhatsApp
-  </div>
-
-  <div class="integration-description">
-    Connect customer conversations and allow
-    your AI assistant to respond.
-  </div>
-
-  <span class="badge badge-orange">
-    Not Connected
-  </span>
-
-</div>
-
-
-<div class="integration">
-
-  <div class="integration-icon">
-    <i data-lucide="mail"></i>
-  </div>
-
-  <div class="integration-name">
-    Gmail
-  </div>
-
-  <div class="integration-description">
-    Manage business emails and draft customer replies.
-  </div>
-
-  <span class="badge badge-orange">
-    Not Connected
-  </span>
-
-</div>
-
-
-<div class="integration">
-
-  <div class="integration-icon">
-    <i data-lucide="calendar-days"></i>
-  </div>
-
-  <div class="integration-name">
-    Google Calendar
-  </div>
-
-  <div class="integration-description">
-    Manage appointments, meetings and reminders.
-  </div>
-
-  <span class="badge badge-orange">
-    Not Connected
-  </span>
-
-</div>
-
-
-<div class="integration">
-
-  <div class="integration-icon">
-    <i data-lucide="smartphone"></i>
-  </div>
-
-  <div class="integration-name">
-    Facebook
-  </div>
-
-  <div class="integration-description">
-    Manage customer conversations from Facebook.
-  </div>
-
-  <span class="badge badge-orange">
-    Not Connected
-  </span>
-
-</div>
-
-
-<div class="integration">
-
-  <div class="integration-icon">
-    <i data-lucide="instagram"></i>
-  </div>
-
-  <div class="integration-name">
-    Instagram
-  </div>
-
-  <div class="integration-description">
-    Connect Instagram business conversations.
-  </div>
-
-  <span class="badge badge-orange">
-    Not Connected
-  </span>
-
-</div>
-
-
-<div class="integration">
-
-  <div class="integration-icon">
-    <i data-lucide="zap"></i>
-  </div>
-
-  <div class="integration-name">
-    Automation
-  </div>
-
-  <div class="integration-description">
-    Connect automation services when needed.
-  </div>
-
-  <span class="badge badge-orange">
-    Not Connected
-  </span>
-
-</div>
-
-
-</div>
-
-`,
-
-
-/* =====================================================
-   SETTINGS
-===================================================== */
-
-Settings: `
-
-<div class="welcome">
-
-  <h1>
-    Settings <i data-lucide="settings"></i>
-  </h1>
-
-  <p>
-    Manage your business assistant preferences.
-  </p>
-
-</div>
-
-
-<div class="dashboard-grid">
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      Business Settings
-    </div>
-
-  </div>
-
-
-  <div class="panel-body">
-
-    <div class="info-box">
-
-      <strong>
-        Business Profile
-      </strong>
-
-      <p>
-        Business name, contact information,
-        operating hours and other details will
-        be configured here.
-      </p>
-
-      <button
-        class="primary-btn"
-        onclick="demoAlert('Business profile settings coming next.')">
-
-        Configure Business
-
-      </button>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-<div class="panel">
-
-
-  <div class="panel-header">
-
-    <div class="panel-title">
-      AI Assistant
-    </div>
-
-  </div>
-
-
-  <div class="panel-body">
-
-    <div class="info-box">
-
-      <strong>
-        Assistant Behaviour
-      </strong>
-
-      <p>
-        Configure how your AI assistant
-        communicates with customers.
-      </p>
-
-      <p>
-        Tone: Professional
-      </p>
-
-      <p>
-        Auto-reply: Disabled
-      </p>
-
-      <p>
-        Human approval: Enabled
-      </p>
-
-    </div>
-
-  </div>
-
-</div>
-
-
-</div>
-
-`
-
+const API_URL="https://ai-business-hub-api.hebronpeter376.workers.dev/";
+const sidebar=document.getElementById("sidebar");
+const pages=document.querySelectorAll(".page");
+const buttons=document.querySelectorAll(".nav button[data-page]");
+const title=document.getElementById("title"),subtitle=document.getElementById("subtitle");
+const info={
+ dashboard:["Dashboard","Your business command center"],
+ ai:["Owner AI","Your private business copilot"],
+ messages:["Messages","Customer communication"],
+ orders:["Orders","Manage customer orders"],
+ customers:["Customers","Customer directory"],
+ tasks:["Tasks & Reminders","Organize business work"],
+ products:["Products","Product and service catalog"],
+ knowledge:["Knowledge Base","Verified business information"],
+ integrations:["Integrations","Connect your business tools"]
 };
-
-
-/* =====================================================
-   ELEMENTS
-===================================================== */
-
-const app =
-  document.getElementById("app");
-
-const menuToggle =
-  document.getElementById("menuToggle");
-
-const themeToggle =
-  document.getElementById("themeToggle");
-
-const sidebarOverlay =
-  document.getElementById("sidebarOverlay");
-
-const pageContent =
-  document.getElementById("pageContent");
-
-const pageTitle =
-  document.getElementById("pageTitle");
-
-const navButtons =
-  document.querySelectorAll(".nav button");
-
-
-/* =====================================================
-   THEME SYSTEM
-===================================================== */
-
-let currentTheme =
-  localStorage.getItem("theme") || "light";
-
-function applyTheme(){
-
-  const isDark = currentTheme === "dark";
-
-  document.documentElement.classList.toggle(
-    "dark-theme",
-    isDark
-  );
-
-  themeToggle.innerHTML =
-    isDark ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
-
-  if (window.lucide) {
-    lucide.createIcons();
-  }
-
-  themeToggle.setAttribute(
-    "aria-label",
-    isDark ? "Switch to light theme" : "Switch to dark theme"
-  );
-
-  themeToggle.title =
-    isDark ? "Switch to light theme" : "Switch to dark theme";
+function openPage(id){
+ pages.forEach(p=>p.classList.toggle("active",p.id===id));
+ buttons.forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ title.textContent=info[id][0];subtitle.textContent=info[id][1];
 }
+buttons.forEach(b=>b.onclick=()=>openPage(b.dataset.page));
+document.getElementById("collapse").onclick=()=>sidebar.classList.toggle("collapsed");
+document.getElementById("mobile").onclick=()=>sidebar.classList.toggle("collapsed");
+function theme(dark){document.body.classList.toggle("dark",dark);localStorage.setItem("abh-theme",dark?"dark":"light")}
+theme(localStorage.getItem("abh-theme")==="dark");
+document.getElementById("theme").onclick=()=>theme(!document.body.classList.contains("dark"));
+document.getElementById("themeTop").onclick=()=>theme(!document.body.classList.contains("dark"));
 
-function toggleTheme(){
+const input=document.getElementById("input"),send=document.getElementById("send"),messages=document.getElementById("messages");
+let history=JSON.parse(localStorage.getItem("abh-owner-history")||"[]");
 
-  currentTheme =
-    currentTheme === "dark" ? "light" : "dark";
-
-  localStorage.setItem(
-    "theme",
-    currentTheme
-  );
-
-  applyTheme();
+function addMessage(text,user=false){
+ const row=document.createElement("div");row.className="msg"+(user?" user":"");
+ if(user)row.innerHTML='<div class="bubble"></div>';
+ else row.innerHTML='<div class="ai-avatar"><div class="face"><i></i><i></i><b></b></div></div><div class="bubble"></div>';
+ row.querySelector(".bubble").textContent=text;messages.appendChild(row);messages.scrollTop=messages.scrollHeight;
 }
-
-themeToggle.addEventListener(
-  "click",
-  toggleTheme
-);
-
-
-/* =====================================================
-   SIDEBAR STATE
-===================================================== */
-
-let sidebarCollapsed =
-  localStorage.getItem("sidebarCollapsed") === "true";
-
-
-/* =====================================================
-   CHECK MOBILE
-===================================================== */
-
-function isMobile(){
-
-  return window.innerWidth <= 700;
-
+function thinking(){
+ const row=document.createElement("div");row.className="msg";row.id="thinking";
+ row.innerHTML='<div class="ai-avatar"><div class="face"><i></i><i></i><b></b></div></div><div class="bubble">Thinking...</div>';
+ messages.appendChild(row);messages.scrollTop=messages.scrollHeight;
 }
-
-
-/* =====================================================
-   UPDATE MENU ICON
-===================================================== */
-
-function updateMenuButton(){
-
-  if(isMobile()){
-
-    const isOpen =
-      app.classList.contains(
-        "mobile-sidebar-open"
-      );
-
-    menuToggle.textContent =
-      isOpen ? "✕" : "☰";
-
-    menuToggle.setAttribute(
-      "aria-expanded",
-      isOpen ? "true" : "false"
-    );
-
-  }
-
-  else{
-
-    const isCollapsed =
-      app.classList.contains(
-        "sidebar-collapsed"
-      );
-
-    menuToggle.textContent =
-      isCollapsed ? "☰" : "✕";
-
-    menuToggle.setAttribute(
-      "aria-expanded",
-      isCollapsed ? "false" : "true"
-    );
-
-  }
-
+async function sendMessage(){
+ const message=input.value.trim();if(!message)return;
+ addMessage(message,true);input.value="";input.disabled=true;send.disabled=true;thinking();
+ try{
+  const res=await fetch(API_URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({message,mode:"owner",history:history.slice(-20)})});
+  const data=await res.json();document.getElementById("thinking")?.remove();
+  if(!res.ok)throw new Error(data.error||"API request failed");
+  const reply=data.reply||"I couldn't generate a response.";addMessage(reply);
+  history.push({role:"user",content:message},{role:"assistant",content:reply});history=history.slice(-40);
+  localStorage.setItem("abh-owner-history",JSON.stringify(history));
+ }catch(e){
+  document.getElementById("thinking")?.remove();
+  addMessage("I couldn't connect to the AI right now. Please check the API connection and try again.");
+  console.error(e);
+ }finally{input.disabled=false;send.disabled=false;input.focus()}
 }
-
-
-/* =====================================================
-   APPLY SIDEBAR STATE
-===================================================== */
-
-function applySidebarState(){
-
-  if(isMobile()){
-
-    app.classList.remove(
-      "sidebar-collapsed"
-    );
-
-    app.classList.remove(
-      "mobile-sidebar-open"
-    );
-
-  }
-
-  else{
-
-    app.classList.remove(
-      "mobile-sidebar-open"
-    );
-
-    app.classList.toggle(
-      "sidebar-collapsed",
-      sidebarCollapsed
-    );
-
-  }
-
-  updateMenuButton();
-
-}
-
-
-/* =====================================================
-   TOGGLE SIDEBAR
-===================================================== */
-
-function toggleSidebar(){
-
-  if(isMobile()){
-
-    app.classList.toggle(
-      "mobile-sidebar-open"
-    );
-
-  }
-
-  else{
-
-    sidebarCollapsed =
-      !sidebarCollapsed;
-
-    app.classList.toggle(
-      "sidebar-collapsed",
-      sidebarCollapsed
-    );
-
-    localStorage.setItem(
-      "sidebarCollapsed",
-      sidebarCollapsed
-    );
-
-  }
-
-  updateMenuButton();
-
-}
-
-
-/* =====================================================
-   MENU BUTTON
-===================================================== */
-
-menuToggle.addEventListener(
-  "click",
-  toggleSidebar
-);
-
-
-/* =====================================================
-   MOBILE OVERLAY
-===================================================== */
-
-sidebarOverlay.addEventListener(
-  "click",
-  ()=>{
-
-    if(isMobile()){
-
-      app.classList.remove(
-        "mobile-sidebar-open"
-      );
-
-      updateMenuButton();
-
-    }
-
-  }
-);
-
-
-/* =====================================================
-   CLOSE MOBILE SIDEBAR AFTER PAGE CLICK
-===================================================== */
-
-function closeMobileSidebar(){
-
-  if(isMobile()){
-
-    app.classList.remove(
-      "mobile-sidebar-open"
-    );
-
-    updateMenuButton();
-
-  }
-
-}
-
-
-/* =====================================================
-   WINDOW RESIZE
-===================================================== */
-
-window.addEventListener(
-  "resize",
-  ()=>{
-
-    applySidebarState();
-
-  }
-);
-
-
-/* =====================================================
-   DEMO ALERT
-===================================================== */
-
-function demoAlert(text){
-
-  alert(text);
-
-}
-
-
-/* =====================================================
-   CHANGE PAGE
-===================================================== */
-
-function changePage(pageName){
-
-  if(!pages[pageName]){
-    return;
-  }
-
-
-  pageContent.classList.remove(
-    "page-transition"
-  );
-
-  pageContent.classList.add(
-    "page-exit"
-  );
-
-
-  setTimeout(()=>{
-
-    pageContent.innerHTML =
-      pages[pageName];
-
-
-    pageTitle.textContent =
-      pageName;
-
-
-    pageContent.classList.remove(
-      "page-exit"
-    );
-
-
-    void pageContent.offsetWidth;
-
-
-    pageContent.classList.add(
-      "page-transition"
-    );
-
-
-    activateInternalLinks();
-
-
-    if(pageName === "Messages"){
-
-      activateMessageSystem();
-
-    }
-
-
-  },150);
-
-}
-
-
-/* =====================================================
-   SIDEBAR NAVIGATION
-===================================================== */
-
-navButtons.forEach(
-  button=>{
-
-    button.addEventListener(
-      "click",
-      ()=>{
-
-        navButtons.forEach(
-          btn=>{
-
-            btn.classList.remove(
-              "active"
-            );
-
-          }
-        );
-
-
-        button.classList.add(
-          "active"
-        );
-
-
-        changePage(
-          button.dataset.page
-        );
-
-
-        closeMobileSidebar();
-
-      }
-    );
-
-  }
-);
-
-
-/* =====================================================
-   INTERNAL DASHBOARD LINKS
-===================================================== */
-
-function activateInternalLinks(){
-
-  document
-    .querySelectorAll("[data-goto]")
-    .forEach(
-      button=>{
-
-        button.addEventListener(
-          "click",
-          ()=>{
-
-            const pageName =
-              button.dataset.goto;
-
-
-            navButtons.forEach(
-              btn=>{
-
-                btn.classList.toggle(
-                  "active",
-                  btn.dataset.page === pageName
-                );
-
-              }
-            );
-
-
-            changePage(
-              pageName
-            );
-
-          }
-        );
-
-      }
-    );
-
-}
-
-
-/* =====================================================
-   AI API
-===================================================== */
-
-const AI_WORKER_URL =
-  "https://ai-business-hub-api.hebronpeter376.workers.dev";
-
-async function askBusinessAI(message){
-
-  const response = await fetch(
-    AI_WORKER_URL,
-    {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-    message:String(message),
-    mode:"owner",
-    history:conversationHistory.slice(-20)
-})
-    }
-  );
-
-  let data;
-
-  try{
-    data = await response.json();
-  }catch(error){
-    throw new Error("The AI service returned an invalid response.");
-  }
-
-  if(!response.ok){
-    throw new Error(
-      data?.error || "The AI service could not process the request."
-    );
-  }
-
-  return data.reply || "I couldn't generate a response.";
-}
-
-
-/* =====================================================
-   MESSAGE SYSTEM
-===================================================== */
-
-function activateMessageSystem(){
-
-
-  const conversations =
-    document.querySelectorAll(
-      ".conversation"
-    );
-
-
-  const search =
-    document.getElementById(
-      "conversationSearch"
-    );
-
-
-  const customer =
-    document.getElementById(
-      "chatCustomer"
-    );
-
-
-  const avatar =
-    document.getElementById(
-      "chatAvatar"
-    );
-
-
-  const chatMessages =
-    document.getElementById(
-      "chatMessages"
-    );
-
-
-  const input =
-    document.getElementById(
-      "businessMessageInput"
-    );
-
-
-  const form =
-    document.getElementById(
-      "businessChatForm"
-    );
-
-
-  const suggestion =
-    document.getElementById(
-      "aiSuggestion"
-    );
-
-
-  const useSuggestion =
-    document.getElementById(
-      "useSuggestion"
-    );
-
-
-  /* ===================================================
-     SELECT CONVERSATION
-  =================================================== */
-
-  conversations.forEach(
-    conversation=>{
-
-      conversation.addEventListener(
-        "click",
-        ()=>{
-
-
-          conversations.forEach(
-            c=>{
-
-              c.classList.remove(
-                "active"
-              );
-
-            }
-          );
-
-
-          conversation.classList.add(
-            "active"
-          );
-
-
-          const name =
-            conversation.dataset.name;
-
-
-          const latest =
-            conversation.dataset.message;
-
-
-          customer.textContent =
-            name;
-
-
-          avatar.textContent =
-            name.charAt(0);
-
-
-          chatMessages.innerHTML =
-            "";
-
-
-          addChatMessage(
-            latest,
-            "user"
-          );
-
-
-          addChatMessage(
-            `Thanks for contacting us, ${name}! 👋 How can we help you today?`,
-            "ai"
-          );
-
-
-          suggestion.textContent =
-            `"Hi ${name}! Thanks for reaching out. I'd be happy to help you with that."`;
-
-        }
-      );
-
-    }
-  );
-
-
-  /* ===================================================
-     SEARCH
-  =================================================== */
-
-  if(search){
-
-    search.addEventListener(
-      "input",
-      ()=>{
-
-        const value =
-          search.value
-            .toLowerCase()
-            .trim();
-
-
-        conversations.forEach(
-          conversation=>{
-
-            const name =
-              conversation.dataset.name
-                .toLowerCase();
-
-
-            const message =
-              conversation.dataset.message
-                .toLowerCase();
-
-
-            const matches =
-              name.includes(value) ||
-              message.includes(value);
-
-
-            conversation.style.display =
-              matches
-              ? "flex"
-              : "none";
-
-          }
-        );
-
-      }
-    );
-
-  }
-
-
-  /* ===================================================
-     ADD CHAT MESSAGE
-  =================================================== */
-
-  function addChatMessage(
-    text,
-    type
-  ){
-
-    const message =
-      document.createElement(
-        "div"
-      );
-
-
-    message.className =
-      "chat-message " + type;
-
-
-    message.textContent =
-      text;
-
-
-    chatMessages.appendChild(
-      message
-    );
-
-
-    chatMessages.scrollTop =
-      chatMessages.scrollHeight;
-
-  }
-
-
-  /* ===================================================
-     USE AI SUGGESTION
-  =================================================== */
-
-  if(useSuggestion){
-
-    useSuggestion.addEventListener(
-      "click",
-      ()=>{
-
-        input.value =
-          suggestion.textContent
-            .replace(/^"|"$/g,"")
-            .trim();
-
-
-        input.focus();
-
-      }
-    );
-
-  }
-
-
-  /* ===================================================
-     SEND MESSAGE TO REAL AI
-  =================================================== */
-
-  if(form){
-
-    form.addEventListener(
-      "submit",
-      async event=>{
-
-        event.preventDefault();
-
-        const text =
-          input.value.trim();
-
-        if(!text){
-          return;
-        }
-
-        addChatMessage(
-          text,
-          "user"
-        );
-
-        input.value = "";
-
-        const sendButton =
-          form.querySelector("button[type='submit']");
-
-        const originalButtonText =
-          sendButton ? sendButton.textContent : "Send";
-
-        if(sendButton){
-          sendButton.disabled = true;
-          sendButton.textContent = "Thinking...";
-        }
-
-        input.disabled = true;
-
-        const thinkingMessage =
-          document.createElement("div");
-
-        thinkingMessage.className =
-          "chat-message ai ai-thinking";
-
-        thinkingMessage.textContent =
-          "🤖 AI is thinking...";
-
-        chatMessages.appendChild(
-          thinkingMessage
-        );
-
-        chatMessages.scrollTop =
-          chatMessages.scrollHeight;
-
-        try{
-
-          const reply =
-            await askBusinessAI(text);
-
-          thinkingMessage.remove();
-
-          addChatMessage(
-            reply,
-            "ai"
-          );
-
-          suggestion.textContent =
-            `"${reply}"`;
-
-        }catch(error){
-
-          thinkingMessage.remove();
-
-          addChatMessage(
-            `Sorry, I couldn't reach the AI right now. ${error.message}`,
-            "ai"
-          );
-
-        }finally{
-
-          input.disabled = false;
-          input.focus();
-
-          if(sendButton){
-            sendButton.disabled = false;
-            sendButton.textContent = originalButtonText;
-          }
-
-        }
-
-      }
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   INITIALIZE DASHBOARD
-===================================================== */
-
-pageContent.innerHTML =
-  pages.Dashboard;
-
-applyTheme();
-
-if (window.lucide) {
-  lucide.createIcons();
-}
-
-
-activateInternalLinks();
-
-
-applySidebarState();
-
+send.onclick=sendMessage;
+input.onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage()}};
 </script>
-
 </body>
 </html>
