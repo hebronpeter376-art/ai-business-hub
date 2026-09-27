@@ -1244,6 +1244,231 @@ th{
   0%,100%{opacity:.55;}
   50%{opacity:1;}
 }
+  /* OWNER AI ASSISTANT */
+
+.ai-assistant-panel{
+  display:flex;
+  flex-direction:column;
+  height:calc(100vh - 280px);
+  min-height:520px;
+  overflow:hidden;
+}
+
+.owner-chat-messages{
+  flex:1;
+  overflow-y:auto;
+  padding:24px;
+  background:var(--soft);
+}
+
+.owner-message{
+  max-width:75%;
+  width:max-content;
+  padding:13px 16px;
+  border-radius:14px;
+  margin-bottom:14px;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.owner-message.ai{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-bottom-left-radius:4px;
+}
+
+.owner-message.user{
+  margin-left:auto;
+  background:var(--primary);
+  color:#fff;
+  border-bottom-right-radius:4px;
+}
+
+.owner-message-label{
+  font-size:10px;
+  font-weight:700;
+  color:var(--muted);
+  margin-bottom:5px;
+}
+
+.owner-message.user .owner-message-label{
+  color:#dbeafe;
+}
+
+.owner-chat-input{
+  display:flex;
+  gap:9px;
+  padding:15px;
+  background:var(--panel);
+  border-top:1px solid var(--border);
+}
+
+.owner-chat-input input{
+  flex:1;
+  min-width:0;
+  border:1px solid var(--border);
+  background:var(--soft);
+  color:var(--text);
+  border-radius:10px;
+  padding:12px 13px;
+  outline:none;
+  transition:border-color .2s ease,
+             box-shadow .2s ease;
+}
+
+.owner-chat-input input:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px #2563eb22;
+}
+
+.owner-chat-input button{
+  min-width:75px;
+}
+
+@media(max-width:700px){
+
+  .ai-assistant-panel{
+    height:calc(100vh - 240px);
+    min-height:450px;
+  }
+
+  .owner-message{
+    max-width:88%;
+  }
+
+}
+  /* 2026 AI AVATAR */
+
+.ai-message-row{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+}
+
+.ai-avatar{
+  width:42px;
+  height:42px;
+  position:relative;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.ai-avatar-glow{
+  position:absolute;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#6366f1,#8b5cf6,#06b6d4);
+  filter:blur(9px);
+  opacity:.5;
+  animation:aiGlow 3s ease-in-out infinite;
+}
+
+.ai-avatar-core{
+  width:38px;
+  height:38px;
+  position:relative;
+  border-radius:50%;
+  background:linear-gradient(145deg,#111827,#312e81,#06b6d4);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 4px 18px rgba(79,70,229,.4);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.ai-avatar-face{
+  width:24px;
+  height:19px;
+  position:relative;
+}
+
+.ai-eye{
+  position:absolute;
+  top:5px;
+  width:4px;
+  height:6px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 8px #67e8f9;
+}
+
+.ai-eye.left{
+  left:4px;
+}
+
+.ai-eye.right{
+  right:4px;
+}
+
+.ai-mouth{
+  position:absolute;
+  width:8px;
+  height:3px;
+  left:8px;
+  bottom:1px;
+  border-bottom:2px solid #fff;
+  border-radius:0 0 10px 10px;
+}
+
+.ai-avatar-ring{
+  position:absolute;
+  inset:-3px;
+  border-radius:50%;
+  border:1px solid rgba(99,102,241,.5);
+  animation:aiRing 3s linear infinite;
+}
+
+.ai-spark{
+  position:absolute;
+  color:#fff;
+  font-size:9px;
+  text-shadow:0 0 8px #67e8f9;
+  animation:aiSpark 2.5s ease-in-out infinite;
+}
+
+.spark-1{
+  top:-6px;
+  right:0;
+}
+
+.spark-2{
+  bottom:-5px;
+  left:0;
+}
+
+@keyframes aiGlow{
+  0%,100%{
+    transform:scale(.9);
+    opacity:.35;
+  }
+  50%{
+    transform:scale(1.15);
+    opacity:.65;
+  }
+}
+
+@keyframes aiRing{
+  from{
+    transform:rotate(0deg);
+  }
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+@keyframes aiSpark{
+  0%,100%{
+    transform:scale(.7);
+    opacity:.4;
+  }
+  50%{
+    transform:scale(1.2);
+    opacity:1;
+  }
+}
 
 /* =====================================================
    RESPONSIVE
@@ -1961,6 +2186,149 @@ Dashboard: `
 </div>
 
 `,
+    "AI Assistant": `
+
+    <div class="welcome">
+
+      <h1>
+        AI Assistant 🤖
+      </h1>
+
+      <p>
+        Your private AI business copilot. Ask questions,
+        plan tasks, analyze your business, and get help
+        managing daily operations.
+      </p>
+
+    </div>
+
+    <div class="panel ai-assistant-panel">
+
+      <div class="panel-header">
+
+        <div>
+
+          <div class="panel-title">
+            Owner AI
+          </div>
+
+          <div class="chat-online">
+            ● Private business assistant
+          </div>
+
+        </div>
+
+        <button
+          class="secondary-btn"
+          id="clearOwnerChat">
+          Clear
+        </button>
+
+      </div>
+
+      <div
+        class="owner-chat-messages"
+        id="ownerChatMessages">
+
+       <div class="owner-message ai">
+
+ <div class="owner-message ai">
+
+  <div class="ai-message-row">
+
+    <div class="ai-avatar" aria-label="AI Assistant">
+
+      <div class="ai-avatar-glow"></div>
+
+      <div class="ai-avatar-core">
+
+        <div class="ai-avatar-ring"></div>
+
+        <div class="ai-avatar-face">
+
+          <span class="ai-eye left"></span>
+          <span class="ai-eye right"></span>
+
+          <span class="ai-mouth"></span>
+
+        </div>
+
+        <span class="ai-spark spark-1">✦</span>
+        <span class="ai-spark spark-2">✧</span>
+
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="owner-message ai">
+
+  <div class="ai-message-row">
+
+    <div class="ai-avatar" aria-label="AI Assistant">
+
+      <div class="ai-avatar-glow"></div>
+
+      <div class="ai-avatar-core">
+
+        <div class="ai-avatar-ring"></div>
+
+        <div class="ai-avatar-face">
+
+          <span class="ai-eye left"></span>
+          <span class="ai-eye right"></span>
+
+          <span class="ai-mouth"></span>
+
+        </div>
+
+        <span class="ai-spark spark-1">✦</span>
+        <span class="ai-spark spark-2">✧</span>
+
+      </div>
+
+    </div>
+
+    <div>
+
+      <div class="owner-message-label">
+        AI Assistant
+      </div>
+
+      <div>
+        Hello! I'm your private AI business assistant.
+        How can I help you today?
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+      <form
+        class="owner-chat-input"
+        id="ownerChatForm">
+
+        <input
+          id="ownerMessageInput"
+          type="text"
+          placeholder="Ask your business assistant..."
+          autocomplete="off"
+        >
+
+        <button
+          class="primary-btn"
+          type="submit">
+          Send
+        </button>
+
+      </form>
+
+    </div>
+
+  `,
 
 
 /* =====================================================
