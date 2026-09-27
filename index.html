@@ -43,6 +43,45 @@
   --transition:.28s ease;
 }
 
+/* DARK THEME */
+html.dark-theme{
+  color-scheme:dark;
+}
+
+.dark-theme{
+  --bg:#0b1120;
+  --panel:#111827;
+  --soft:#172033;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
+  --border:#263244;
+  --primary:#3b82f6;
+  --hover:#2563eb;
+  --sidebar:#070b14;
+  --sidebarHover:#182235;
+}
+
+.dark-theme .topbar{
+  box-shadow:0 1px 0 rgba(255,255,255,.03);
+}
+
+.dark-theme .conversation.active{
+  background:#172554;
+}
+
+.dark-theme .conversation-avatar{
+  background:#1e3a8a;
+  color:#bfdbfe;
+}
+
+.dark-theme th{
+  background:#172033;
+}
+
+.dark-theme .ai-suggestion{
+  background:#111827;
+}
+
 
 /* =====================================================
    RESET
@@ -367,6 +406,35 @@ input{
   transform:scale(.96);
 }
 
+.theme-toggle{
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  font-size:18px;
+  transition:background .2s ease,color .2s ease,transform .2s ease,border-color .2s ease;
+}
+
+.theme-toggle:hover{
+  background:var(--soft);
+  transform:scale(1.04);
+}
+
+.theme-toggle:active{
+  transform:scale(.96);
+}
+
+.topbar-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
 
 /* =====================================================
    PAGE TITLE
@@ -380,41 +448,6 @@ input{
 
   overflow:hidden;
   text-overflow:ellipsis;
-}
-
-
-/* COLLAPSED SIDEBAR BRAND
-   Shows the full AI Business Hub name and subtitle in the main
-   header when the desktop sidebar is collapsed. */
-.collapsed-brand{
-  display:none;
-  min-width:0;
-  flex-direction:column;
-  justify-content:center;
-  line-height:1.05;
-}
-
-.collapsed-brand-name{
-  font-size:18px;
-  font-weight:700;
-  color:var(--text);
-  white-space:nowrap;
-}
-
-.collapsed-brand-sub{
-  margin-top:4px;
-  font-size:10px;
-  font-weight:500;
-  color:var(--muted);
-  white-space:nowrap;
-}
-
-.app.sidebar-collapsed .collapsed-brand{
-  display:flex;
-}
-
-.app.sidebar-collapsed .page-title{
-  display:none;
 }
 
 
@@ -1198,6 +1231,20 @@ th{
 }
 
 
+.primary-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.ai-thinking{
+  animation:aiPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes aiPulse{
+  0%,100%{opacity:.55;}
+  50%{opacity:1;}
+}
+
 /* =====================================================
    RESPONSIVE
 ===================================================== */
@@ -1300,14 +1347,6 @@ th{
     font-size:16px;
   }
 
-  .app.sidebar-collapsed .page-title{
-    display:block;
-  }
-
-  .app.sidebar-collapsed .collapsed-brand{
-    display:none;
-  }
-
   .user-area strong{
     display:none;
   }
@@ -1355,7 +1394,8 @@ th{
     height:64px;
   }
 
-  .menu-toggle{
+  .menu-toggle,
+  .theme-toggle{
     width:38px;
     height:38px;
   }
@@ -1375,7 +1415,35 @@ input:focus-visible{
   outline-offset:2px;
 }
 
+
+/* Modern 2026 icon system */
+[data-lucide]{
+  width:18px;
+  height:18px;
+  stroke-width:2;
+  flex-shrink:0;
+  vertical-align:middle;
+}
+.nav button [data-lucide]{
+  width:18px;
+  height:18px;
+  margin-right:9px;
+}
+.item-icon [data-lucide], .integration-icon [data-lucide]{
+  width:20px;
+  height:20px;
+}
+.conversation-avatar [data-lucide]{
+  width:18px;
+  height:18px;
+}
+.theme-toggle [data-lucide], .menu-toggle [data-lucide]{
+  width:19px;
+  height:19px;
+}
+
 </style>
+<script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 
@@ -1409,47 +1477,47 @@ input:focus-visible{
 
 
     <button class="active" data-page="Dashboard">
-      📊 <span>Dashboard</span>
+      <i data-lucide="layout-dashboard"></i> <span>Dashboard</span>
     </button>
 
 
     <button data-page="Messages">
-      💬 <span>Messages</span>
+      <i data-lucide="message-circle"></i> <span>Messages</span>
     </button>
 
 
     <button data-page="Orders">
-      📦 <span>Orders</span>
+      <i data-lucide="package"></i> <span>Orders</span>
     </button>
 
 
     <button data-page="Customers">
-      👥 <span>Customers</span>
+      <i data-lucide="users"></i> <span>Customers</span>
     </button>
 
 
     <button data-page="Tasks & Reminders">
-      📅 <span>Tasks & Reminders</span>
+      <i data-lucide="calendar-days"></i> <span>Tasks & Reminders</span>
     </button>
 
 
     <button data-page="Products">
-      🛍️ <span>Products</span>
+      <i data-lucide="shopping-bag"></i> <span>Products</span>
     </button>
 
 
     <button data-page="Knowledge Base">
-      🧠 <span>Knowledge Base</span>
+      <i data-lucide="brain"></i> <span>Knowledge Base</span>
     </button>
 
 
     <button data-page="Integrations">
-      🔗 <span>Integrations</span>
+      <i data-lucide="link-2"></i> <span>Integrations</span>
     </button>
 
 
     <button data-page="Settings">
-      ⚙️ <span>Settings</span>
+      <i data-lucide="settings"></i> <span>Settings</span>
     </button>
 
 
@@ -1516,34 +1584,30 @@ input:focus-visible{
     </div>
 
 
-    <!-- BRAND SHOWN WHEN THE SIDEBAR IS COLLAPSED -->
-    <div
-      class="collapsed-brand"
-      id="collapsedBrand"
-      aria-label="AI Business Hub">
-
-      <div class="collapsed-brand-name">
-        AI Business Hub
-      </div>
-
-      <div class="collapsed-brand-sub">
-        AI-powered business assistant
-      </div>
-
-    </div>
-
-
   </div>
 
 
-  <div class="user-area">
+  <div class="topbar-actions">
 
-    <strong>
-      Business Owner
-    </strong>
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      type="button"
+      aria-label="Switch theme"
+      title="Switch theme">
+      <i data-lucide="moon"></i>
+    </button>
 
-    <div class="avatar">
-      B
+    <div class="user-area">
+
+      <strong>
+        Business Owner
+      </strong>
+
+      <div class="avatar">
+        B
+      </div>
+
     </div>
 
   </div>
@@ -1704,7 +1768,7 @@ Dashboard: `
       <div class="item-left">
 
         <div class="item-icon">
-          👤
+          <i data-lucide="user-round"></i>
         </div>
 
         <div>
@@ -1733,7 +1797,7 @@ Dashboard: `
       <div class="item-left">
 
         <div class="item-icon">
-          👤
+          <i data-lucide="user-round"></i>
         </div>
 
         <div>
@@ -1762,7 +1826,7 @@ Dashboard: `
       <div class="item-left">
 
         <div class="item-icon">
-          👤
+          <i data-lucide="user-round"></i>
         </div>
 
         <div>
@@ -1819,7 +1883,7 @@ Dashboard: `
       <div class="item-left">
 
         <div class="item-icon">
-          📞
+          <i data-lucide="phone"></i>
         </div>
 
         <div>
@@ -1844,7 +1908,7 @@ Dashboard: `
       <div class="item-left">
 
         <div class="item-icon">
-          📦
+          <i data-lucide="package"></i>
         </div>
 
         <div>
@@ -1869,7 +1933,7 @@ Dashboard: `
       <div class="item-left">
 
         <div class="item-icon">
-          📊
+          <i data-lucide="layout-dashboard"></i>
         </div>
 
         <div>
@@ -1908,7 +1972,7 @@ Messages: `
 <div class="welcome">
 
   <h1>
-    Messages 💬
+    Messages <i data-lucide="message-circle"></i>
   </h1>
 
   <p>
@@ -2158,7 +2222,7 @@ Messages: `
 
 
     <div class="chat-message ai">
-      Perfect! I'll help you get that order started. 🍕
+      Perfect! I'll help you get that order started. <i data-lucide="pizza"></i>
     </div>
 
 
@@ -2229,7 +2293,7 @@ Orders: `
 <div class="welcome">
 
   <h1>
-    Orders 📦
+    Orders <i data-lucide="package"></i>
   </h1>
 
   <p>
@@ -2340,7 +2404,7 @@ Customers: `
 <div class="welcome">
 
   <h1>
-    Customers 👥
+    Customers <i data-lucide="users"></i>
   </h1>
 
   <p>
@@ -2414,7 +2478,7 @@ Customers: `
       <div class="item-left">
 
         <div class="item-icon">
-          👤
+          <i data-lucide="user-round"></i>
         </div>
 
         <div>
@@ -2443,7 +2507,7 @@ Customers: `
       <div class="item-left">
 
         <div class="item-icon">
-          👤
+          <i data-lucide="user-round"></i>
         </div>
 
         <div>
@@ -2472,7 +2536,7 @@ Customers: `
       <div class="item-left">
 
         <div class="item-icon">
-          👤
+          <i data-lucide="user-round"></i>
         </div>
 
         <div>
@@ -2512,7 +2576,7 @@ Customers: `
 <div class="welcome">
 
   <h1>
-    Tasks & Reminders 📅
+    Tasks & Reminders <i data-lucide="calendar-days"></i>
   </h1>
 
   <p>
@@ -2550,7 +2614,7 @@ Customers: `
       <div class="item-left">
 
         <div class="item-icon">
-          📞
+          <i data-lucide="phone"></i>
         </div>
 
         <div>
@@ -2579,7 +2643,7 @@ Customers: `
       <div class="item-left">
 
         <div class="item-icon">
-          📦
+          <i data-lucide="package"></i>
         </div>
 
         <div>
@@ -2608,7 +2672,7 @@ Customers: `
       <div class="item-left">
 
         <div class="item-icon">
-          📊
+          <i data-lucide="layout-dashboard"></i>
         </div>
 
         <div>
@@ -2648,7 +2712,7 @@ Products: `
 <div class="welcome">
 
   <h1>
-    Products 🛍️
+    Products <i data-lucide="shopping-bag"></i>
   </h1>
 
   <p>
@@ -2686,7 +2750,7 @@ Products: `
       <div class="item-left">
 
         <div class="item-icon">
-          🍕
+          <i data-lucide="pizza"></i>
         </div>
 
         <div>
@@ -2715,7 +2779,7 @@ Products: `
       <div class="item-left">
 
         <div class="item-icon">
-          🥤
+          <i data-lucide="cup-soda"></i>
         </div>
 
         <div>
@@ -2744,7 +2808,7 @@ Products: `
       <div class="item-left">
 
         <div class="item-icon">
-          🍔
+          <i data-lucide="sandwich"></i>
         </div>
 
         <div>
@@ -2784,7 +2848,7 @@ Products: `
 <div class="welcome">
 
   <h1>
-    Knowledge Base 🧠
+    Knowledge Base <i data-lucide="brain"></i>
   </h1>
 
   <p>
@@ -2895,7 +2959,7 @@ Integrations: `
 <div class="welcome">
 
   <h1>
-    Integrations 🔗
+    Integrations <i data-lucide="link-2"></i>
   </h1>
 
   <p>
@@ -2911,7 +2975,7 @@ Integrations: `
 <div class="integration">
 
   <div class="integration-icon">
-    💬
+    <i data-lucide="message-circle"></i>
   </div>
 
   <div class="integration-name">
@@ -2933,7 +2997,7 @@ Integrations: `
 <div class="integration">
 
   <div class="integration-icon">
-    📧
+    <i data-lucide="mail"></i>
   </div>
 
   <div class="integration-name">
@@ -2954,7 +3018,7 @@ Integrations: `
 <div class="integration">
 
   <div class="integration-icon">
-    📅
+    <i data-lucide="calendar-days"></i>
   </div>
 
   <div class="integration-name">
@@ -2975,7 +3039,7 @@ Integrations: `
 <div class="integration">
 
   <div class="integration-icon">
-    📱
+    <i data-lucide="smartphone"></i>
   </div>
 
   <div class="integration-name">
@@ -2996,7 +3060,7 @@ Integrations: `
 <div class="integration">
 
   <div class="integration-icon">
-    📸
+    <i data-lucide="instagram"></i>
   </div>
 
   <div class="integration-name">
@@ -3017,7 +3081,7 @@ Integrations: `
 <div class="integration">
 
   <div class="integration-icon">
-    ⚡
+    <i data-lucide="zap"></i>
   </div>
 
   <div class="integration-name">
@@ -3049,7 +3113,7 @@ Settings: `
 <div class="welcome">
 
   <h1>
-    Settings ⚙️
+    Settings <i data-lucide="settings"></i>
   </h1>
 
   <p>
@@ -3164,6 +3228,9 @@ const app =
 const menuToggle =
   document.getElementById("menuToggle");
 
+const themeToggle =
+  document.getElementById("themeToggle");
+
 const sidebarOverlay =
   document.getElementById("sidebarOverlay");
 
@@ -3175,6 +3242,57 @@ const pageTitle =
 
 const navButtons =
   document.querySelectorAll(".nav button");
+
+
+/* =====================================================
+   THEME SYSTEM
+===================================================== */
+
+let currentTheme =
+  localStorage.getItem("theme") || "light";
+
+function applyTheme(){
+
+  const isDark = currentTheme === "dark";
+
+  document.documentElement.classList.toggle(
+    "dark-theme",
+    isDark
+  );
+
+  themeToggle.innerHTML =
+    isDark ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
+
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+
+  themeToggle.setAttribute(
+    "aria-label",
+    isDark ? "Switch to light theme" : "Switch to dark theme"
+  );
+
+  themeToggle.title =
+    isDark ? "Switch to light theme" : "Switch to dark theme";
+}
+
+function toggleTheme(){
+
+  currentTheme =
+    currentTheme === "dark" ? "light" : "dark";
+
+  localStorage.setItem(
+    "theme",
+    currentTheme
+  );
+
+  applyTheme();
+}
+
+themeToggle.addEventListener(
+  "click",
+  toggleTheme
+);
 
 
 /* =====================================================
@@ -3531,6 +3649,46 @@ function activateInternalLinks(){
 
 
 /* =====================================================
+   AI API
+===================================================== */
+
+const AI_WORKER_URL =
+  "https://ai-business-hub-api.hebronpeter376.workers.dev";
+
+async function askBusinessAI(message){
+
+  const response = await fetch(
+    AI_WORKER_URL,
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        message:String(message)
+      })
+    }
+  );
+
+  let data;
+
+  try{
+    data = await response.json();
+  }catch(error){
+    throw new Error("The AI service returned an invalid response.");
+  }
+
+  if(!response.ok){
+    throw new Error(
+      data?.error || "The AI service could not process the request."
+    );
+  }
+
+  return data.reply || "I couldn't generate a response.";
+}
+
+
+/* =====================================================
    MESSAGE SYSTEM
 ===================================================== */
 
@@ -3768,48 +3926,95 @@ function activateMessageSystem(){
 
 
   /* ===================================================
-     SEND MESSAGE
+     SEND MESSAGE TO REAL AI
   =================================================== */
 
   if(form){
 
     form.addEventListener(
       "submit",
-      event=>{
+      async event=>{
 
         event.preventDefault();
-
 
         const text =
           input.value.trim();
 
-
         if(!text){
           return;
         }
-
 
         addChatMessage(
           text,
           "user"
         );
 
+        input.value = "";
 
-        input.value =
-          "";
+        const sendButton =
+          form.querySelector("button[type='submit']");
 
+        const originalButtonText =
+          sendButton ? sendButton.textContent : "Send";
 
-        setTimeout(
-          ()=>{
+        if(sendButton){
+          sendButton.disabled = true;
+          sendButton.textContent = "Thinking...";
+        }
 
-            addChatMessage(
-              "Thanks for your message! 🤖 I'm processing your request.",
-              "ai"
-            );
+        input.disabled = true;
 
-          },
-          600
+        const thinkingMessage =
+          document.createElement("div");
+
+        thinkingMessage.className =
+          "chat-message ai ai-thinking";
+
+        thinkingMessage.textContent =
+          "🤖 AI is thinking...";
+
+        chatMessages.appendChild(
+          thinkingMessage
         );
+
+        chatMessages.scrollTop =
+          chatMessages.scrollHeight;
+
+        try{
+
+          const reply =
+            await askBusinessAI(text);
+
+          thinkingMessage.remove();
+
+          addChatMessage(
+            reply,
+            "ai"
+          );
+
+          suggestion.textContent =
+            `"${reply}"`;
+
+        }catch(error){
+
+          thinkingMessage.remove();
+
+          addChatMessage(
+            `Sorry, I couldn't reach the AI right now. ${error.message}`,
+            "ai"
+          );
+
+        }finally{
+
+          input.disabled = false;
+          input.focus();
+
+          if(sendButton){
+            sendButton.disabled = false;
+            sendButton.textContent = originalButtonText;
+          }
+
+        }
 
       }
     );
@@ -3825,6 +4030,12 @@ function activateMessageSystem(){
 
 pageContent.innerHTML =
   pages.Dashboard;
+
+applyTheme();
+
+if (window.lucide) {
+  lucide.createIcons();
+}
 
 
 activateInternalLinks();
