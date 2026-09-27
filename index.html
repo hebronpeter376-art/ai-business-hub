@@ -3667,7 +3667,7 @@ async function askBusinessAI(message){
       body:JSON.stringify({
     message:String(message),
     mode:"owner",
-    history:[]
+    history:conversationHistory.slice(-20)
 })
     }
   );
