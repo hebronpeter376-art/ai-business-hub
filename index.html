@@ -383,6 +383,41 @@ input{
 }
 
 
+/* COLLAPSED SIDEBAR BRAND
+   Shows the full AI Business Hub name and subtitle in the main
+   header when the desktop sidebar is collapsed. */
+.collapsed-brand{
+  display:none;
+  min-width:0;
+  flex-direction:column;
+  justify-content:center;
+  line-height:1.05;
+}
+
+.collapsed-brand-name{
+  font-size:18px;
+  font-weight:700;
+  color:var(--text);
+  white-space:nowrap;
+}
+
+.collapsed-brand-sub{
+  margin-top:4px;
+  font-size:10px;
+  font-weight:500;
+  color:var(--muted);
+  white-space:nowrap;
+}
+
+.app.sidebar-collapsed .collapsed-brand{
+  display:flex;
+}
+
+.app.sidebar-collapsed .page-title{
+  display:none;
+}
+
+
 /* =====================================================
    USER AREA
 ===================================================== */
@@ -1265,6 +1300,14 @@ th{
     font-size:16px;
   }
 
+  .app.sidebar-collapsed .page-title{
+    display:block;
+  }
+
+  .app.sidebar-collapsed .collapsed-brand{
+    display:none;
+  }
+
   .user-area strong{
     display:none;
   }
@@ -1469,6 +1512,23 @@ input:focus-visible{
       id="pageTitle">
 
       Dashboard
+
+    </div>
+
+
+    <!-- BRAND SHOWN WHEN THE SIDEBAR IS COLLAPSED -->
+    <div
+      class="collapsed-brand"
+      id="collapsedBrand"
+      aria-label="AI Business Hub">
+
+      <div class="collapsed-brand-name">
+        AI Business Hub
+      </div>
+
+      <div class="collapsed-brand-sub">
+        AI-powered business assistant
+      </div>
 
     </div>
 
