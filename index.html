@@ -1,33 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1020">
 <title>AI Business Hub</title>
-
-<meta name="description"
-      content="AI-powered business management dashboard">
-
-<script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
 :root{
   --bg:#f5f7fb;
-  --surface:#ffffff;
-  --surface2:#f8fafc;
-  --text:#111827;
-  --muted:#64748b;
-  --border:#e5e7eb;
-  --primary:#2563eb;
-  --primary2:#1d4ed8;
-  --success:#16a34a;
-  --danger:#dc2626;
-  --warning:#d97706;
-  --shadow:0 12px 35px rgba(15,23,42,.07);
-  --sidebar:260px;
-  --topbar:72px;
-  --radius:18px;
+  --panel:#fff;
+  --soft:#f0f3f8;
+  --text:#101828;
+  --muted:#667085;
+  --line:#e4e7ec;
+  --accent:#635bff;
+  --accent2:#8b5cf6;
+  --danger:#ef4444;
+  --success:#12b76a;
+  --warning:#f79009;
+  --shadow:0 18px 55px rgba(16,24,40,.08);
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-soft:cubic-bezier(.4,0,.2,1);
+  --sidebar:270px;
 }
 
 *{
@@ -40,25 +35,13 @@ html{
 
 body{
   margin:0;
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
   background:var(--bg);
   color:var(--text);
-  transition:
-    background .3s ease,
-    color .3s ease;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow-x:hidden;
 }
 
-button,
-input,
-textarea,
-select{
+button,input,textarea,select{
   font:inherit;
 }
 
@@ -66,79 +49,73 @@ button{
   cursor:pointer;
 }
 
-body.dark{
-  --bg:#0b1120;
-  --surface:#111827;
-  --surface2:#172033;
-  --text:#f8fafc;
-  --muted:#94a3b8;
-  --border:#243047;
-  --shadow:0 15px 40px rgba(0,0,0,.25);
+button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+  transform:none!important;
 }
 
-/* =========================
-   APP
-========================= */
+a{
+  color:inherit;
+}
 
 .app{
   min-height:100vh;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
-
 .sidebar{
   position:fixed;
-  z-index:100;
+  z-index:50;
   left:0;
   top:0;
   bottom:0;
   width:var(--sidebar);
-  background:var(--surface);
-  border-right:1px solid var(--border);
+  padding:18px 14px;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(20px);
+  border-right:1px solid var(--line);
   display:flex;
   flex-direction:column;
   transition:
-    transform .35s ease,
-    width .35s ease;
+    transform .45s var(--ease),
+    width .45s var(--ease),
+    padding .45s var(--ease);
 }
 
 .brand{
-  height:var(--topbar);
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:0 20px;
-  border-bottom:1px solid var(--border);
+  gap:11px;
+  padding:5px 8px 23px;
 }
 
-.brand-logo{
-  width:40px;
-  height:40px;
-  border-radius:13px;
+.brandmark{
+  width:42px;
+  height:42px;
+  border-radius:14px;
   display:grid;
   place-items:center;
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
-  color:white;
-  box-shadow:0 8px 20px rgba(37,99,235,.25);
+  color:#fff;
+  font-weight:900;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 10px 25px rgba(99,91,255,.25);
 }
 
-.brand-title{
-  font-weight:800;
-  letter-spacing:-.3px;
+.brand strong{
+  display:block;
+  font-size:15px;
 }
 
-.brand-sub{
+.brand small{
+  display:block;
   color:var(--muted);
   font-size:11px;
   margin-top:2px;
 }
 
 .nav{
-  padding:14px 10px;
-  overflow:auto;
-  flex:1;
+  display:grid;
+  gap:5px;
 }
 
 .nav button{
@@ -146,658 +123,655 @@ body.dark{
   border:0;
   background:transparent;
   color:var(--muted);
+  padding:11px 12px;
+  border-radius:12px;
   display:flex;
   align-items:center;
-  gap:12px;
-  padding:12px 13px;
-  border-radius:13px;
-  margin-bottom:4px;
+  gap:11px;
   text-align:left;
   transition:
-    background .2s ease,
-    color .2s ease,
-    transform .2s ease;
+    background .25s var(--ease-soft),
+    color .25s var(--ease-soft),
+    transform .3s var(--ease),
+    box-shadow .3s var(--ease);
 }
 
 .nav button:hover{
-  background:var(--surface2);
+  background:var(--soft);
   color:var(--text);
-  transform:translateX(2px);
+  transform:translateX(3px);
 }
 
 .nav button.active{
-  background:rgba(37,99,235,.10);
-  color:var(--primary);
-  font-weight:700;
+  background:rgba(99,91,255,.1);
+  color:var(--accent);
+  font-weight:800;
+  box-shadow:inset 3px 0 0 var(--accent);
+  transform:translateX(3px);
 }
 
-.nav i{
-  width:19px;
-  height:19px;
-  flex:none;
+.nav-icon{
+  width:21px;
+  text-align:center;
+  font-size:17px;
 }
 
 .sidebar-bottom{
-  padding:15px;
-  border-top:1px solid var(--border);
+  margin-top:auto;
 }
 
-.online{
-  display:flex;
-  align-items:center;
-  gap:9px;
-  font-size:12px;
-  color:var(--muted);
+.theme{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  background:var(--soft);
+  color:var(--text);
+  padding:11px;
+  text-align:left;
+  transition:
+    transform .3s var(--ease),
+    background .25s;
 }
 
-.online-dot{
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#22c55e;
-  box-shadow:0 0 0 4px rgba(34,197,94,.12);
+.theme:hover{
+  transform:translateY(-2px);
 }
-
-/* =========================
-   MAIN
-========================= */
 
 .main{
   margin-left:var(--sidebar);
   min-height:100vh;
-  transition:
-    margin-left .35s ease;
+  padding:22px 28px 35px;
+  transition:margin-left .45s var(--ease);
 }
-
-/* =========================
-   TOPBAR
-========================= */
 
 .topbar{
   position:sticky;
-  z-index:80;
   top:0;
-  height:var(--topbar);
-  background:color-mix(
-    in srgb,
-    var(--surface) 92%,
-    transparent
-  );
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
+  z-index:20;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:0 25px;
+  gap:15px;
+  padding:5px 0 20px;
+  background:linear-gradient(var(--bg) 75%,transparent);
 }
 
 .top-left{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:13px;
+  min-width:0;
 }
 
-.menu-btn,
-.theme-btn{
-  width:40px;
-  height:40px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  background:var(--surface);
+.menu-toggle{
+  width:44px;
+  height:44px;
+  flex:0 0 44px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:var(--panel);
   color:var(--text);
   display:grid;
   place-items:center;
+  font-size:22px;
+  box-shadow:0 5px 20px rgba(16,24,40,.05);
   transition:
-    transform .2s ease,
-    background .2s ease;
+    transform .35s var(--ease),
+    background .25s,
+    color .25s,
+    border-color .25s;
 }
 
-.menu-btn:hover,
-.theme-btn:hover{
-  transform:translateY(-1px);
-  background:var(--surface2);
+.menu-toggle:hover{
+  transform:scale(1.05);
 }
 
-.page-title{
-  font-size:18px;
-  font-weight:800;
+.menu-toggle:active{
+  transform:scale(.94);
 }
 
-.top-actions{
+.title{
+  min-width:0;
+}
+
+.title h1{
+  margin:0;
+  font-size:28px;
+  letter-spacing:-.035em;
+}
+
+.title p{
+  margin:4px 0 0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.status{
   display:flex;
+  align-items:center;
   gap:8px;
+  color:var(--muted);
+  font-size:12px;
+  white-space:nowrap;
 }
 
-/* =========================
-   CONTENT
-========================= */
+.dot{
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:var(--warning);
+  box-shadow:0 0 0 5px rgba(247,144,9,.1);
+  transition:background .3s;
+}
+
+.dot.online{
+  background:var(--success);
+  box-shadow:0 0 0 5px rgba(18,183,106,.1);
+}
 
 .content{
-  padding:28px;
-  max-width:1600px;
+  max-width:1450px;
   margin:auto;
 }
 
 .page{
-  animation:pageIn .32s ease both;
+  display:none;
+}
+
+.page.active{
+  display:block;
+  animation:pageIn .5s var(--ease);
 }
 
 @keyframes pageIn{
   from{
     opacity:0;
-    transform:translateY(8px);
+    transform:translateY(12px) scale(.99);
   }
   to{
     opacity:1;
-    transform:translateY(0);
+    transform:none;
   }
 }
 
 .hero{
-  margin-bottom:24px;
+  padding:25px;
+  border-radius:24px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(99,91,255,.13),
+      rgba(139,92,246,.05)
+    );
+  border:1px solid rgba(99,91,255,.14);
+  margin-bottom:17px;
+  overflow:hidden;
+  position:relative;
 }
 
-.hero h1{
-  margin:0 0 7px;
-  font-size:30px;
-  letter-spacing:-1px;
+.hero:after{
+  content:"";
+  position:absolute;
+  width:180px;
+  height:180px;
+  right:-70px;
+  top:-90px;
+  border-radius:50%;
+  background:rgba(139,92,246,.12);
+  filter:blur(2px);
+}
+
+.hero h2{
+  margin:0 0 6px;
+  font-size:22px;
 }
 
 .hero p{
   margin:0;
   color:var(--muted);
-}
-
-/* =========================
-   CARDS
-========================= */
-
-.cards{
-  display:grid;
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-  gap:17px;
-  margin-bottom:22px;
-}
-
-.stat{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
-  padding:20px;
-  box-shadow:var(--shadow);
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease;
-}
-
-.stat:hover{
-  transform:translateY(-3px);
-}
-
-.stat-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.stat-icon{
-  width:42px;
-  height:42px;
-  border-radius:13px;
-  display:grid;
-  place-items:center;
-  background:rgba(37,99,235,.10);
-  color:var(--primary);
-}
-
-.stat-label{
-  color:var(--muted);
   font-size:13px;
 }
 
-.stat-value{
-  font-size:27px;
-  font-weight:850;
-  margin-top:13px;
-  letter-spacing:-1px;
-}
-
-/* =========================
-   GRID
-========================= */
-
-.grid-2{
+.grid{
   display:grid;
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-  gap:20px;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
 }
 
-.grid-3{
+.two{
   display:grid;
-  grid-template-columns:
-    repeat(3,minmax(0,1fr));
-  gap:20px;
+  grid-template-columns:1.35fr .65fr;
+  gap:14px;
 }
 
-/* =========================
-   PANEL
-========================= */
+.three{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
 
-.panel{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:18px;
+  box-shadow:0 8px 30px rgba(16,24,40,.035);
+  transition:
+    transform .35s var(--ease),
+    box-shadow .35s var(--ease),
+    border-color .25s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
   box-shadow:var(--shadow);
-  overflow:hidden;
 }
 
-.panel-head{
-  padding:18px 20px;
-  border-bottom:1px solid var(--border);
+.stat{
+  min-height:118px;
+}
+
+.label{
+  font-size:12px;
+  color:var(--muted);
+}
+
+.value{
+  font-size:31px;
+  font-weight:850;
+  letter-spacing:-.04em;
+  margin-top:8px;
+}
+
+.sub{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:5px;
+}
+
+.head{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:15px;
+  gap:12px;
+  margin:18px 0 12px;
 }
 
-.panel-title{
-  font-weight:800;
+.head:first-child{
+  margin-top:0;
 }
 
-.panel-body{
-  padding:20px;
+.head h3{
+  margin:0;
+  font-size:15px;
 }
 
-/* =========================
-   BUTTONS
-========================= */
-
-.btn{
-  border:1px solid var(--border);
-  background:var(--surface);
-  color:var(--text);
+.primary,
+.secondary,
+.danger,
+.ghost{
+  border:0;
   border-radius:11px;
-  padding:10px 14px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
+  padding:10px 13px;
+  font-size:12px;
+  font-weight:800;
   transition:
-    transform .2s ease,
-    background .2s ease,
-    border-color .2s ease;
+    transform .3s var(--ease),
+    background .25s,
+    color .25s,
+    box-shadow .3s;
 }
 
-.btn:hover{
-  transform:translateY(-1px);
-  background:var(--surface2);
+.primary{
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 8px 18px rgba(99,91,255,.2);
 }
 
-.btn.primary{
-  background:var(--primary);
-  color:white;
-  border-color:var(--primary);
+.primary:hover{
+  background:#5148f0;
+  transform:translateY(-2px);
 }
 
-.btn.primary:hover{
-  background:var(--primary2);
+.secondary{
+  background:var(--soft);
+  color:var(--text);
 }
 
-.btn.danger{
+.secondary:hover,
+.ghost:hover{
+  transform:translateY(-2px);
+}
+
+.danger{
+  background:rgba(239,68,68,.1);
   color:var(--danger);
 }
 
-.btn.small{
-  padding:7px 10px;
+.danger:hover{
+  background:rgba(239,68,68,.16);
+  transform:translateY(-2px);
+}
+
+.ghost{
+  background:transparent;
+  color:var(--accent);
+  padding:7px 9px;
+}
+
+.search{
+  margin:0 0 12px;
+}
+
+input,
+textarea,
+select{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--panel);
+  color:var(--text);
+  padding:11px 12px;
+  outline:0;
+  transition:
+    border-color .25s,
+    box-shadow .25s,
+    transform .25s var(--ease);
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 4px rgba(99,91,255,.08);
+}
+
+textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.list{
+  display:grid;
+  gap:10px;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+
+.row-main{
+  min-width:0;
+  flex:1;
+}
+
+.row-main h4{
+  margin:0 0 5px;
+  font-size:14px;
+}
+
+.row-main p{
+  margin:3px 0;
+  color:var(--muted);
   font-size:12px;
+  overflow-wrap:anywhere;
 }
 
-.btn i{
-  width:16px;
-  height:16px;
+.actions{
+  display:flex;
+  gap:7px;
+  align-items:center;
+  justify-content:flex-end;
+  flex-wrap:wrap;
 }
 
-/* =========================
-   TABLE
-========================= */
+.badge{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 8px;
+  border-radius:999px;
+  background:var(--soft);
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+}
+
+.success{
+  background:rgba(18,183,106,.1);
+  color:var(--success);
+}
+
+.pending{
+  background:#fffaeb;
+  color:#b54708;
+}
+
+.cancelled{
+  background:rgba(239,68,68,.1);
+  color:var(--danger);
+}
+
+.processing{
+  background:rgba(99,91,255,.1);
+  color:var(--accent);
+}
+
+.empty{
+  text-align:center;
+  padding:38px 18px;
+  border:1px dashed var(--line);
+  border-radius:17px;
+  color:var(--muted);
+}
+
+.empty .big{
+  font-size:29px;
+  margin-bottom:6px;
+}
+
+.quick{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.quick button{
+  border:0;
+  border-radius:11px;
+  background:var(--soft);
+  color:var(--text);
+  padding:10px 12px;
+  font-size:12px;
+  font-weight:750;
+  transition:
+    transform .3s var(--ease),
+    background .25s;
+}
+
+.quick button:hover{
+  transform:translateY(-2px);
+  background:rgba(99,91,255,.1);
+}
+
+.ai-shell{
+  height:calc(100vh - 155px);
+  min-height:520px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:10px;
+}
+
+.mini-ai{
+  display:flex;
+  align-items:center;
+  gap:11px;
+}
+
+.ai-avatar{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  animation:float 3.5s ease-in-out infinite;
+  box-shadow:0 12px 25px rgba(99,91,255,.2);
+}
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0);
+  }
+  50%{
+    transform:translateY(-4px);
+  }
+}
+
+.messages{
+  overflow:auto;
+  display:grid;
+  align-content:start;
+  gap:10px;
+  padding:8px 3px;
+}
+
+.bubble{
+  max-width:78%;
+  padding:12px 14px;
+  border-radius:16px;
+  line-height:1.55;
+  font-size:13px;
+  white-space:pre-wrap;
+  animation:bubbleIn .35s var(--ease);
+}
+
+@keyframes bubbleIn{
+  from{
+    opacity:0;
+    transform:translateY(7px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.bubble.user{
+  justify-self:end;
+  background:var(--accent);
+  color:#fff;
+  border-bottom-right-radius:5px;
+}
+
+.bubble.ai{
+  justify-self:start;
+  background:var(--soft);
+  border-bottom-left-radius:5px;
+}
+
+.composer{
+  display:flex;
+  gap:9px;
+}
+
+.composer textarea{
+  min-height:54px;
+  max-height:150px;
+}
+
+.thinking{
+  font-size:11px;
+  color:var(--muted);
+  display:flex;
+  gap:6px;
+  align-items:center;
+  margin-bottom:7px;
+}
+
+.thinking i{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:var(--accent);
+  animation:pulse 1s infinite;
+}
+
+.thinking i:nth-child(2){
+  animation-delay:.15s;
+}
+
+.thinking i:nth-child(3){
+  animation-delay:.3s;
+}
+
+@keyframes pulse{
+  50%{
+    opacity:.25;
+    transform:translateY(-3px);
+  }
+}
 
 .table-wrap{
   overflow:auto;
 }
 
-table{
+.data-table{
   width:100%;
   border-collapse:collapse;
+  min-width:650px;
 }
 
-th,
-td{
+.data-table th,
+.data-table td{
   text-align:left;
-  padding:14px 16px;
-  border-bottom:1px solid var(--border);
-  white-space:nowrap;
-}
-
-th{
-  color:var(--muted);
-  font-size:12px;
-  font-weight:700;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-}
-
-td{
-  font-size:14px;
-}
-
-tr:last-child td{
-  border-bottom:0;
-}
-
-/* =========================
-   FORM
-========================= */
-
-.form-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(2,minmax(0,1fr));
-  gap:15px;
-}
-
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.field.full{
-  grid-column:1/-1;
-}
-
-.field label{
-  font-size:12px;
-  color:var(--muted);
-  font-weight:700;
-}
-
-.field input,
-.field textarea,
-.field select{
-  width:100%;
-  border:1px solid var(--border);
-  background:var(--surface2);
-  color:var(--text);
-  border-radius:11px;
-  padding:11px 12px;
-  outline:none;
-  transition:
-    border .2s ease,
-    box-shadow .2s ease;
-}
-
-.field textarea{
-  min-height:95px;
-  resize:vertical;
-}
-
-.field input:focus,
-.field textarea:focus,
-.field select:focus{
-  border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(37,99,235,.12);
-}
-
-/* =========================
-   SEARCH
-========================= */
-
-.search{
-  width:100%;
-  padding:11px 13px;
-  border:1px solid var(--border);
-  border-radius:11px;
-  background:var(--surface2);
-  color:var(--text);
-  outline:none;
-  margin-bottom:16px;
-}
-
-/* =========================
-   BADGES
-========================= */
-
-.badge{
-  display:inline-flex;
-  align-items:center;
-  padding:5px 9px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:700;
-}
-
-.badge.green{
-  color:#15803d;
-  background:rgba(34,197,94,.11);
-}
-
-.badge.orange{
-  color:#b45309;
-  background:rgba(245,158,11,.12);
-}
-
-.badge.red{
-  color:#b91c1c;
-  background:rgba(239,68,68,.11);
-}
-
-.badge.blue{
-  color:#1d4ed8;
-  background:rgba(37,99,235,.11);
-}
-
-/* =========================
-   EMPTY
-========================= */
-
-.empty{
-  text-align:center;
-  padding:50px 20px;
-  color:var(--muted);
-}
-
-.empty i{
-  width:45px;
-  height:45px;
-  margin-bottom:12px;
-}
-
-/* =========================
-   AI
-========================= */
-
-.ai-box{
-  max-width:950px;
-  margin:auto;
-}
-
-.ai-header{
-  display:flex;
-  gap:15px;
-  align-items:center;
-  margin-bottom:18px;
-}
-
-.ai-avatar{
-  width:52px;
-  height:52px;
-  border-radius:16px;
-  display:grid;
-  place-items:center;
-  background:linear-gradient(135deg,#2563eb,#7c3aed);
-  color:white;
-}
-
-.ai-messages{
-  min-height:400px;
-  max-height:570px;
-  overflow:auto;
-  padding:20px;
-  background:var(--surface2);
-  border-radius:15px;
-  margin-bottom:15px;
-}
-
-.ai-message{
-  max-width:82%;
-  padding:13px 15px;
-  border-radius:15px;
-  margin-bottom:12px;
-  line-height:1.6;
-  font-size:14px;
-}
-
-.ai-message.user{
-  margin-left:auto;
-  background:var(--primary);
-  color:white;
-  border-bottom-right-radius:4px;
-}
-
-.ai-message.assistant{
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-bottom-left-radius:4px;
-}
-
-.ai-form{
-  display:flex;
-  gap:10px;
-}
-
-.ai-form input{
-  flex:1;
-  border:1px solid var(--border);
-  background:var(--surface2);
-  color:var(--text);
-  border-radius:12px;
-  padding:13px;
-  outline:none;
-}
-
-/* =========================
-   CONTACT
-========================= */
-
-.contact-grid{
-  display:grid;
-  grid-template-columns:
-    repeat(4,minmax(0,1fr));
-  gap:16px;
-}
-
-.contact-card{
-  text-decoration:none;
-  color:var(--text);
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:11px;
-  min-height:145px;
-  transition:
-    transform .25s ease,
-    box-shadow .25s ease,
-    border-color .25s ease;
-}
-
-.contact-card:hover{
-  transform:translateY(-4px);
-  box-shadow:var(--shadow);
-  border-color:rgba(37,99,235,.35);
-}
-
-.contact-icon{
-  width:43px;
-  height:43px;
-  display:grid;
-  place-items:center;
-  border-radius:13px;
-  background:rgba(37,99,235,.10);
-  color:var(--primary);
-}
-
-.contact-name{
-  font-weight:800;
-}
-
-.contact-description{
-  color:var(--muted);
+  padding:13px 14px;
+  border-bottom:1px solid var(--line);
   font-size:12px;
 }
 
-.contact-disabled{
-  opacity:.48;
-  cursor:not-allowed;
-}
-
-/* =========================
-   SETTINGS
-========================= */
-
-.settings-section{
-  margin-bottom:20px;
-}
-
-.settings-section h3{
-  margin:0 0 5px;
-}
-
-.settings-section p{
+.data-table th{
+  background:var(--soft);
   color:var(--muted);
-  font-size:13px;
-  margin-top:0;
+  font-weight:750;
 }
 
-/* =========================
-   MODAL
-========================= */
-
-.modal{
+.modal-bg{
   position:fixed;
   inset:0;
-  z-index:500;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:rgba(15,23,42,.58);
-  backdrop-filter:blur(7px);
+  background:rgba(15,23,42,.52);
+  backdrop-filter:blur(9px);
+  display:grid;
+  place-items:center;
+  padding:16px;
+  z-index:200;
+  animation:fade .25s var(--ease);
 }
 
-.modal.show{
-  display:flex;
+@keyframes fade{
+  from{opacity:0}
+  to{opacity:1}
 }
 
-.modal-box{
-  width:min(600px,100%);
+.modal{
+  width:min(700px,100%);
   max-height:90vh;
   overflow:auto;
-  background:var(--surface);
-  border:1px solid var(--border);
-  border-radius:20px;
-  box-shadow:0 25px 80px rgba(0,0,0,.25);
-  animation:modalIn .25s ease;
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:23px;
+  padding:20px;
+  box-shadow:0 35px 100px rgba(0,0,0,.25);
+  animation:modalIn .45s var(--ease);
 }
 
 @keyframes modalIn{
   from{
     opacity:0;
-    transform:translateY(15px) scale(.98);
+    transform:translateY(25px) scale(.96);
   }
   to{
     opacity:1;
@@ -806,44 +780,87 @@ tr:last-child td{
 }
 
 .modal-head{
-  padding:18px 20px;
-  border-bottom:1px solid var(--border);
   display:flex;
   justify-content:space-between;
+  gap:12px;
+  margin-bottom:17px;
 }
 
-.modal-body{
-  padding:20px;
+.modal-head h2{
+  margin:0;
+  font-size:19px;
 }
 
-.modal-foot{
-  padding:15px 20px;
-  border-top:1px solid var(--border);
+.modal-head p{
+  margin:5px 0 0;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.close{
+  border:0;
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  background:var(--soft);
+  color:var(--text);
+  font-size:21px;
+  transition:transform .3s var(--ease);
+}
+
+.close:hover{
+  transform:rotate(5deg) scale(1.05);
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.fg{
+  display:grid;
+  gap:6px;
+}
+
+.fg.full{
+  grid-column:1/-1;
+}
+
+.fg label{
+  font-size:11px;
+  color:var(--muted);
+  font-weight:800;
+}
+
+.fg small{
+  font-size:10px;
+}
+
+.modal-actions{
   display:flex;
   justify-content:flex-end;
   gap:8px;
+  margin-top:18px;
 }
-
-/* =========================
-   TOAST
-========================= */
 
 .toast{
   position:fixed;
-  z-index:1000;
-  right:20px;
-  bottom:20px;
-  background:#111827;
-  color:white;
-  padding:13px 17px;
+  right:18px;
+  bottom:18px;
+  z-index:300;
+  background:#101828;
+  color:#fff;
+  padding:12px 15px;
   border-radius:12px;
-  box-shadow:0 15px 40px rgba(0,0,0,.2);
+  box-shadow:0 18px 45px rgba(0,0,0,.2);
   opacity:0;
-  transform:translateY(10px);
   pointer-events:none;
+  transform:translateY(12px);
   transition:
-    opacity .25s ease,
-    transform .25s ease;
+    opacity .3s var(--ease),
+    transform .3s var(--ease);
+  font-size:12px;
 }
 
 .toast.show{
@@ -851,1024 +868,2424 @@ tr:last-child td{
   transform:none;
 }
 
-/* =========================
-   SIDEBAR COLLAPSED
-========================= */
+.backdrop{
+  display:none;
+}
+
+.contact-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+}
+
+.contact-card{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:15px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:var(--soft);
+  text-decoration:none;
+  color:var(--text);
+  transition:
+    transform .35s var(--ease),
+    background .25s,
+    border-color .25s,
+    box-shadow .35s var(--ease);
+}
+
+.contact-card:hover{
+  transform:translateY(-3px);
+  background:var(--panel);
+  border-color:rgba(99,91,255,.35);
+  box-shadow:var(--shadow);
+}
+
+.contact-icon{
+  width:43px;
+  height:43px;
+  flex:0 0 43px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#fff;
+  font-weight:900;
+}
+
+.contact-copy{
+  min-width:0;
+}
+
+.contact-copy strong{
+  display:block;
+  font-size:13px;
+}
+
+.contact-copy span{
+  display:block;
+  margin-top:3px;
+  font-size:11px;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+
+.contact-missing{
+  padding:24px;
+  border:1px dashed var(--line);
+  border-radius:16px;
+  text-align:center;
+  color:var(--muted);
+  grid-column:1/-1;
+}
+
+.public-shell{
+  min-height:100vh;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.public-top{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.public-top .brand{
+  padding:0;
+}
+
+.public-top .theme{
+  width:auto;
+}
+
+.public-main{
+  width:min(1000px,calc(100% - 28px));
+  margin:auto;
+  padding:20px 0 50px;
+}
+
+.public-hero{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  min-height:150px;
+}
+
+.public-hero h1{
+  margin:0 0 7px;
+  font-size:32px;
+  letter-spacing:-.04em;
+}
+
+.public-ai-card{
+  margin-top:16px;
+}
+
+.public-footer{
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  padding:25px;
+}
+
+.public-back{
+  margin-top:14px;
+  text-align:center;
+}
+
+.dark{
+  --bg:#080d19;
+  --panel:#101827;
+  --soft:#182235;
+  --text:#f4f6f8;
+  --muted:#98a2b3;
+  --line:#273247;
+  --shadow:0 22px 65px rgba(0,0,0,.28);
+}
+
+body.dark .sidebar{
+  background:rgba(8,13,25,.9);
+}
+
+body.dark .topbar{
+  background:linear-gradient(var(--bg) 75%,transparent);
+}
+
+.mobile-only{
+  display:none;
+}
 
 @media(min-width:1051px){
 
-  .app.sidebar-collapsed .sidebar{
+  .sidebar-collapsed .sidebar{
     transform:translateX(-105%);
   }
 
-  .app.sidebar-collapsed .main{
+  .sidebar-collapsed .main{
     margin-left:0;
   }
 
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-.mobile-overlay{
-  display:none;
 }
 
 @media(max-width:1050px){
 
-  .sidebar{
-    transform:translateX(-105%);
-    box-shadow:20px 0 50px rgba(0,0,0,.15);
+  :root{
+    --sidebar:250px;
   }
 
-  .app.mobile-sidebar-open .sidebar{
-    transform:translateX(0);
+  .grid{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .mobile-overlay{
-    position:fixed;
-    z-index:90;
-    inset:0;
-    background:rgba(15,23,42,.45);
-    backdrop-filter:blur(3px);
-  }
-
-  .app.mobile-sidebar-open .mobile-overlay{
-    display:block;
+  .two,
+  .three{
+    grid-template-columns:1fr;
   }
 
   .main{
-    margin-left:0;
-  }
-
-  .cards{
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-  }
-
-  .contact-grid{
-    grid-template-columns:
-      repeat(2,minmax(0,1fr));
-  }
-}
-
-@media(max-width:700px){
-
-  .content{
     padding:18px;
   }
 
-  .topbar{
-    padding:0 15px;
+  .sidebar-collapsed .sidebar{
+    transform:translateX(-105%);
   }
 
-  .hero h1{
-    font-size:24px;
+  .sidebar-collapsed .main{
+    margin-left:0;
+  }
+}
+
+@media(max-width:720px){
+
+  .main{
+    margin-left:0;
+    padding:14px;
   }
 
-  .cards,
-  .grid-2,
-  .grid-3,
-  .contact-grid,
+  .sidebar{
+    transform:translateX(-105%);
+    box-shadow:25px 0 70px rgba(0,0,0,.2);
+  }
+
+  .app.sidebar-open .sidebar{
+    transform:translateX(0);
+  }
+
+  .app.sidebar-open .backdrop{
+    display:block;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.35);
+    z-index:40;
+    backdrop-filter:blur(2px);
+  }
+
+  .grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .status{
+    display:none;
+  }
+
+  .title h1{
+    font-size:22px;
+  }
+
   .form-grid{
     grid-template-columns:1fr;
   }
 
-  .field.full{
+  .fg.full{
     grid-column:auto;
   }
 
-  .ai-form{
+  .row{
+    align-items:flex-start;
     flex-direction:column;
   }
 
-  .ai-message{
-    max-width:92%;
+  .actions{
+    justify-content:flex-start;
   }
 
-  .top-actions .btn{
-    display:none;
+  .bubble{
+    max-width:94%;
+  }
+
+  .mobile-only{
+    display:block;
+  }
+
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .public-hero{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .public-hero h1{
+    font-size:27px;
   }
 }
 
-/* =========================
-   FOCUS
-========================= */
+@media(max-width:470px){
 
-button:focus-visible,
-input:focus-visible,
-textarea:focus-visible,
-select:focus-visible,
-a:focus-visible{
-  outline:3px solid rgba(37,99,235,.35);
-  outline-offset:2px;
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .topbar{
+    padding-bottom:14px;
+  }
+
+  .content{
+    width:100%;
+  }
+
+  .public-top{
+    padding:14px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="app" id="app">
+<!-- =========================================================
+     PUBLIC CONTACT APPLICATION
+========================================================= -->
 
-  <aside class="sidebar" id="sidebar">
+<div id="publicContactApp" hidden>
 
-    <div class="brand">
-      <div class="brand-logo">
-        <i data-lucide="bot"></i>
-      </div>
+  <div class="public-shell">
 
-      <div>
-        <div class="brand-title">AI Business Hub</div>
-        <div class="brand-sub">Business command center</div>
-      </div>
-    </div>
+    <div class="public-top">
 
-    <nav class="nav">
+      <div class="brand">
 
-      <button class="active" data-page="dashboard">
-        <i data-lucide="layout-dashboard"></i>
-        <span>Dashboard</span>
-      </button>
+        <div class="brandmark">
+          AB
+        </div>
 
-      <button data-page="owner-ai">
-        <i data-lucide="sparkles"></i>
-        <span>Owner AI</span>
-      </button>
+        <div>
+          <strong id="publicBusinessName">
+            Business
+          </strong>
 
-      <button data-page="messages">
-        <i data-lucide="messages-square"></i>
-        <span>Messages</span>
-      </button>
-
-      <button data-page="orders">
-        <i data-lucide="shopping-bag"></i>
-        <span>Orders</span>
-      </button>
-
-      <button data-page="customers">
-        <i data-lucide="users"></i>
-        <span>Customers</span>
-      </button>
-
-      <button data-page="tasks">
-        <i data-lucide="calendar-check-2"></i>
-        <span>Tasks & Reminders</span>
-      </button>
-
-      <button data-page="products">
-        <i data-lucide="package"></i>
-        <span>Products</span>
-      </button>
-
-      <button data-page="knowledge">
-        <i data-lucide="brain"></i>
-        <span>Knowledge Base</span>
-      </button>
-
-      <button data-page="contact">
-        <i data-lucide="share-2"></i>
-        <span>Contact Owner</span>
-      </button>
-
-      <button data-page="integrations">
-        <i data-lucide="plug"></i>
-        <span>Integrations</span>
-      </button>
-
-      <button data-page="settings">
-        <i data-lucide="settings"></i>
-        <span>Settings</span>
-      </button>
-
-    </nav>
-
-    <div class="sidebar-bottom">
-      <div class="online">
-        <span class="online-dot"></span>
-        <span>AI Business Hub online</span>
-      </div>
-    </div>
-
-  </aside>
-
-  <div class="mobile-overlay" id="mobileOverlay"></div>
-
-  <main class="main">
-
-    <header class="topbar">
-
-      <div class="top-left">
-
-        <button
-          class="menu-btn"
-          id="menuBtn"
-          aria-label="Toggle menu">
-          <i data-lucide="menu"></i>
-        </button>
-
-        <div class="page-title" id="pageTitle">
-          Dashboard
+          <small>
+            Official contact
+          </small>
         </div>
 
       </div>
 
-      <div class="top-actions">
+      <button
+        class="theme"
+        id="publicThemeBtn"
+      >
+        ◐ &nbsp; Theme
+      </button>
+
+    </div>
+
+    <main class="public-main">
+
+      <section class="hero public-hero">
+
+        <div class="ai-avatar">
+          ✦
+        </div>
+
+        <div>
+
+          <h1 id="publicTitle">
+            Contact us
+          </h1>
+
+          <p id="publicSubtitle">
+            Choose any channel below to reach the business.
+          </p>
+
+        </div>
+
+      </section>
+
+      <section
+        class="contact-grid"
+        id="publicContactCards"
+      ></section>
+
+      <section class="card public-ai-card">
+
+        <div class="head">
+
+          <div>
+
+            <h3>
+              Need help?
+            </h3>
+
+            <p
+              class="muted"
+              style="margin:4px 0;font-size:12px"
+            >
+              Ask the business AI a question.
+            </p>
+
+          </div>
+
+          <span class="badge success">
+            AI assistant
+          </span>
+
+        </div>
+
+        <div
+          class="messages"
+          id="publicAiMessages"
+          style="min-height:180px"
+        ></div>
+
+        <div class="composer">
+
+          <textarea
+            id="publicAiInput"
+            placeholder="Ask a question about the business..."
+          ></textarea>
+
+          <button
+            class="primary"
+            id="publicAiSend"
+          >
+            Send
+          </button>
+
+        </div>
+
+      </section>
+
+      <div class="public-back">
 
         <button
-          class="btn small"
-          id="publicContactBtn">
-          <i data-lucide="external-link"></i>
-          Public Contact
-        </button>
-
-        <button
-          class="theme-btn"
-          id="themeBtn"
-          aria-label="Toggle theme">
-          <i data-lucide="moon"></i>
+          class="secondary"
+          id="publicBackButton"
+        >
+          ← Business dashboard
         </button>
 
       </div>
 
-    </header>
+      <div class="public-footer">
+        Powered by AI Business Hub · 2026
+      </div>
 
-    <section class="content" id="content"></section>
+    </main>
 
-  </main>
+  </div>
 
 </div>
 
-<div class="modal" id="modal">
-  <div class="modal-box" id="modalBox"></div>
+
+<!-- =========================================================
+     OWNER APPLICATION
+========================================================= -->
+
+<div class="app" id="app">
+
+<div class="backdrop" id="backdrop"></div>
+
+<aside class="sidebar" id="sidebar">
+
+  <div class="brand">
+
+    <div class="brandmark">
+      AB
+    </div>
+
+    <div>
+      <strong>
+        AI Business Hub
+      </strong>
+
+      <small>
+        Business OS · 2026
+      </small>
+    </div>
+
+  </div>
+
+  <nav class="nav" id="nav">
+
+    <button data-page="dashboard">
+      <span class="nav-icon">⌂</span>
+      <span>Dashboard</span>
+    </button>
+
+    <button data-page="owner-ai">
+      <span class="nav-icon">✦</span>
+      <span>Owner AI</span>
+    </button>
+
+    <button data-page="messages">
+      <span class="nav-icon">✉</span>
+      <span>Messages</span>
+    </button>
+
+    <button data-page="orders">
+      <span class="nav-icon">◫</span>
+      <span>Orders</span>
+    </button>
+
+    <button data-page="customers">
+      <span class="nav-icon">♙</span>
+      <span>Customers</span>
+    </button>
+
+    <button data-page="tasks">
+      <span class="nav-icon">✓</span>
+      <span>Tasks</span>
+    </button>
+
+    <button data-page="products">
+      <span class="nav-icon">▦</span>
+      <span>Products</span>
+    </button>
+
+    <button data-page="knowledge">
+      <span class="nav-icon">⌘</span>
+      <span>Knowledge Base</span>
+    </button>
+
+    <button data-page="contact">
+      <span class="nav-icon">◉</span>
+      <span>Contact & Socials</span>
+    </button>
+
+    <button data-page="settings">
+      <span class="nav-icon">⚙</span>
+      <span>Business Settings</span>
+    </button>
+
+    <button data-page="integrations">
+      <span class="nav-icon">◎</span>
+      <span>Integrations</span>
+    </button>
+
+  </nav>
+
+  <div class="sidebar-bottom">
+
+    <button
+      class="theme"
+      id="themeBtn"
+    >
+      ◐ &nbsp; Toggle theme
+    </button>
+
+  </div>
+
+</aside>
+
+
+<main class="main">
+
+<header class="topbar">
+
+  <div class="top-left">
+
+    <button
+      class="menu-toggle"
+      id="menuToggle"
+      aria-label="Open menu"
+      aria-expanded="true"
+    >
+      ☰
+    </button>
+
+    <div class="title">
+
+      <h1 id="pageTitle">
+        Dashboard
+      </h1>
+
+      <p id="pageSubtitle">
+        Your business at a glance.
+      </p>
+
+    </div>
+
+  </div>
+
+  <div class="status">
+
+    <span
+      class="dot"
+      id="apiDot"
+    ></span>
+
+    <span id="apiStatus">
+      Checking API...
+    </span>
+
+  </div>
+
+</header>
+
+
+<div class="content">
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section
+  class="page"
+  id="dashboard"
+>
+
+  <div class="hero">
+
+    <div class="mini-ai">
+
+      <div class="ai-avatar">
+        ✦
+      </div>
+
+      <div>
+
+        <h2>
+          Business command center
+        </h2>
+
+        <p>
+          Real records, real operations, one calm workspace.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="grid">
+
+    <div class="card stat">
+
+      <div class="label">
+        Customers
+      </div>
+
+      <div
+        class="value"
+        id="statCustomers"
+      >
+        0
+      </div>
+
+      <div class="sub">
+        Real D1 records
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="label">
+        Products
+      </div>
+
+      <div
+        class="value"
+        id="statProducts"
+      >
+        0
+      </div>
+
+      <div class="sub">
+        Catalogue items
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="label">
+        Orders
+      </div>
+
+      <div
+        class="value"
+        id="statOrders"
+      >
+        0
+      </div>
+
+      <div class="sub">
+        Recorded orders
+      </div>
+
+    </div>
+
+
+    <div class="card stat">
+
+      <div class="label">
+        Open tasks
+      </div>
+
+      <div
+        class="value"
+        id="statTasks"
+      >
+        0
+      </div>
+
+      <div class="sub">
+        Still to do
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="two"
+    style="margin-top:14px"
+  >
+
+    <div class="card">
+
+      <div class="head">
+
+        <h3>
+          Recent orders
+        </h3>
+
+        <button
+          class="secondary"
+          onclick="openPage('orders')"
+        >
+          View all
+        </button>
+
+      </div>
+
+      <div id="recentOrders"></div>
+
+    </div>
+
+
+    <div class="card">
+
+      <div class="head">
+
+        <h3>
+          Quick actions
+        </h3>
+
+      </div>
+
+      <div class="quick">
+
+        <button onclick="openModal('customer')">
+          + Customer
+        </button>
+
+        <button onclick="openModal('product')">
+          + Product
+        </button>
+
+        <button onclick="openModal('order')">
+          + Order
+        </button>
+
+        <button onclick="openModal('task')">
+          + Task
+        </button>
+
+        <button onclick="openPage('contact')">
+          Contact
+        </button>
+
+        <button onclick="openPage('owner-ai')">
+          Ask AI
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     OWNER AI
+========================================================= -->
+
+<section
+  class="page"
+  id="owner-ai"
+>
+
+  <div class="card ai-shell">
+
+    <div class="mini-ai">
+
+      <div class="ai-avatar">
+        ✦
+      </div>
+
+      <div>
+
+        <h3 style="margin:0">
+          Owner AI
+        </h3>
+
+        <p
+          class="muted"
+          style="margin:4px 0;font-size:12px"
+        >
+          Private business assistant connected to your D1 knowledge and live totals.
+        </p>
+
+      </div>
+
+      <button
+        class="secondary"
+        id="clearAi"
+        style="margin-left:auto"
+      >
+        Clear chat
+      </button>
+
+    </div>
+
+
+    <div
+      class="messages"
+      id="aiMessages"
+    ></div>
+
+
+    <div>
+
+      <div
+        class="thinking"
+        id="aiThinking"
+        hidden
+      >
+        <i></i>
+        <i></i>
+        <i></i>
+        Thinking...
+      </div>
+
+      <div class="composer">
+
+        <textarea
+          id="aiInput"
+          placeholder="Ask about your business..."
+        ></textarea>
+
+        <button
+          class="primary"
+          id="aiSend"
+        >
+          Send
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     MESSAGES
+========================================================= -->
+
+<section
+  class="page"
+  id="messages"
+>
+
+  <div class="hero">
+
+    <h2>
+      Messages
+    </h2>
+
+    <p>
+      Keep customer conversations and internal notes organized.
+    </p>
+
+  </div>
+
+
+  <div class="head">
+
+    <h3>
+      Message center
+    </h3>
+
+    <button
+      class="primary"
+      onclick="openModal('message')"
+    >
+      + New message
+    </button>
+
+  </div>
+
+
+  <input
+    class="search"
+    id="messageSearch"
+    placeholder="Search messages, customers or sender..."
+  >
+
+
+  <div
+    class="list"
+    id="messagesList"
+  ></div>
+
+</section>
+
+
+<!-- =========================================================
+     ORDERS
+========================================================= -->
+
+<section
+  class="page"
+  id="orders"
+>
+
+  <div class="hero">
+
+    <h2>
+      Orders
+    </h2>
+
+    <p>
+      Create orders from real customers and products. Stock updates automatically.
+    </p>
+
+  </div>
+
+
+  <div class="head">
+
+    <h3>
+      Order history
+    </h3>
+
+    <button
+      class="primary"
+      onclick="openModal('order')"
+    >
+      + Create order
+    </button>
+
+  </div>
+
+
+  <div
+    class="list"
+    id="ordersList"
+  ></div>
+
+</section>
+
+
+<!-- =========================================================
+     CUSTOMERS
+========================================================= -->
+
+<section
+  class="page"
+  id="customers"
+>
+
+  <div class="hero">
+
+    <h2>
+      Customers
+    </h2>
+
+    <p>
+      One clean directory for real customer records.
+    </p>
+
+  </div>
+
+
+  <div class="head">
+
+    <h3>
+      Customer directory
+    </h3>
+
+    <button
+      class="primary"
+      onclick="openModal('customer')"
+    >
+      + Add customer
+    </button>
+
+  </div>
+
+
+  <input
+    class="search"
+    id="customerSearch"
+    placeholder="Search customers..."
+  >
+
+
+  <div
+    class="list"
+    id="customersList"
+  ></div>
+
+</section>
+
+
+<!-- =========================================================
+     TASKS
+========================================================= -->
+
+<section
+  class="page"
+  id="tasks"
+>
+
+  <div class="hero">
+
+    <h2>
+      Tasks
+    </h2>
+
+    <p>
+      Turn business work into visible, trackable actions.
+    </p>
+
+  </div>
+
+
+  <div class="head">
+
+    <h3>
+      Task list
+    </h3>
+
+    <button
+      class="primary"
+      onclick="openModal('task')"
+    >
+      + Add task
+    </button>
+
+  </div>
+
+
+  <div
+    class="list"
+    id="tasksList"
+  ></div>
+
+</section>
+
+
+<!-- =========================================================
+     PRODUCTS
+========================================================= -->
+
+<section
+  class="page"
+  id="products"
+>
+
+  <div class="hero">
+
+    <h2>
+      Products
+    </h2>
+
+    <p>
+      Manage your catalogue, pricing and stock in one place.
+    </p>
+
+  </div>
+
+
+  <div class="head">
+
+    <h3>
+      Product catalogue
+    </h3>
+
+    <button
+      class="primary"
+      onclick="openModal('product')"
+    >
+      + Add product
+    </button>
+
+  </div>
+
+
+  <input
+    class="search"
+    id="productSearch"
+    placeholder="Search products..."
+  >
+
+
+  <div
+    class="list"
+    id="productsList"
+  ></div>
+
+</section>
+
+
+<!-- =========================================================
+     KNOWLEDGE
+========================================================= -->
+
+<section
+  class="page"
+  id="knowledge"
+>
+
+  <div class="hero">
+
+    <h2>
+      Knowledge Base
+    </h2>
+
+    <p>
+      Store verified business information that your AI can safely use.
+    </p>
+
+  </div>
+
+
+  <div class="head">
+
+    <h3>
+      Verified information
+    </h3>
+
+    <button
+      class="primary"
+      onclick="openModal('knowledge')"
+    >
+      + Add knowledge
+    </button>
+
+  </div>
+
+
+  <div
+    class="list"
+    id="knowledgeList"
+  ></div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<section
+  class="page"
+  id="contact"
+>
+
+  <div class="hero">
+
+    <div class="mini-ai">
+
+      <div class="ai-avatar">
+        ◉
+      </div>
+
+      <div>
+
+        <h2>
+          Contact & Socials
+        </h2>
+
+        <p>
+          Give customers one clean place to reach the business.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="head">
+
+      <div>
+
+        <h3 id="contactBusinessName">
+          Contact the business
+        </h3>
+
+        <p
+          class="muted"
+          style="font-size:12px"
+        >
+          These buttons use the contact information saved in Business Settings.
+        </p>
+
+      </div>
+
+      <button
+        class="secondary"
+        onclick="openPage('settings')"
+      >
+        Edit details
+      </button>
+
+    </div>
+
+
+    <div
+      class="contact-grid"
+      id="contactCards"
+    ></div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:14px"
+  >
+
+    <div class="head">
+
+      <div>
+
+        <h3>
+          Public contact page
+        </h3>
+
+        <p
+          class="muted"
+          style="font-size:12px"
+        >
+          This is the customer-facing page.
+        </p>
+
+      </div>
+
+      <button
+        class="primary"
+        onclick="openPublicContact()"
+      >
+        Open public page
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     BUSINESS SETTINGS
+========================================================= -->
+
+<section
+  class="page"
+  id="settings"
+>
+
+  <div class="hero">
+
+    <div class="mini-ai">
+
+      <div class="ai-avatar">
+        ⚙
+      </div>
+
+      <div>
+
+        <h2>
+          Business Settings
+        </h2>
+
+        <p>
+          Control the public identity and contact channels of the business.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="card">
+
+    <div class="head">
+
+      <div>
+
+        <h3>
+          Business identity
+        </h3>
+
+        <p
+          class="muted"
+          style="font-size:12px"
+        >
+          Customers will see these details on the public contact page.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <form id="contactSettingsForm">
+
+      <div class="form-grid">
+
+        <div class="fg full">
+
+          <label>
+            Business name
+          </label>
+
+          <input
+            name="business_name"
+            id="settingBusinessName"
+            placeholder="Your business name"
+          >
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            WhatsApp number
+          </label>
+
+          <input
+            name="whatsapp"
+            id="settingWhatsapp"
+            placeholder="2348012345678"
+          >
+
+          <small class="muted">
+            Use country code and digits only.
+          </small>
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            Phone
+          </label>
+
+          <input
+            name="phone"
+            id="settingPhone"
+            placeholder="+234..."
+          >
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            Email
+          </label>
+
+          <input
+            name="email"
+            id="settingEmail"
+            type="email"
+            placeholder="business@example.com"
+          >
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            Website
+          </label>
+
+          <input
+            name="website"
+            id="settingWebsite"
+            placeholder="https://example.com"
+          >
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            Facebook
+          </label>
+
+          <input
+            name="facebook"
+            id="settingFacebook"
+            placeholder="https://facebook.com/..."
+          >
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            Instagram
+          </label>
+
+          <input
+            name="instagram"
+            id="settingInstagram"
+            placeholder="https://instagram.com/..."
+          >
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            TikTok
+          </label>
+
+          <input
+            name="tiktok"
+            id="settingTiktok"
+            placeholder="https://tiktok.com/@..."
+          >
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            X
+          </label>
+
+          <input
+            name="x"
+            id="settingX"
+            placeholder="https://x.com/..."
+          >
+
+        </div>
+
+
+        <div class="fg">
+
+          <label>
+            Telegram
+          </label>
+
+          <input
+            name="telegram"
+            id="settingTelegram"
+            placeholder="https://t.me/..."
+          >
+
+        </div>
+
+
+        <div class="fg full">
+
+          <label>
+            Business address
+          </label>
+
+          <textarea
+            name="address"
+            id="settingAddress"
+            placeholder="Business address"
+          ></textarea>
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="secondary"
+          onclick="openPage('contact')"
+        >
+          View contact page
+        </button>
+
+        <button
+          type="submit"
+          class="primary"
+          id="saveContactBtn"
+        >
+          Save contact details
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:14px"
+  >
+
+    <h3>
+      Public page
+    </h3>
+
+    <p
+      class="muted"
+      style="font-size:12px"
+    >
+      Customers can use the public contact page without accessing the owner dashboard.
+    </p>
+
+    <div
+      class="quick"
+      style="margin-top:12px"
+    >
+
+      <button onclick="openPublicContact()">
+        Open public page
+      </button>
+
+      <button onclick="copyPublicContactUrl()">
+        Copy public page link
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================================================
+     INTEGRATIONS
+========================================================= -->
+
+<section
+  class="page"
+  id="integrations"
+>
+
+  <div class="hero">
+
+    <h2>
+      Integrations
+    </h2>
+
+    <p>
+      Check the systems powering your business workspace.
+    </p>
+
+  </div>
+
+
+  <div class="three">
+
+    <div class="card">
+
+      <div style="font-size:26px">
+        ☁
+      </div>
+
+      <h3>
+        Cloudflare API
+      </h3>
+
+      <p
+        class="muted"
+        style="font-size:12px"
+      >
+        Your frontend talks to the Worker API.
+      </p>
+
+      <span
+        class="badge"
+        id="workerBadge"
+      >
+        Checking...
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <div style="font-size:26px">
+        ◈
+      </div>
+
+      <h3>
+        D1 Database
+      </h3>
+
+      <p
+        class="muted"
+        style="font-size:12px"
+      >
+        Customers, products, orders and more.
+      </p>
+
+      <span
+        class="badge"
+        id="dbBadge"
+      >
+        Checking...
+      </span>
+
+    </div>
+
+
+    <div class="card">
+
+      <div style="font-size:26px">
+        ✦
+      </div>
+
+      <h3>
+        Workers AI
+      </h3>
+
+      <p
+        class="muted"
+        style="font-size:12px"
+      >
+        Owner and customer-facing AI.
+      </p>
+
+      <span
+        class="badge"
+        id="aiBadge"
+      >
+        Checking...
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="card"
+    style="margin-top:14px"
+  >
+
+    <div class="head">
+
+      <h3>
+        API diagnostics
+      </h3>
+
+      <button
+        class="primary"
+        id="testApi"
+      >
+        Test API
+      </button>
+
+    </div>
+
+    <pre
+      id="apiResult"
+      style="
+        margin:0;
+        padding:14px;
+        border-radius:12px;
+        background:var(--soft);
+        overflow:auto;
+        font-size:11px;
+        color:var(--text);
+      "
+    >Ready.</pre>
+
+  </div>
+
+</section>
+
+</div>
+</main>
 </div>
 
-<div class="toast" id="toast"></div>
+
+<div id="modalRoot"></div>
+
+<div
+  class="toast"
+  id="toast"
+></div>
+
 
 <script>
-/* =========================================================
-   CONFIG
-========================================================= */
 
 const API_URL =
-  "https://ai-business-hub-api.hebronpeter376.workers.dev";
+  "https://ai-business-hub-api.hebronpeter376.workers.dev/";
 
-const app = document.getElementById("app");
-const content = document.getElementById("content");
-const pageTitle = document.getElementById("pageTitle");
-const modal = document.getElementById("modal");
-const modalBox = document.getElementById("modalBox");
-const toast = document.getElementById("toast");
+const $ = id =>
+  document.getElementById(id);
 
-let currentPage =
-  localStorage.getItem("abh-current-page") ||
-  "dashboard";
-
-let conversationHistory = [];
 
 const state = {
-  dashboard:{},
+
   customers:[],
   products:[],
   orders:[],
   messages:[],
   tasks:[],
   knowledge:[],
-  contact:{}
+
+  aiHistory:
+    JSON.parse(
+      localStorage.getItem(
+        "abh-ai-history"
+      ) || "[]"
+    ),
+
+  contact:{
+    business_name:"",
+    whatsapp:"",
+    facebook:"",
+    instagram:"",
+    tiktok:"",
+    x:"",
+    telegram:"",
+    phone:"",
+    email:"",
+    website:"",
+    address:""
+  }
+
 };
 
-/* =========================================================
-   HELPERS
-========================================================= */
+
+const pageInfo = {
+
+  dashboard:[
+    "Dashboard",
+    "Your business at a glance."
+  ],
+
+  "owner-ai":[
+    "Owner AI",
+    "Your private business assistant."
+  ],
+
+  messages:[
+    "Messages",
+    "Customer conversations and notes."
+  ],
+
+  orders:[
+    "Orders",
+    "Manage your business orders."
+  ],
+
+  customers:[
+    "Customers",
+    "Your customer directory."
+  ],
+
+  tasks:[
+    "Tasks",
+    "Track what needs to be done."
+  ],
+
+  products:[
+    "Products",
+    "Manage products and stock."
+  ],
+
+  knowledge:[
+    "Knowledge Base",
+    "Verified information for your AI."
+  ],
+
+  contact:[
+    "Contact & Socials",
+    "Connect customers with the business."
+  ],
+
+  settings:[
+    "Business Settings",
+    "Control your public business information."
+  ],
+
+  integrations:[
+    "Integrations",
+    "Your Cloudflare business systems."
+  ]
+
+};
+
 
 function esc(value){
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+
+  return String(
+    value ?? ""
+  )
+  .replace(/&/g,"&amp;")
+  .replace(/</g,"&lt;")
+  .replace(/>/g,"&gt;")
+  .replace(/"/g,"&quot;")
+  .replace(/'/g,"&#039;");
+
 }
+
 
 function money(value){
+
   return "₦" +
-    Number(value || 0).toLocaleString(
-      "en-NG",
-      {
-        minimumFractionDigits:2,
-        maximumFractionDigits:2
-      }
-    );
+    Number(value || 0)
+      .toLocaleString(
+        "en-NG",
+        {
+          minimumFractionDigits:2,
+          maximumFractionDigits:2
+        }
+      );
+
 }
 
-function toastMessage(message){
-  toast.textContent = message;
-  toast.classList.add("show");
 
-  clearTimeout(window.toastTimer);
+function toast(message){
 
-  window.toastTimer =
+  const el =
+    $("toast");
+
+  el.textContent =
+    message;
+
+  el.classList.add(
+    "show"
+  );
+
+  clearTimeout(
+    window.__toastTimer
+  );
+
+  window.__toastTimer =
     setTimeout(
-      () => toast.classList.remove("show"),
+      () => {
+        el.classList.remove(
+          "show"
+        );
+      },
       2600
     );
+
 }
 
-async function api(path, options = {}){
-  const response =
-    await fetch(API_URL + path, {
-      ...options,
-      headers:{
-        "Content-Type":"application/json",
-        ...(options.headers || {})
-      }
-    });
 
-  let data = {};
+async function api(
+  endpoint,
+  options={}
+){
+
+  const response =
+    await fetch(
+      API_URL +
+      endpoint.replace(/^\/+/,""),
+      {
+        ...options,
+        headers:{
+          "Content-Type":
+            "application/json",
+          ...(options.headers || {})
+        }
+      }
+    );
+
+  let data;
 
   try{
-    data = await response.json();
+    data =
+      await response.json();
   }catch{
     data = {};
   }
 
   if(!response.ok){
+
     throw new Error(
       data.error ||
       `Request failed (${response.status})`
     );
+
   }
 
   return data;
+
 }
 
-function closeMobileMenu(){
-  app.classList.remove("mobile-sidebar-open");
-}
-
-function showModal(title, body, footer = ""){
-  modalBox.innerHTML = `
-    <div class="modal-head">
-      <strong>${esc(title)}</strong>
-      <button
-        class="btn small"
-        onclick="closeModal()">
-        <i data-lucide="x"></i>
-      </button>
-    </div>
-
-    <div class="modal-body">
-      ${body}
-    </div>
-
-    ${footer ? `
-      <div class="modal-foot">
-        ${footer}
-      </div>
-    ` : ""}
-  `;
-
-  modal.classList.add("show");
-
-  if(window.lucide){
-    lucide.createIcons();
-  }
-}
-
-function closeModal(){
-  modal.classList.remove("show");
-  modalBox.innerHTML = "";
-}
-
-modal.addEventListener("click",e=>{
-  if(e.target === modal){
-    closeModal();
-  }
-});
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-const pageNames = {
-  dashboard:"Dashboard",
-  "owner-ai":"Owner AI",
-  messages:"Messages",
-  orders:"Orders",
-  customers:"Customers",
-  tasks:"Tasks & Reminders",
-  products:"Products",
-  knowledge:"Knowledge Base",
-  contact:"Contact Owner",
-  integrations:"Integrations",
-  settings:"Settings"
-};
-
-document.querySelectorAll(".nav button").forEach(button=>{
-  button.addEventListener("click",()=>{
-    openPage(button.dataset.page);
-    closeMobileMenu();
-  });
-});
-
-function openPage(page){
-  if(!pageNames[page]){
-    page = "dashboard";
-  }
-
-  currentPage = page;
-
-  localStorage.setItem(
-    "abh-current-page",
-    page
-  );
-
-  pageTitle.textContent =
-    pageNames[page];
-
-  document.querySelectorAll(".nav button")
-    .forEach(button=>{
-      button.classList.toggle(
-        "active",
-        button.dataset.page === page
-      );
-    });
-
-  renderPage(page);
-}
-
-document.getElementById("menuBtn")
-  .addEventListener("click",()=>{
-
-    if(window.innerWidth <= 1050){
-      app.classList.toggle(
-        "mobile-sidebar-open"
-      );
-      return;
-    }
-
-    app.classList.toggle(
-      "sidebar-collapsed"
-    );
-
-    localStorage.setItem(
-      "abh-sidebar-collapsed",
-      app.classList.contains(
-        "sidebar-collapsed"
-      )
-    );
-  });
-
-document.getElementById("mobileOverlay")
-  .addEventListener(
-    "click",
-    closeMobileMenu
-  );
 
 /* =========================================================
    THEME
 ========================================================= */
 
-function updateThemeIcon(){
+function applyTheme(){
+
   const dark =
-    document.body.classList.contains("dark");
+    localStorage.getItem(
+      "abh-theme"
+    ) === "dark";
 
-  document.getElementById("themeBtn")
-    .innerHTML = dark
-      ? `<i data-lucide="sun"></i>`
-      : `<i data-lucide="moon"></i>`;
+  document.body.classList.toggle(
+    "dark",
+    dark
+  );
 
-  lucide.createIcons();
 }
 
-if(
-  localStorage.getItem("abh-theme") === "dark"
-){
-  document.body.classList.add("dark");
-}
 
-document.getElementById("themeBtn")
-  .addEventListener("click",()=>{
+function toggleTheme(){
 
-    document.body.classList.toggle("dark");
-
-    localStorage.setItem(
-      "abh-theme",
-      document.body.classList.contains("dark")
-        ? "dark"
-        : "light"
+  const dark =
+    document.body.classList.toggle(
+      "dark"
     );
 
-    updateThemeIcon();
-  });
+  localStorage.setItem(
+    "abh-theme",
+    dark ? "dark" : "light"
+  );
+
+}
+
+
+$("themeBtn").onclick =
+  toggleTheme;
+
+$("publicThemeBtn").onclick =
+  toggleTheme;
+
+applyTheme();
+
 
 /* =========================================================
-   PUBLIC CONTACT
+   MENU
 ========================================================= */
 
-document.getElementById("publicContactBtn")
-  .addEventListener("click",()=>{
-    window.open(
-      window.location.href.split("?")[0] +
-      "?public=contact",
-      "_blank"
+function toggleMenu(){
+
+  const app =
+    $("app");
+
+  const mobile =
+    window.innerWidth <= 720;
+
+  if(mobile){
+
+    app.classList.toggle(
+      "sidebar-open"
     );
-  });
+
+  }else{
+
+    document.body.classList.toggle(
+      "sidebar-collapsed"
+    );
+
+  }
+
+}
+
+
+$("menuToggle").onclick =
+  toggleMenu;
+
+
+$("backdrop").onclick =
+  () => {
+
+    $("app")
+      .classList.remove(
+        "sidebar-open"
+      );
+
+  };
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function openPage(
+  page,
+  save=true
+){
+
+  const target =
+    $(page);
+
+  if(!target){
+    return;
+  }
+
+  document
+    .querySelectorAll(".page")
+    .forEach(
+      p =>
+        p.classList.remove(
+          "active"
+        )
+    );
+
+  target.classList.add(
+    "active"
+  );
+
+  document
+    .querySelectorAll(
+      ".nav button"
+    )
+    .forEach(
+      b =>
+        b.classList.toggle(
+          "active",
+          b.dataset.page === page
+        )
+    );
+
+  const info =
+    pageInfo[page] ||
+    ["AI Business Hub",""];
+
+  $("pageTitle").textContent =
+    info[0];
+
+  $("pageSubtitle").textContent =
+    info[1];
+
+  if(save){
+
+    localStorage.setItem(
+      "abh-current-page",
+      page
+    );
+
+  }
+
+  if(window.innerWidth <= 720){
+
+    $("app")
+      .classList.remove(
+        "sidebar-open"
+      );
+
+  }
+
+  if(page === "dashboard")
+    loadDashboard();
+
+  if(page === "customers")
+    loadCustomers();
+
+  if(page === "products")
+    loadProducts();
+
+  if(page === "orders")
+    loadOrders();
+
+  if(page === "messages")
+    loadMessages();
+
+  if(page === "tasks")
+    loadTasks();
+
+  if(page === "knowledge")
+    loadKnowledge();
+
+  if(page === "contact")
+    loadContact();
+
+  if(page === "settings")
+    loadContact();
+
+  if(page === "owner-ai")
+    renderAi();
+
+}
+
+
+document
+  .querySelectorAll(
+    ".nav button"
+  )
+  .forEach(
+    button => {
+
+      button.onclick =
+        () =>
+          openPage(
+            button.dataset.page
+          );
+
+    }
+  );
+
 
 /* =========================================================
    DASHBOARD
 ========================================================= */
 
-async function renderDashboard(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Good to see you 👋</h1>
-        <p>
-          Your business command center is ready.
-          Everything below comes from your real database.
-        </p>
-      </div>
-
-      <div class="cards">
-
-        <div class="stat">
-          <div class="stat-top">
-            <span class="stat-label">Customers</span>
-            <span class="stat-icon">
-              <i data-lucide="users"></i>
-            </span>
-          </div>
-          <div class="stat-value" id="dashCustomers">...</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-top">
-            <span class="stat-label">Products</span>
-            <span class="stat-icon">
-              <i data-lucide="package"></i>
-            </span>
-          </div>
-          <div class="stat-value" id="dashProducts">...</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-top">
-            <span class="stat-label">Orders</span>
-            <span class="stat-icon">
-              <i data-lucide="shopping-bag"></i>
-            </span>
-          </div>
-          <div class="stat-value" id="dashOrders">...</div>
-        </div>
-
-        <div class="stat">
-          <div class="stat-top">
-            <span class="stat-label">Revenue</span>
-            <span class="stat-icon">
-              <i data-lucide="wallet"></i>
-            </span>
-          </div>
-          <div class="stat-value" id="dashRevenue">...</div>
-        </div>
-
-      </div>
-
-      <div class="grid-2">
-
-        <div class="panel">
-          <div class="panel-head">
-            <span class="panel-title">
-              Business snapshot
-            </span>
-          </div>
-
-          <div class="panel-body" id="snapshot">
-            Loading...
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-head">
-            <span class="panel-title">
-              Quick actions
-            </span>
-          </div>
-
-          <div class="panel-body">
-
-            <div style="
-              display:grid;
-              grid-template-columns:
-              repeat(2,minmax(0,1fr));
-              gap:10px;
-            ">
-
-              <button
-                class="btn primary"
-                onclick="openPage('customers')">
-                <i data-lucide="user-plus"></i>
-                Customers
-              </button>
-
-              <button
-                class="btn"
-                onclick="openPage('products')">
-                <i data-lucide="package-plus"></i>
-                Products
-              </button>
-
-              <button
-                class="btn"
-                onclick="openPage('orders')">
-                <i data-lucide="shopping-cart"></i>
-                Orders
-              </button>
-
-              <button
-                class="btn"
-                onclick="openPage('contact')">
-                <i data-lucide="share-2"></i>
-                Contact
-              </button>
-
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
+async function loadDashboard(){
 
   try{
 
     const data =
-      await api("/dashboard");
-
-    state.dashboard =
-      data.dashboard || data;
-
-    document.getElementById("dashCustomers")
-      .textContent =
-      Number(
-        state.dashboard.customers || 0
-      ).toLocaleString();
-
-    document.getElementById("dashProducts")
-      .textContent =
-      Number(
-        state.dashboard.products || 0
-      ).toLocaleString();
-
-    document.getElementById("dashOrders")
-      .textContent =
-      Number(
-        state.dashboard.orders || 0
-      ).toLocaleString();
-
-    document.getElementById("dashRevenue")
-      .textContent =
-      money(
-        state.dashboard.revenue || 0
+      await api(
+        "dashboard"
       );
 
-    document.getElementById("snapshot")
-      .innerHTML = `
-        <p style="color:var(--muted)">
-          Pending orders:
-          <strong>
-            ${Number(
-              state.dashboard.pending_orders || 0
-            )}
-          </strong>
-        </p>
+    $("statCustomers")
+      .textContent =
+      data.customers || 0;
 
-        <p style="color:var(--muted)">
-          Completed orders:
-          <strong>
-            ${Number(
-              state.dashboard.completed_orders || 0
-            )}
-          </strong>
-        </p>
+    $("statProducts")
+      .textContent =
+      data.products || 0;
 
-        <p style="color:var(--muted)">
-          Pending tasks:
-          <strong>
-            ${Number(
-              state.dashboard.pending_tasks || 0
-            )}
-          </strong>
-        </p>
-      `;
+    $("statOrders")
+      .textContent =
+      data.orders || 0;
+
+    $("statTasks")
+      .textContent =
+      data.pending_tasks || 0;
+
+    const ordersData =
+      await api(
+        "orders"
+      );
+
+    state.orders =
+      ordersData.orders || [];
+
+    renderRecentOrders();
 
   }catch(error){
 
-    document.getElementById("snapshot")
-      .innerHTML =
-      `<div class="empty">
-        <p>${esc(error.message)}</p>
-      </div>`;
+    toast(
+      error.message
+    );
 
-    toastMessage(error.message);
   }
+
 }
+
+
+function renderRecentOrders(){
+
+  const el =
+    $("recentOrders");
+
+  const orders =
+    state.orders.slice(
+      0,
+      5
+    );
+
+  if(!orders.length){
+
+    el.innerHTML = `
+      <div class="empty">
+        <div class="big">◫</div>
+        <strong>No orders yet</strong>
+        <p>Real orders will appear here.</p>
+      </div>
+    `;
+
+    return;
+
+  }
+
+  el.innerHTML =
+    orders
+      .map(
+        order => `
+
+          <div
+            class="row"
+            style="
+              padding:12px 0;
+              border-bottom:1px solid var(--line)
+            "
+          >
+
+            <div class="row-main">
+
+              <h4>
+                Order #${order.id}
+              </h4>
+
+              <p>
+                ${esc(
+                  order.customer_name ||
+                  "Unknown customer"
+                )}
+              </p>
+
+            </div>
+
+            <div style="text-align:right">
+
+              <strong>
+                ${money(order.total)}
+              </strong>
+
+              <div>
+                <span
+                  class="badge ${
+                    order.status === "cancelled"
+                      ? "cancelled"
+                      :
+                    order.status === "completed"
+                      ? "success"
+                      :
+                    order.status === "processing"
+                      ? "processing"
+                      :
+                    "pending"
+                  }"
+                >
+                  ${esc(order.status)}
+                </span>
+              </div>
+
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
 
 /* =========================================================
    CUSTOMERS
 ========================================================= */
 
 async function loadCustomers(){
-  const data =
-    await api("/customers");
-
-  state.customers =
-    Array.isArray(data.customers)
-      ? data.customers
-      : [];
-
-  return state.customers;
-}
-
-async function renderCustomers(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Customers</h1>
-        <p>
-          Manage your real customer records.
-        </p>
-      </div>
-
-      <div class="panel">
-
-        <div class="panel-head">
-          <span class="panel-title">
-            Customer directory
-          </span>
-
-          <button
-            class="btn primary"
-            onclick="customerModal()">
-            <i data-lucide="user-plus"></i>
-            Add customer
-          </button>
-        </div>
-
-        <div class="panel-body">
-
-          <input
-            class="search"
-            id="customerSearch"
-            placeholder="Search customers...">
-
-          <div
-            class="table-wrap"
-            id="customersTable">
-            Loading...
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
 
   try{
-    await loadCustomers();
-    drawCustomers();
 
-    document.getElementById("customerSearch")
-      .addEventListener(
-        "input",
-        drawCustomers
+    const data =
+      await api(
+        "customers"
       );
 
+    state.customers =
+      data.customers || [];
+
+    renderCustomers();
+
   }catch(error){
-    document.getElementById("customersTable")
-      .innerHTML =
-      `<div class="empty">
-        ${esc(error.message)}
-      </div>`;
+
+    toast(
+      error.message
+    );
+
   }
+
 }
 
-function drawCustomers(){
+
+function renderCustomers(){
+
+  const el =
+    $("customersList");
 
   const search =
-    document.getElementById(
-      "customerSearch"
-    )?.value
-    ?.toLowerCase()
-    ?.trim() || "";
+    (
+      $("customerSearch")
+        ?.value || ""
+    )
+    .toLowerCase();
 
   const rows =
-    state.customers.filter(c=>
-      `${c.name || ""} ${c.phone || ""} ${c.email || ""}`
-      .toLowerCase()
-      .includes(search)
+    state.customers.filter(
+      customer =>
+        [
+          customer.name,
+          customer.phone,
+          customer.email,
+          customer.address
+        ]
+        .join(" ")
+        .toLowerCase()
+        .includes(search)
     );
 
   if(!rows.length){
 
-    document.getElementById(
-      "customersTable"
-    ).innerHTML = `
+    el.innerHTML = `
       <div class="empty">
-        <i data-lucide="users"></i>
-        <h3>No customers yet</h3>
+        <div class="big">♙</div>
+        <strong>
+          ${
+            state.customers.length
+              ? "No matching customers"
+              : "No customers yet"
+          }
+        </strong>
         <p>
-          Add your first real customer record.
+          ${
+            state.customers.length
+              ? "Try a different search."
+              : "Add your first real customer."
+          }
         </p>
       </div>
     `;
 
-    lucide.createIcons();
     return;
+
   }
 
-  document.getElementById(
-    "customersTable"
-  ).innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+  el.innerHTML =
+    rows
+      .map(
+        customer => `
 
-      <tbody>
-        ${rows.map(c=>`
-          <tr>
-            <td><strong>${esc(c.name)}</strong></td>
-            <td>${esc(c.phone || "—")}</td>
-            <td>${esc(c.email || "—")}</td>
-            <td>${esc(c.address || "—")}</td>
+          <div class="card">
 
-            <td>
-              <button
-                class="btn small"
-                onclick="customerModal(${Number(c.id)})">
-                <i data-lucide="pencil"></i>
-                Edit
-              </button>
+            <div class="row">
 
-              <button
-                class="btn small danger"
-                onclick="deleteCustomer(${Number(c.id)})">
-                <i data-lucide="trash-2"></i>
-                Delete
-              </button>
-            </td>
-          </tr>
-        `).join("")}
-      </tbody>
-    </table>
-  `;
+              <div class="row-main">
 
-  lucide.createIcons();
+                <h4>
+                  ${esc(customer.name)}
+                </h4>
+
+                ${
+                  customer.phone
+                    ? `<p>☎ ${esc(customer.phone)}</p>`
+                    : ""
+                }
+
+                ${
+                  customer.email
+                    ? `<p>✉ ${esc(customer.email)}</p>`
+                    : ""
+                }
+
+                ${
+                  customer.address
+                    ? `<p>⌖ ${esc(customer.address)}</p>`
+                    : ""
+                }
+
+              </div>
+
+
+              <div class="actions">
+
+                <button
+                  class="secondary"
+                  onclick="openModal('customer',${customer.id})"
+                >
+                  Edit
+                </button>
+
+                <button
+                  class="danger"
+                  onclick="removeRecord('customers',${customer.id},'customer')"
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("");
+
 }
 
-function customerModal(id = null){
 
-  const customer =
-    state.customers.find(
-      c => Number(c.id) === Number(id)
-    ) || {};
+$("customerSearch").oninput =
+  renderCustomers;
 
-  showModal(
-    id ? "Edit customer" : "Add customer",
-    `
-      <form id="customerForm">
-
-        <div class="form-grid">
-
-          <div class="field full">
-            <label>Name</label>
-            <input
-              name="name"
-              required
-              value="${esc(customer.name || "")}">
-          </div>
-
-          <div class="field">
-            <label>Phone</label>
-            <input
-              name="phone"
-              value="${esc(customer.phone || "")}">
-          </div>
-
-          <div class="field">
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value="${esc(customer.email || "")}">
-          </div>
-
-          <div class="field full">
-            <label>Address</label>
-            <input
-              name="address"
-              value="${esc(customer.address || "")}">
-          </div>
-
-          <div class="field full">
-            <label>Notes</label>
-            <textarea
-              name="notes">${esc(customer.notes || "")}</textarea>
-          </div>
-
-        </div>
-
-      </form>
-    `,
-    `
-      <button
-        class="btn"
-        onclick="closeModal()">
-        Cancel
-      </button>
-
-      <button
-        class="btn primary"
-        onclick="saveCustomer(${id || "null"})">
-        Save customer
-      </button>
-    `
-  );
-}
-
-async function saveCustomer(id){
-
-  const form =
-    document.getElementById(
-      "customerForm"
-    );
-
-  const data =
-    Object.fromEntries(
-      new FormData(form)
-    );
-
-  try{
-
-    await api(
-      id
-        ? `/customers/${id}`
-        : "/customers",
-      {
-        method:id ? "PUT" : "POST",
-        body:JSON.stringify(data)
-      }
-    );
-
-    closeModal();
-    toastMessage("Customer saved");
-    renderCustomers();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
-
-async function deleteCustomer(id){
-
-  if(!confirm(
-    "Delete this customer?"
-  )){
-    return;
-  }
-
-  try{
-
-    await api(
-      `/customers/${id}`,
-      {method:"DELETE"}
-    );
-
-    toastMessage("Customer deleted");
-    renderCustomers();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
 
 /* =========================================================
    PRODUCTS
@@ -1876,343 +3293,155 @@ async function deleteCustomer(id){
 
 async function loadProducts(){
 
-  const data =
-    await api("/products");
-
-  state.products =
-    Array.isArray(data.products)
-      ? data.products
-      : [];
-
-  return state.products;
-}
-
-async function renderProducts(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Products</h1>
-        <p>
-          Manage products, prices and stock.
-        </p>
-      </div>
-
-      <div class="panel">
-
-        <div class="panel-head">
-
-          <span class="panel-title">
-            Product inventory
-          </span>
-
-          <button
-            class="btn primary"
-            onclick="productModal()">
-            <i data-lucide="package-plus"></i>
-            Add product
-          </button>
-
-        </div>
-
-        <div class="panel-body">
-
-          <input
-            class="search"
-            id="productSearch"
-            placeholder="Search products...">
-
-          <div
-            class="table-wrap"
-            id="productsTable">
-            Loading...
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
-
   try{
 
-    await loadProducts();
+    const data =
+      await api(
+        "products"
+      );
 
-    drawProducts();
+    state.products =
+      data.products || [];
 
-    document.getElementById(
-      "productSearch"
-    ).addEventListener(
-      "input",
-      drawProducts
-    );
+    renderProducts();
 
   }catch(error){
 
-    document.getElementById(
-      "productsTable"
-    ).innerHTML =
-    `<div class="empty">
-      ${esc(error.message)}
-    </div>`;
+    toast(
+      error.message
+    );
+
   }
+
 }
 
-function drawProducts(){
+
+function renderProducts(){
+
+  const el =
+    $("productsList");
 
   const search =
-    document.getElementById(
-      "productSearch"
-    )?.value
-    ?.toLowerCase()
-    ?.trim() || "";
+    (
+      $("productSearch")
+        ?.value || ""
+    )
+    .toLowerCase();
 
   const rows =
-    state.products.filter(p=>
-      `${p.name || ""} ${p.description || ""}`
-      .toLowerCase()
-      .includes(search)
+    state.products.filter(
+      product =>
+        [
+          product.name,
+          product.description,
+          product.status
+        ]
+        .join(" ")
+        .toLowerCase()
+        .includes(search)
     );
 
   if(!rows.length){
 
-    document.getElementById(
-      "productsTable"
-    ).innerHTML = `
+    el.innerHTML = `
       <div class="empty">
-        <i data-lucide="package"></i>
-        <h3>No products yet</h3>
+        <div class="big">▦</div>
+        <strong>
+          ${
+            state.products.length
+              ? "No matching products"
+              : "No products yet"
+          }
+        </strong>
         <p>
-          Add a real product to begin.
+          ${
+            state.products.length
+              ? "Try another search."
+              : "Add your first product."
+          }
         </p>
       </div>
     `;
 
-    lucide.createIcons();
     return;
+
   }
 
-  document.getElementById(
-    "productsTable"
-  ).innerHTML = `
-    <table>
+  el.innerHTML =
+    rows
+      .map(
+        product => `
 
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Price</th>
-          <th>Stock</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+          <div class="card">
 
-      <tbody>
+            <div class="row">
 
-        ${rows.map(p=>`
+              <div class="row-main">
 
-          <tr>
+                <h4>
+                  ${esc(product.name)}
+                </h4>
 
-            <td>
-              <strong>${esc(p.name)}</strong>
-              <br>
-              <small style="color:var(--muted)">
-                ${esc(p.description || "")}
-              </small>
-            </td>
+                <p>
+                  ${esc(
+                    product.description ||
+                    "No description"
+                  )}
+                </p>
 
-            <td>${money(p.price)}</td>
+                <p>
+                  <strong>
+                    ${money(product.price)}
+                  </strong>
+                  · Stock:
+                  ${Number(product.stock || 0)}
+                </p>
 
-            <td>${Number(p.stock || 0)}</td>
+              </div>
 
-            <td>
-              <span class="badge ${
-                p.status === "active"
-                ? "green"
-                : "orange"
-              }">
-                ${esc(p.status || "active")}
-              </span>
-            </td>
 
-            <td>
+              <div class="actions">
 
-              <button
-                class="btn small"
-                onclick="productModal(${Number(p.id)})">
-                <i data-lucide="pencil"></i>
-                Edit
-              </button>
+                <span
+                  class="badge ${
+                    product.status === "active"
+                      ? "success"
+                      : "cancelled"
+                  }"
+                >
+                  ${esc(product.status)}
+                </span>
 
-              <button
-                class="btn small danger"
-                onclick="deleteProduct(${Number(p.id)})">
-                <i data-lucide="trash-2"></i>
-                Delete
-              </button>
+                <button
+                  class="secondary"
+                  onclick="openModal('product',${product.id})"
+                >
+                  Edit
+                </button>
 
-            </td>
+                <button
+                  class="danger"
+                  onclick="removeRecord('products',${product.id},'product')"
+                >
+                  Delete
+                </button>
 
-          </tr>
+              </div>
 
-        `).join("")}
+            </div>
 
-      </tbody>
+          </div>
 
-    </table>
-  `;
+        `
+      )
+      .join("");
 
-  lucide.createIcons();
 }
 
-function productModal(id=null){
 
-  const product =
-    state.products.find(
-      p => Number(p.id) === Number(id)
-    ) || {};
+$("productSearch").oninput =
+  renderProducts;
 
-  showModal(
-    id ? "Edit product" : "Add product",
-    `
-      <form id="productForm">
-
-        <div class="form-grid">
-
-          <div class="field full">
-            <label>Product name</label>
-            <input
-              name="name"
-              required
-              value="${esc(product.name || "")}">
-          </div>
-
-          <div class="field full">
-            <label>Description</label>
-            <textarea
-              name="description">${esc(product.description || "")}</textarea>
-          </div>
-
-          <div class="field">
-            <label>Price</label>
-            <input
-              type="number"
-              step="0.01"
-              min="0"
-              name="price"
-              required
-              value="${Number(product.price || 0)}">
-          </div>
-
-          <div class="field">
-            <label>Stock</label>
-            <input
-              type="number"
-              min="0"
-              name="stock"
-              required
-              value="${Number(product.stock || 0)}">
-          </div>
-
-          <div class="field">
-            <label>Status</label>
-            <select name="status">
-              <option value="active"
-                ${product.status === "active" ? "selected":""}>
-                Active
-              </option>
-              <option value="inactive"
-                ${product.status === "inactive" ? "selected":""}>
-                Inactive
-              </option>
-            </select>
-          </div>
-
-        </div>
-
-      </form>
-    `,
-    `
-      <button
-        class="btn"
-        onclick="closeModal()">
-        Cancel
-      </button>
-
-      <button
-        class="btn primary"
-        onclick="saveProduct(${id || "null"})">
-        Save product
-      </button>
-    `
-  );
-}
-
-async function saveProduct(id){
-
-  const form =
-    document.getElementById(
-      "productForm"
-    );
-
-  const raw =
-    Object.fromEntries(
-      new FormData(form)
-    );
-
-  const data = {
-    ...raw,
-    price:Number(raw.price),
-    stock:Number(raw.stock)
-  };
-
-  try{
-
-    await api(
-      id
-        ? `/products/${id}`
-        : "/products",
-      {
-        method:id ? "PUT" : "POST",
-        body:JSON.stringify(data)
-      }
-    );
-
-    closeModal();
-    toastMessage("Product saved");
-    renderProducts();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
-
-async function deleteProduct(id){
-
-  if(!confirm(
-    "Delete this product?"
-  )){
-    return;
-  }
-
-  try{
-
-    await api(
-      `/products/${id}`,
-      {method:"DELETE"}
-    );
-
-    toastMessage("Product deleted");
-    renderProducts();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
 
 /* =========================================================
    ORDERS
@@ -2220,377 +3449,264 @@ async function deleteProduct(id){
 
 async function loadOrders(){
 
-  const data =
-    await api("/orders");
-
-  state.orders =
-    Array.isArray(data.orders)
-      ? data.orders
-      : [];
-
-  return state.orders;
-}
-
-async function renderOrders(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Orders</h1>
-        <p>
-          Track real orders and inventory movement.
-        </p>
-      </div>
-
-      <div class="panel">
-
-        <div class="panel-head">
-
-          <span class="panel-title">
-            Order history
-          </span>
-
-          <button
-            class="btn primary"
-            onclick="orderModal()">
-            <i data-lucide="plus"></i>
-            New order
-          </button>
-
-        </div>
-
-        <div class="panel-body">
-
-          <div
-            class="table-wrap"
-            id="ordersTable">
-            Loading...
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
-
   try{
 
-    await loadOrders();
-    drawOrders();
+    const data =
+      await api(
+        "orders"
+      );
+
+    state.orders =
+      data.orders || [];
+
+    renderOrders();
 
   }catch(error){
 
-    document.getElementById(
-      "ordersTable"
-    ).innerHTML =
-    `<div class="empty">
-      ${esc(error.message)}
-    </div>`;
+    toast(
+      error.message
+    );
+
   }
+
 }
 
-function drawOrders(){
+
+function renderOrders(){
+
+  const el =
+    $("ordersList");
 
   if(!state.orders.length){
 
-    document.getElementById(
-      "ordersTable"
-    ).innerHTML = `
+    el.innerHTML = `
       <div class="empty">
-        <i data-lucide="shopping-bag"></i>
-        <h3>No orders yet</h3>
-        <p>
-          Real orders will appear here.
-        </p>
+        <div class="big">◫</div>
+        <strong>No orders yet</strong>
+        <p>Create an order using real customers and products.</p>
       </div>
     `;
 
-    lucide.createIcons();
     return;
+
   }
 
-  document.getElementById(
-    "ordersTable"
-  ).innerHTML = `
-    <table>
+  el.innerHTML =
+    state.orders
+      .map(
+        order => `
 
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Customer</th>
-          <th>Total</th>
-          <th>Status</th>
-          <th>Date</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
+          <div class="card">
 
-      <tbody>
+            <div class="row">
 
-        ${state.orders.map(o=>`
+              <div class="row-main">
 
-          <tr>
+                <h4>
+                  Order #${order.id}
+                </h4>
 
-            <td>#${Number(o.id)}</td>
+                <p>
+                  Customer:
+                  ${esc(
+                    order.customer_name ||
+                    "Unknown"
+                  )}
+                </p>
 
-            <td>
-              ${esc(
-                o.customer_name ||
-                "Walk-in customer"
-              )}
-            </td>
+                <p>
+                  ${order.items?.length || 0}
+                  item(s)
+                </p>
 
-            <td>${money(o.total)}</td>
+                <p>
+                  Created:
+                  ${esc(order.created_at || "")}
+                </p>
 
-            <td>
-              <span class="badge ${
-                o.status === "completed"
-                  ? "green"
-                  : o.status === "cancelled"
-                    ? "red"
-                    : "orange"
-              }">
-                ${esc(o.status)}
-              </span>
-            </td>
+              </div>
 
-            <td>
-              ${esc(o.created_at || "")}
-            </td>
 
-            <td>
+              <div style="text-align:right">
 
-              <button
-                class="btn small"
-                onclick="orderStatus(${Number(o.id)},'completed')">
-                Complete
-              </button>
+                <strong>
+                  ${money(order.total)}
+                </strong>
 
-              <button
-                class="btn small danger"
-                onclick="deleteOrder(${Number(o.id)})">
-                <i data-lucide="trash-2"></i>
-                Delete
-              </button>
+                <div style="margin:7px 0">
 
-            </td>
+                  <span
+                    class="badge ${
+                      order.status === "cancelled"
+                        ? "cancelled"
+                        :
+                      order.status === "completed"
+                        ? "success"
+                        :
+                      order.status === "processing"
+                        ? "processing"
+                        :
+                      "pending"
+                    }"
+                  >
+                    ${esc(order.status)}
+                  </span>
 
-          </tr>
+                </div>
 
-        `).join("")}
 
-      </tbody>
+                <div class="actions">
 
-    </table>
-  `;
+                  <select
+                    onchange="setOrderStatus(${order.id},this.value)"
+                  >
 
-  lucide.createIcons();
+                    <option
+                      value="pending"
+                      ${
+                        order.status === "pending"
+                          ? "selected"
+                          : ""
+                      }
+                    >
+                      Pending
+                    </option>
+
+                    <option
+                      value="processing"
+                      ${
+                        order.status === "processing"
+                          ? "selected"
+                          : ""
+                      }
+                    >
+                      Processing
+                    </option>
+
+                    <option
+                      value="completed"
+                      ${
+                        order.status === "completed"
+                          ? "selected"
+                          : ""
+                      }
+                    >
+                      Completed
+                    </option>
+
+                    <option
+                      value="cancelled"
+                      ${
+                        order.status === "cancelled"
+                          ? "selected"
+                          : ""
+                      }
+                    >
+                      Cancelled
+                    </option>
+
+                  </select>
+
+
+                  <button
+                    class="danger"
+                    onclick="removeRecord('orders',${order.id},'order')"
+                  >
+                    Delete
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            ${
+              order.items?.length
+                ? `
+                  <div
+                    style="
+                      margin-top:13px;
+                      padding-top:13px;
+                      border-top:1px solid var(--line)
+                    "
+                  >
+
+                    ${order.items
+                      .map(
+                        item => `
+                          <p
+                            style="
+                              margin:6px 0;
+                              font-size:12px;
+                              color:var(--muted)
+                            "
+                          >
+                            ${esc(
+                              item.product_name ||
+                              "Product"
+                            )}
+                            ×
+                            ${Number(item.quantity)}
+                            ·
+                            ${money(
+                              Number(item.price) *
+                              Number(item.quantity)
+                            )}
+                          </p>
+                        `
+                      )
+                      .join("")}
+
+                  </div>
+                `
+                : ""
+            }
+
+          </div>
+
+        `
+      )
+      .join("");
+
 }
 
-async function orderModal(){
 
-  try{
-
-    await Promise.all([
-      loadCustomers(),
-      loadProducts()
-    ]);
-
-  }catch(error){
-
-    toastMessage(error.message);
-    return;
-  }
-
-  if(!state.products.length){
-
-    toastMessage(
-      "Add a product before creating an order."
-    );
-
-    return;
-  }
-
-  showModal(
-    "Create order",
-    `
-      <form id="orderForm">
-
-        <div class="field">
-          <label>Customer</label>
-
-          <select name="customer_id" required>
-
-            <option value="">
-              Select customer
-            </option>
-
-            ${state.customers.map(c=>`
-              <option value="${Number(c.id)}">
-                ${esc(c.name)}
-              </option>
-            `).join("")}
-
-          </select>
-
-        </div>
-
-        <br>
-
-        <div class="field">
-          <label>Product</label>
-
-          <select
-            name="product_id"
-            required>
-
-            <option value="">
-              Select product
-            </option>
-
-            ${state.products
-              .filter(p =>
-                p.status === "active" &&
-                Number(p.stock) > 0
-              )
-              .map(p=>`
-                <option value="${Number(p.id)}">
-                  ${esc(p.name)}
-                  · ${money(p.price)}
-                  · ${Number(p.stock)} in stock
-                </option>
-              `).join("")}
-
-          </select>
-
-        </div>
-
-        <br>
-
-        <div class="field">
-          <label>Quantity</label>
-
-          <input
-            type="number"
-            name="quantity"
-            min="1"
-            value="1"
-            required>
-
-        </div>
-
-      </form>
-    `,
-    `
-      <button
-        class="btn"
-        onclick="closeModal()">
-        Cancel
-      </button>
-
-      <button
-        class="btn primary"
-        onclick="saveOrder()">
-        Create order
-      </button>
-    `
-  );
-}
-
-async function saveOrder(){
-
-  const form =
-    document.getElementById(
-      "orderForm"
-    );
-
-  const raw =
-    Object.fromEntries(
-      new FormData(form)
-    );
+async function setOrderStatus(
+  id,
+  status
+){
 
   try{
 
     await api(
-      "/orders",
+      `orders/${id}`,
       {
-        method:"POST",
+        method:"PUT",
         body:JSON.stringify({
-          customer_id:Number(
-            raw.customer_id
-          ),
-          items:[
-            {
-              product_id:Number(
-                raw.product_id
-              ),
-              quantity:Number(
-                raw.quantity
-              )
-            }
-          ]
+          status
         })
       }
     );
 
-    closeModal();
-    toastMessage("Order created");
-    renderOrders();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
-
-async function orderStatus(id,status){
-
-  try{
-
-    await api(
-      `/orders/${id}`,
-      {
-        method:"PUT",
-        body:JSON.stringify({status})
-      }
+    toast(
+      "Order status updated."
     );
 
-    toastMessage(
-      `Order marked ${status}`
-    );
-
-    renderOrders();
+    loadOrders();
+    loadDashboard();
 
   }catch(error){
-    toastMessage(error.message);
-  }
-}
 
-async function deleteOrder(id){
-
-  if(!confirm(
-    "Delete this order?"
-  )){
-    return;
-  }
-
-  try{
-
-    await api(
-      `/orders/${id}`,
-      {method:"DELETE"}
+    toast(
+      error.message
     );
 
-    toastMessage("Order deleted");
-    renderOrders();
-
-  }catch(error){
-    toastMessage(error.message);
   }
+
 }
+
 
 /* =========================================================
    TASKS
@@ -2598,2045 +3714,2665 @@ async function deleteOrder(id){
 
 async function loadTasks(){
 
-  const data =
-    await api("/tasks");
-
-  state.tasks =
-    Array.isArray(data.tasks)
-      ? data.tasks
-      : [];
-
-  return state.tasks;
-}
-
-async function renderTasks(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Tasks & Reminders</h1>
-        <p>
-          Keep important business work organized.
-        </p>
-      </div>
-
-      <div class="panel">
-
-        <div class="panel-head">
-
-          <span class="panel-title">
-            Business tasks
-          </span>
-
-          <button
-            class="btn primary"
-            onclick="taskModal()">
-            <i data-lucide="plus"></i>
-            Add task
-          </button>
-
-        </div>
-
-        <div class="panel-body" id="tasksList">
-          Loading...
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
-
   try{
-    await loadTasks();
-    drawTasks();
+
+    const data =
+      await api(
+        "tasks"
+      );
+
+    state.tasks =
+      data.tasks || [];
+
+    renderTasks();
+
   }catch(error){
-    document.getElementById("tasksList")
-      .innerHTML =
-      `<div class="empty">
-        ${esc(error.message)}
-      </div>`;
+
+    toast(
+      error.message
+    );
+
   }
+
 }
 
-function drawTasks(){
+
+function renderTasks(){
+
+  const el =
+    $("tasksList");
 
   if(!state.tasks.length){
 
-    document.getElementById(
-      "tasksList"
-    ).innerHTML = `
+    el.innerHTML = `
       <div class="empty">
-        <i data-lucide="calendar-check-2"></i>
-        <h3>No tasks yet</h3>
-        <p>
-          Add a real business task.
-        </p>
+        <div class="big">✓</div>
+        <strong>No tasks yet</strong>
+        <p>Add tasks to keep business work organized.</p>
       </div>
     `;
 
-    lucide.createIcons();
     return;
+
   }
 
-  document.getElementById(
-    "tasksList"
-  ).innerHTML = `
-    <div style="
-      display:grid;
-      gap:10px;
-    ">
+  el.innerHTML =
+    state.tasks
+      .map(
+        task => `
 
-      ${state.tasks.map(t=>`
+          <div class="card">
 
-        <div style="
-          border:1px solid var(--border);
-          border-radius:14px;
-          padding:15px;
-          display:flex;
-          justify-content:space-between;
-          gap:15px;
-          align-items:center;
-        ">
+            <div class="row">
 
-          <div>
+              <div class="row-main">
 
-            <strong>
-              ${esc(t.title)}
-            </strong>
+                <h4>
+                  ${esc(task.title)}
+                </h4>
 
-            <div style="
-              color:var(--muted);
-              font-size:12px;
-              margin-top:5px;
-            ">
-              ${esc(t.description || "")}
-            </div>
+                ${
+                  task.description
+                    ? `<p>${esc(task.description)}</p>`
+                    : ""
+                }
 
-            <div style="
-              color:var(--muted);
-              font-size:11px;
-              margin-top:7px;
-            ">
-              Due:
-              ${esc(t.due_date || "No date")}
+                ${
+                  task.due_date
+                    ? `<p>Due: ${esc(task.due_date)}</p>`
+                    : ""
+                }
+
+              </div>
+
+
+              <div class="actions">
+
+                <span
+                  class="badge ${
+                    task.status === "completed"
+                      ? "success"
+                      : "pending"
+                  }"
+                >
+                  ${esc(task.status)}
+                </span>
+
+                <button
+                  class="secondary"
+                  onclick="setTaskStatus(${task.id},'${
+                    task.status === "completed"
+                      ? "pending"
+                      : "completed"
+                  }')"
+                >
+                  ${
+                    task.status === "completed"
+                      ? "Reopen"
+                      : "Complete"
+                  }
+                </button>
+
+                <button
+                  class="danger"
+                  onclick="removeRecord('tasks',${task.id},'task')"
+                >
+                  Delete
+                </button>
+
+              </div>
+
             </div>
 
           </div>
 
-          <div style="
-            display:flex;
-            gap:6px;
-            flex-wrap:wrap;
-            justify-content:flex-end;
-          ">
+        `
+      )
+      .join("");
 
-            <span class="badge ${
-              t.status === "completed"
-                ? "green"
-                : "orange"
-            }">
-              ${esc(t.status)}
-            </span>
-
-            <button
-              class="btn small"
-              onclick="toggleTask(
-                ${Number(t.id)},
-                '${t.status === "completed"
-                  ? "pending"
-                  : "completed"}'
-              )">
-              ${t.status === "completed"
-                ? "Reopen"
-                : "Complete"}
-            </button>
-
-            <button
-              class="btn small danger"
-              onclick="deleteTask(${Number(t.id)})">
-              Delete
-            </button>
-
-          </div>
-
-        </div>
-
-      `).join("")}
-
-    </div>
-  `;
-
-  lucide.createIcons();
 }
 
-function taskModal(){
 
-  showModal(
-    "Add task",
-    `
-      <form id="taskForm">
-
-        <div class="field">
-          <label>Title</label>
-          <input name="title" required>
-        </div>
-
-        <br>
-
-        <div class="field">
-          <label>Description</label>
-          <textarea name="description"></textarea>
-        </div>
-
-        <br>
-
-        <div class="field">
-          <label>Due date</label>
-          <input
-            type="date"
-            name="due_date">
-        </div>
-
-      </form>
-    `,
-    `
-      <button
-        class="btn"
-        onclick="closeModal()">
-        Cancel
-      </button>
-
-      <button
-        class="btn primary"
-        onclick="saveTask()">
-        Save task
-      </button>
-    `
-  );
-}
-
-async function saveTask(){
-
-  const form =
-    document.getElementById(
-      "taskForm"
-    );
-
-  const data =
-    Object.fromEntries(
-      new FormData(form)
-    );
+async function setTaskStatus(
+  id,
+  status
+){
 
   try{
 
     await api(
-      "/tasks",
-      {
-        method:"POST",
-        body:JSON.stringify(data)
-      }
-    );
-
-    closeModal();
-    toastMessage("Task saved");
-    renderTasks();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
-
-async function toggleTask(id,status){
-
-  try{
-
-    await api(
-      `/tasks/${id}`,
+      `tasks/${id}`,
       {
         method:"PUT",
-        body:JSON.stringify({status})
+        body:JSON.stringify({
+          status
+        })
       }
     );
 
-    renderTasks();
+    loadTasks();
+    loadDashboard();
 
   }catch(error){
-    toastMessage(error.message);
-  }
-}
 
-async function deleteTask(id){
-
-  if(!confirm(
-    "Delete this task?"
-  )){
-    return;
-  }
-
-  try{
-
-    await api(
-      `/tasks/${id}`,
-      {method:"DELETE"}
+    toast(
+      error.message
     );
 
-    toastMessage("Task deleted");
-    renderTasks();
-
-  }catch(error){
-    toastMessage(error.message);
   }
+
 }
+
 
 /* =========================================================
    MESSAGES
 ========================================================= */
 
-async function renderMessages(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Messages</h1>
-        <p>
-          View and manage customer conversations.
-        </p>
-      </div>
-
-      <div class="panel">
-
-        <div class="panel-head">
-          <span class="panel-title">
-            Customer messages
-          </span>
-
-          <button
-            class="btn primary"
-            onclick="messageModal()">
-            <i data-lucide="send"></i>
-            New message
-          </button>
-        </div>
-
-        <div class="panel-body">
-
-          <div id="messagesList">
-            Loading...
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
+async function loadMessages(){
 
   try{
 
     const data =
-      await api("/messages");
+      await api(
+        "messages"
+      );
 
     state.messages =
-      Array.isArray(data.messages)
-        ? data.messages
-        : [];
+      data.messages || [];
 
-    drawMessages();
+    renderMessages();
 
   }catch(error){
 
-    document.getElementById(
-      "messagesList"
-    ).innerHTML =
-    `<div class="empty">
-      ${esc(error.message)}
-    </div>`;
+    toast(
+      error.message
+    );
+
   }
+
 }
 
-function drawMessages(){
 
-  if(!state.messages.length){
+function renderMessages(){
 
-    document.getElementById(
-      "messagesList"
-    ).innerHTML = `
+  const el =
+    $("messagesList");
+
+  const search =
+    (
+      $("messageSearch")
+        ?.value || ""
+    )
+    .toLowerCase();
+
+  const rows =
+    state.messages.filter(
+      message =>
+        [
+          message.message,
+          message.sender,
+          message.customer_name
+        ]
+        .join(" ")
+        .toLowerCase()
+        .includes(search)
+    );
+
+  if(!rows.length){
+
+    el.innerHTML = `
       <div class="empty">
-        <i data-lucide="messages-square"></i>
-        <h3>No messages yet</h3>
+        <div class="big">✉</div>
+        <strong>
+          ${
+            state.messages.length
+              ? "No matching messages"
+              : "No messages yet"
+          }
+        </strong>
         <p>
-          Customer messages will appear here.
+          ${
+            state.messages.length
+              ? "Try another search."
+              : "Messages will appear here."
+          }
         </p>
       </div>
     `;
 
-    lucide.createIcons();
     return;
+
   }
 
-  document.getElementById(
-    "messagesList"
-  ).innerHTML = `
-    <div style="
-      display:grid;
-      gap:10px;
-    ">
+  el.innerHTML =
+    rows
+      .map(
+        message => `
 
-      ${state.messages.map(m=>`
+          <div class="card">
 
-        <div style="
-          border:1px solid var(--border);
-          border-radius:14px;
-          padding:15px;
-        ">
+            <div class="row">
 
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            gap:10px;
-          ">
+              <div class="row-main">
 
-            <strong>
-              ${esc(
-                m.customer_name ||
-                "Unknown customer"
-              )}
-            </strong>
+                <h4>
+                  ${
+                    esc(
+                      message.customer_name ||
+                      "General message"
+                    )
+                  }
+                </h4>
 
-            <span
-              style="
-                color:var(--muted);
-                font-size:11px;
-              ">
-              ${esc(m.created_at || "")}
-            </span>
+                <p>
+                  ${esc(message.message)}
+                </p>
+
+                <p>
+                  Sender:
+                  ${esc(message.sender)}
+                  ·
+                  ${esc(message.created_at || "")}
+                </p>
+
+              </div>
+
+
+              <button
+                class="danger"
+                onclick="removeRecord('messages',${message.id},'message')"
+              >
+                Delete
+              </button>
+
+            </div>
 
           </div>
 
-          <p style="
-            line-height:1.6;
-            margin-bottom:10px;
-          ">
-            ${esc(m.message)}
-          </p>
+        `
+      )
+      .join("");
 
-          <span class="badge blue">
-            ${esc(m.sender)}
-          </span>
-
-          <button
-            class="btn small danger"
-            style="float:right"
-            onclick="deleteMessage(${Number(m.id)})">
-            Delete
-          </button>
-
-        </div>
-
-      `).join("")}
-
-    </div>
-  `;
-
-  lucide.createIcons();
 }
 
-async function messageModal(){
 
-  try{
-    await loadCustomers();
-  }catch(error){
-    toastMessage(error.message);
-    return;
-  }
+$("messageSearch").oninput =
+  renderMessages;
 
-  showModal(
-    "New message",
-    `
-      <form id="messageForm">
-
-        <div class="field">
-          <label>Customer</label>
-
-          <select
-            name="customer_id"
-            required>
-
-            <option value="">
-              Select customer
-            </option>
-
-            ${state.customers.map(c=>`
-              <option value="${Number(c.id)}">
-                ${esc(c.name)}
-              </option>
-            `).join("")}
-
-          </select>
-        </div>
-
-        <br>
-
-        <div class="field">
-          <label>Message</label>
-
-          <textarea
-            name="message"
-            required></textarea>
-        </div>
-
-      </form>
-    `,
-    `
-      <button
-        class="btn"
-        onclick="closeModal()">
-        Cancel
-      </button>
-
-      <button
-        class="btn primary"
-        onclick="saveMessage()">
-        Send
-      </button>
-    `
-  );
-}
-
-async function saveMessage(){
-
-  const form =
-    document.getElementById(
-      "messageForm"
-    );
-
-  const raw =
-    Object.fromEntries(
-      new FormData(form)
-    );
-
-  try{
-
-    await api(
-      "/messages",
-      {
-        method:"POST",
-        body:JSON.stringify({
-          customer_id:Number(
-            raw.customer_id
-          ),
-          sender:"owner",
-          message:raw.message
-        })
-      }
-    );
-
-    closeModal();
-    toastMessage("Message saved");
-    renderMessages();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
-
-async function deleteMessage(id){
-
-  if(!confirm(
-    "Delete this message?"
-  )){
-    return;
-  }
-
-  try{
-
-    await api(
-      `/messages/${id}`,
-      {method:"DELETE"}
-    );
-
-    renderMessages();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
 
 /* =========================================================
    KNOWLEDGE
 ========================================================= */
 
-async function renderKnowledge(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Knowledge Base</h1>
-        <p>
-          Information that your business AI can use.
-        </p>
-      </div>
-
-      <div class="panel">
-
-        <div class="panel-head">
-
-          <span class="panel-title">
-            Business knowledge
-          </span>
-
-          <button
-            class="btn primary"
-            onclick="knowledgeModal()">
-            <i data-lucide="plus"></i>
-            Add knowledge
-          </button>
-
-        </div>
-
-        <div class="panel-body" id="knowledgeList">
-          Loading...
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
+async function loadKnowledge(){
 
   try{
 
     const data =
-      await api("/knowledge");
+      await api(
+        "knowledge"
+      );
 
     state.knowledge =
-      Array.isArray(data.knowledge)
-        ? data.knowledge
-        : [];
+      data.knowledge || [];
 
-    drawKnowledge();
+    renderKnowledge();
 
   }catch(error){
 
-    document.getElementById(
-      "knowledgeList"
-    ).innerHTML =
-    `<div class="empty">
-      ${esc(error.message)}
-    </div>`;
+    toast(
+      error.message
+    );
+
   }
+
 }
 
-function drawKnowledge(){
+
+function renderKnowledge(){
+
+  const el =
+    $("knowledgeList");
 
   if(!state.knowledge.length){
 
-    document.getElementById(
-      "knowledgeList"
-    ).innerHTML = `
+    el.innerHTML = `
       <div class="empty">
-        <i data-lucide="brain"></i>
-        <h3>No knowledge yet</h3>
-        <p>
-          Add information about your business.
-        </p>
+        <div class="big">⌘</div>
+        <strong>No knowledge yet</strong>
+        <p>Add verified information for the AI.</p>
       </div>
     `;
 
-    lucide.createIcons();
     return;
+
   }
 
-  document.getElementById(
-    "knowledgeList"
-  ).innerHTML = `
-    <div style="
-      display:grid;
-      gap:12px;
-    ">
+  el.innerHTML =
+    state.knowledge
+      .map(
+        item => `
 
-      ${state.knowledge.map(k=>`
+          <div class="card">
 
-        <div style="
-          border:1px solid var(--border);
-          border-radius:14px;
-          padding:16px;
-        ">
+            <div class="row">
 
-          <div style="
-            display:flex;
-            justify-content:space-between;
-            gap:10px;
-          ">
+              <div class="row-main">
 
-            <strong>
-              ${esc(k.title)}
-            </strong>
+                <h4>
+                  ${esc(item.title)}
+                </h4>
 
-            <button
-              class="btn small danger"
-              onclick="deleteKnowledge(${Number(k.id)})">
-              Delete
-            </button>
+                ${
+                  item.category
+                    ? `
+                      <span class="badge">
+                        ${esc(item.category)}
+                      </span>
+                    `
+                    : ""
+                }
+
+                <p style="white-space:pre-wrap">
+                  ${esc(item.content)}
+                </p>
+
+              </div>
+
+
+              <button
+                class="danger"
+                onclick="removeRecord('knowledge',${item.id},'knowledge item')"
+              >
+                Delete
+              </button>
+
+            </div>
 
           </div>
 
-          <div
-            style="
-              color:var(--muted);
-              font-size:11px;
-              margin:6px 0;
-            ">
-            ${esc(k.category || "General")}
-          </div>
+        `
+      )
+      .join("");
 
-          <p style="
-            line-height:1.6;
-            white-space:pre-wrap;
-          ">
-            ${esc(k.content)}
-          </p>
-
-        </div>
-
-      `).join("")}
-
-    </div>
-  `;
-
-  lucide.createIcons();
 }
 
-function knowledgeModal(){
-
-  showModal(
-    "Add knowledge",
-    `
-      <form id="knowledgeForm">
-
-        <div class="field">
-          <label>Title</label>
-          <input
-            name="title"
-            required>
-        </div>
-
-        <br>
-
-        <div class="field">
-          <label>Category</label>
-          <input
-            name="category"
-            placeholder="Products, delivery, FAQ...">
-        </div>
-
-        <br>
-
-        <div class="field">
-          <label>Content</label>
-          <textarea
-            name="content"
-            required></textarea>
-        </div>
-
-      </form>
-    `,
-    `
-      <button
-        class="btn"
-        onclick="closeModal()">
-        Cancel
-      </button>
-
-      <button
-        class="btn primary"
-        onclick="saveKnowledge()">
-        Save
-      </button>
-    `
-  );
-}
-
-async function saveKnowledge(){
-
-  const form =
-    document.getElementById(
-      "knowledgeForm"
-    );
-
-  const data =
-    Object.fromEntries(
-      new FormData(form)
-    );
-
-  try{
-
-    await api(
-      "/knowledge",
-      {
-        method:"POST",
-        body:JSON.stringify(data)
-      }
-    );
-
-    closeModal();
-    toastMessage("Knowledge saved");
-    renderKnowledge();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
-
-async function deleteKnowledge(id){
-
-  if(!confirm(
-    "Delete this knowledge item?"
-  )){
-    return;
-  }
-
-  try{
-
-    await api(
-      `/knowledge/${id}`,
-      {method:"DELETE"}
-    );
-
-    renderKnowledge();
-
-  }catch(error){
-    toastMessage(error.message);
-  }
-}
 
 /* =========================================================
-   OWNER AI
+   CONTACT
 ========================================================= */
 
-async function renderOwnerAI(){
+function normalizeWhatsapp(
+  value
+){
 
-  content.innerHTML = `
-    <div class="page">
+  return String(
+    value || ""
+  )
+  .replace(
+    /[^\d]/g,
+    ""
+  );
 
-      <div class="hero">
-        <h1>Owner AI</h1>
-        <p>
-          Ask the AI about your business data and knowledge base.
-        </p>
-      </div>
-
-      <div class="panel ai-box">
-
-        <div class="panel-body">
-
-          <div class="ai-header">
-
-            <div class="ai-avatar">
-              <i data-lucide="sparkles"></i>
-            </div>
-
-            <div>
-              <strong>AI Business Assistant</strong>
-
-              <div style="
-                color:var(--muted);
-                font-size:12px;
-                margin-top:3px;
-              ">
-                Owner-only business intelligence
-              </div>
-            </div>
-
-          </div>
-
-          <div
-            class="ai-messages"
-            id="aiMessages">
-
-            <div class="ai-message assistant">
-              Hello. I'm your business AI assistant.
-              Ask me about your customers, orders,
-              products, tasks or business knowledge.
-            </div>
-
-          </div>
-
-          <form
-            class="ai-form"
-            id="aiForm">
-
-            <input
-              id="aiInput"
-              autocomplete="off"
-              placeholder="Ask your business AI...">
-
-            <button
-              class="btn primary"
-              id="aiSend"
-              type="submit">
-              <i data-lucide="send"></i>
-              Send
-            </button>
-
-          </form>
-
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
-
-  document.getElementById("aiForm")
-    .addEventListener(
-      "submit",
-      sendAI
-    );
 }
 
-async function sendAI(e){
 
-  e.preventDefault();
+function whatsappUrl(
+  number
+){
+
+  const digits =
+    normalizeWhatsapp(
+      number
+    );
+
+  if(!digits)
+    return "";
+
+  return (
+    "https://wa.me/" +
+    digits +
+    "?text=" +
+    encodeURIComponent(
+      "Hello, I would like to make an enquiry."
+    )
+  );
+
+}
+
+
+function phoneUrl(
+  phone
+){
+
+  if(!phone)
+    return "";
+
+  return (
+    "tel:" +
+    String(phone)
+      .replace(
+        /[^\d+]/g,
+        ""
+      )
+  );
+
+}
+
+
+function emailUrl(
+  email
+){
+
+  if(!email)
+    return "";
+
+  return (
+    "mailto:" +
+    encodeURIComponent(
+      email
+    )
+  );
+
+}
+
+
+function safeUrl(
+  value
+){
+
+  if(!value)
+    return "";
+
+  try{
+
+    const url =
+      new URL(
+        value
+      );
+
+    if(
+      url.protocol !== "https:" &&
+      url.protocol !== "http:"
+    ){
+      return "";
+    }
+
+    return url.toString();
+
+  }catch{
+
+    return "";
+
+  }
+
+}
+
+
+function contactCard(
+  icon,
+  title,
+  value,
+  href,
+  external=true
+){
+
+  if(
+    !value ||
+    !href
+  ){
+    return "";
+  }
+
+  const target =
+    external
+      ? 'target="_blank" rel="noopener noreferrer"'
+      : "";
+
+  return `
+
+    <a
+      class="contact-card"
+      href="${esc(href)}"
+      ${target}
+    >
+
+      <div class="contact-icon">
+        ${icon}
+      </div>
+
+      <div class="contact-copy">
+
+        <strong>
+          ${esc(title)}
+        </strong>
+
+        <span>
+          ${esc(value)}
+        </span>
+
+      </div>
+
+    </a>
+
+  `;
+
+}
+
+
+async function loadContact(){
+
+  try{
+
+    const data =
+      await api(
+        "contact"
+      );
+
+    state.contact =
+      data.settings ||
+      state.contact;
+
+    renderContact();
+    renderSettings();
+    renderPublicContact();
+
+  }catch(error){
+
+    console.error(
+      error
+    );
+
+  }
+
+}
+
+
+function renderContact(){
+
+  const container =
+    $("contactCards");
+
+  if(!container)
+    return;
+
+  const c =
+    state.contact;
+
+  const cards = [];
+
+  if(c.whatsapp){
+
+    cards.push(
+      contactCard(
+        "◉",
+        "WhatsApp",
+        "Chat with the business",
+        whatsappUrl(
+          c.whatsapp
+        )
+      )
+    );
+
+  }
+
+  if(c.facebook){
+
+    cards.push(
+      contactCard(
+        "f",
+        "Facebook",
+        "Visit Facebook",
+        safeUrl(c.facebook)
+      )
+    );
+
+  }
+
+  if(c.instagram){
+
+    cards.push(
+      contactCard(
+        "◎",
+        "Instagram",
+        "Visit Instagram",
+        safeUrl(c.instagram)
+      )
+    );
+
+  }
+
+  if(c.tiktok){
+
+    cards.push(
+      contactCard(
+        "♪",
+        "TikTok",
+        "Visit TikTok",
+        safeUrl(c.tiktok)
+      )
+    );
+
+  }
+
+  if(c.x){
+
+    cards.push(
+      contactCard(
+        "𝕏",
+        "X",
+        "Visit X",
+        safeUrl(c.x)
+      )
+    );
+
+  }
+
+  if(c.telegram){
+
+    cards.push(
+      contactCard(
+        "➤",
+        "Telegram",
+        "Message on Telegram",
+        safeUrl(c.telegram)
+      )
+    );
+
+  }
+
+  if(c.phone){
+
+    cards.push(
+      contactCard(
+        "☎",
+        "Phone",
+        c.phone,
+        phoneUrl(c.phone),
+        false
+      )
+    );
+
+  }
+
+  if(c.email){
+
+    cards.push(
+      contactCard(
+        "✉",
+        "Email",
+        c.email,
+        emailUrl(c.email),
+        false
+      )
+    );
+
+  }
+
+  if(c.website){
+
+    cards.push(
+      contactCard(
+        "↗",
+        "Website",
+        c.website,
+        safeUrl(c.website)
+      )
+    );
+
+  }
+
+  if(c.address){
+
+    cards.push(
+      contactCard(
+        "⌖",
+        "Address",
+        c.address,
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(
+          c.address
+        )
+      )
+    );
+
+  }
+
+  if(!cards.length){
+
+    container.innerHTML = `
+      <div class="contact-missing">
+
+        <div style="font-size:30px">
+          ◉
+        </div>
+
+        <strong>
+          Contact channels are not configured yet.
+        </strong>
+
+        <p>
+          Add them in Business Settings.
+        </p>
+
+      </div>
+    `;
+
+  }else{
+
+    container.innerHTML =
+      cards.join("");
+
+  }
+
+  $("contactBusinessName")
+    .textContent =
+    c.business_name ||
+    "Contact the business";
+
+}
+
+
+function renderSettings(){
+
+  const map = {
+
+    settingBusinessName:
+      state.contact.business_name,
+
+    settingWhatsapp:
+      state.contact.whatsapp,
+
+    settingFacebook:
+      state.contact.facebook,
+
+    settingInstagram:
+      state.contact.instagram,
+
+    settingTiktok:
+      state.contact.tiktok,
+
+    settingX:
+      state.contact.x,
+
+    settingTelegram:
+      state.contact.telegram,
+
+    settingPhone:
+      state.contact.phone,
+
+    settingEmail:
+      state.contact.email,
+
+    settingWebsite:
+      state.contact.website,
+
+    settingAddress:
+      state.contact.address
+
+  };
+
+  Object.entries(
+    map
+  )
+  .forEach(
+    ([id,value]) => {
+
+      const el =
+        $(id);
+
+      if(el){
+        el.value =
+          value || "";
+      }
+
+    }
+  );
+
+}
+
+
+$("contactSettingsForm")
+  .onsubmit =
+  async event => {
+
+    event.preventDefault();
+
+    const button =
+      $("saveContactBtn");
+
+    button.disabled =
+      true;
+
+    button.textContent =
+      "Saving...";
+
+    const form =
+      new FormData(
+        event.target
+      );
+
+    const payload =
+      Object.fromEntries(
+        form.entries()
+      );
+
+    payload.whatsapp =
+      normalizeWhatsapp(
+        payload.whatsapp
+      );
+
+    try{
+
+      const result =
+        await api(
+          "settings/contact",
+          {
+            method:"PUT",
+            body:JSON.stringify(
+              payload
+            )
+          }
+        );
+
+      state.contact =
+        result.settings;
+
+      renderContact();
+      renderSettings();
+      renderPublicContact();
+
+      toast(
+        "Business contact details saved."
+      );
+
+    }catch(error){
+
+      toast(
+        error.message
+      );
+
+    }finally{
+
+      button.disabled =
+        false;
+
+      button.textContent =
+        "Save contact details";
+
+    }
+
+  };
+
+
+/* =========================================================
+   PUBLIC CONTACT
+========================================================= */
+
+function renderPublicContact(){
+
+  const container =
+    $("publicContactCards");
+
+  if(!container)
+    return;
+
+  const c =
+    state.contact;
+
+  $("publicBusinessName")
+    .textContent =
+    c.business_name ||
+    "Business";
+
+  $("publicTitle")
+    .textContent =
+    c.business_name
+      ? "Contact " +
+        c.business_name
+      : "Contact us";
+
+  $("publicSubtitle")
+    .textContent =
+    "Choose any channel below to reach the business.";
+
+  const cards = [];
+
+  if(c.whatsapp){
+
+    cards.push(
+      contactCard(
+        "◉",
+        "WhatsApp",
+        "Start a WhatsApp conversation",
+        whatsappUrl(
+          c.whatsapp
+        )
+      )
+    );
+
+  }
+
+  if(c.facebook){
+
+    cards.push(
+      contactCard(
+        "f",
+        "Facebook",
+        "Visit our Facebook page",
+        safeUrl(c.facebook)
+      )
+    );
+
+  }
+
+  if(c.instagram){
+
+    cards.push(
+      contactCard(
+        "◎",
+        "Instagram",
+        "Follow us on Instagram",
+        safeUrl(c.instagram)
+      )
+    );
+
+  }
+
+  if(c.tiktok){
+
+    cards.push(
+      contactCard(
+        "♪",
+        "TikTok",
+        "Visit our TikTok",
+        safeUrl(c.tiktok)
+      )
+    );
+
+  }
+
+  if(c.x){
+
+    cards.push(
+      contactCard(
+        "𝕏",
+        "X",
+        "Follow us on X",
+        safeUrl(c.x)
+      )
+    );
+
+  }
+
+  if(c.telegram){
+
+    cards.push(
+      contactCard(
+        "➤",
+        "Telegram",
+        "Message us on Telegram",
+        safeUrl(c.telegram)
+      )
+    );
+
+  }
+
+  if(c.phone){
+
+    cards.push(
+      contactCard(
+        "☎",
+        "Phone",
+        c.phone,
+        phoneUrl(c.phone),
+        false
+      )
+    );
+
+  }
+
+  if(c.email){
+
+    cards.push(
+      contactCard(
+        "✉",
+        "Email",
+        c.email,
+        emailUrl(c.email),
+        false
+      )
+    );
+
+  }
+
+  if(c.website){
+
+    cards.push(
+      contactCard(
+        "↗",
+        "Website",
+        c.website,
+        safeUrl(c.website)
+      )
+    );
+
+  }
+
+  if(c.address){
+
+    cards.push(
+      contactCard(
+        "⌖",
+        "Address",
+        c.address,
+        "https://www.google.com/maps/search/?api=1&query=" +
+        encodeURIComponent(
+          c.address
+        )
+      )
+    );
+
+  }
+
+  if(!cards.length){
+
+    container.innerHTML = `
+      <div class="contact-missing">
+
+        <div style="font-size:30px">
+          ◉
+        </div>
+
+        <strong>
+          Public contact information has not been configured.
+        </strong>
+
+        <p>
+          The business owner needs to add the contact channels first.
+        </p>
+
+      </div>
+    `;
+
+  }else{
+
+    container.innerHTML =
+      cards.join("");
+
+  }
+
+}
+
+
+function openPublicContact(){
+
+  const url =
+    window.location.origin +
+    window.location.pathname +
+    "?view=contact";
+
+  window.open(
+    url,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+}
+
+
+async function copyPublicContactUrl(){
+
+  const url =
+    window.location.origin +
+    window.location.pathname +
+    "?view=contact";
+
+  try{
+
+    await navigator.clipboard.writeText(
+      url
+    );
+
+    toast(
+      "Public contact link copied."
+    );
+
+  }catch{
+
+    toast(
+      "Copy failed. Use Open public page instead."
+    );
+
+  }
+
+}
+
+
+$("publicBackButton")
+  .onclick =
+  () => {
+
+    window.location.href =
+      window.location.origin +
+      window.location.pathname;
+
+  };
+
+
+/* =========================================================
+   PUBLIC AI
+========================================================= */
+
+let publicAiHistory = [];
+
+
+function renderPublicAi(){
+
+  const el =
+    $("publicAiMessages");
+
+  if(!el)
+    return;
+
+  if(!publicAiHistory.length){
+
+    el.innerHTML = `
+
+      <div class="empty">
+
+        <div class="big">
+          ✦
+        </div>
+
+        <strong>
+          Business AI is ready
+        </strong>
+
+        <p>
+          Ask a question about the business.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  el.innerHTML =
+    publicAiHistory
+      .map(
+        message => `
+
+          <div
+            class="bubble ${
+              message.role === "user"
+                ? "user"
+                : "ai"
+            }"
+          >
+            ${esc(message.content)}
+          </div>
+
+        `
+      )
+      .join("");
+
+  el.scrollTop =
+    el.scrollHeight;
+
+}
+
+
+async function sendPublicAi(){
 
   const input =
-    document.getElementById(
-      "aiInput"
-    );
+    $("publicAiInput");
 
   const button =
-    document.getElementById(
-      "aiSend"
-    );
+    $("publicAiSend");
 
   const message =
     input.value.trim();
 
-  if(!message){
+  if(
+    !message ||
+    button.disabled
+  ){
     return;
   }
 
-  const messages =
-    document.getElementById(
-      "aiMessages"
-    );
+  publicAiHistory.push({
+    role:"user",
+    content:message
+  });
 
-  messages.innerHTML += `
-    <div class="ai-message user">
-      ${esc(message)}
-    </div>
-  `;
+  renderPublicAi();
 
   input.value = "";
-  input.disabled = true;
-  button.disabled = true;
 
-  const thinking =
-    document.createElement("div");
+  button.disabled =
+    true;
 
-  thinking.className =
-    "ai-message assistant";
-
-  thinking.textContent =
+  button.textContent =
     "Thinking...";
-
-  messages.appendChild(thinking);
-
-  messages.scrollTop =
-    messages.scrollHeight;
 
   try{
 
     const result =
       await api(
-        "/ai",
+        "ai",
         {
           method:"POST",
           body:JSON.stringify({
             message,
-            mode:"owner",
+            mode:"customer",
             history:
-              conversationHistory
-                .slice(-20)
+              publicAiHistory.slice(-20)
           })
         }
       );
 
-    thinking.textContent =
-      result.reply ||
-      "I couldn't generate a response.";
-
-    conversationHistory.push({
-      role:"user",
-      content:message
-    });
-
-    conversationHistory.push({
+    publicAiHistory.push({
       role:"assistant",
       content:
-        result.reply || ""
+        result.reply ||
+        "I couldn't generate a response."
     });
 
   }catch(error){
 
-    thinking.textContent =
-      "AI error: " +
-      error.message;
+    publicAiHistory.push({
+      role:"assistant",
+      content:
+        "The business AI is temporarily unavailable."
+    });
+
+  }finally{
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "Send";
+
+    renderPublicAi();
+
   }
 
-  input.disabled = false;
-  button.disabled = false;
-  input.focus();
-
-  messages.scrollTop =
-    messages.scrollHeight;
 }
+
+
+$("publicAiSend")
+  .onclick =
+  sendPublicAi;
+
+
+$("publicAiInput")
+  .onkeydown =
+  event => {
+
+    if(
+      event.key === "Enter" &&
+      !event.shiftKey
+    ){
+
+      event.preventDefault();
+
+      sendPublicAi();
+
+    }
+
+  };
+
 
 /* =========================================================
-   CONTACT SYSTEM
+   MODALS
 ========================================================= */
 
-async function loadContact(){
-
-  const data =
-    await api("/contact");
-
-  state.contact =
-    data.contact || {};
-
-  return state.contact;
-}
-
-function normalizeWhatsApp(value){
-
-  let number =
-    String(value || "")
-      .replace(/\D/g,"");
-
-  return number;
-}
-
-function validUrl(value){
-
-  if(!value){
-    return "";
-  }
-
-  let url =
-    String(value).trim();
-
-  if(
-    !/^https?:\/\//i.test(url)
-  ){
-    url = "https://" + url;
-  }
-
-  try{
-    return new URL(url).href;
-  }catch{
-    return "";
-  }
-}
-
-function contactCards(contact){
-
-  const cards = [];
-
-  const whatsapp =
-    normalizeWhatsApp(
-      contact.whatsapp
-    );
-
-  if(whatsapp){
-
-    const message =
-      encodeURIComponent(
-        contact.whatsapp_message ||
-        "Hello, I would like to make an enquiry."
-      );
-
-    cards.push(`
-      <a
-        class="contact-card"
-        target="_blank"
-        rel="noopener"
-        href="https://wa.me/${whatsapp}?text=${message}">
-
-        <span class="contact-icon">
-          <i data-lucide="message-circle"></i>
-        </span>
-
-        <span class="contact-name">
-          WhatsApp
-        </span>
-
-        <span class="contact-description">
-          Chat with the business on WhatsApp
-        </span>
-
-      </a>
-    `);
-  }
-
-  const socials = [
-    ["facebook","Facebook","facebook"],
-    ["instagram","Instagram","instagram"],
-    ["tiktok","TikTok","music-2"],
-    ["x","X","at-sign"],
-    ["telegram","Telegram","send"]
-  ];
-
-  socials.forEach(([key,name,icon])=>{
-
-    const url =
-      validUrl(contact[key]);
-
-    if(!url){
-      return;
-    }
-
-    cards.push(`
-      <a
-        class="contact-card"
-        target="_blank"
-        rel="noopener"
-        href="${esc(url)}">
-
-        <span class="contact-icon">
-          <i data-lucide="${icon}"></i>
-        </span>
-
-        <span class="contact-name">
-          ${name}
-        </span>
-
-        <span class="contact-description">
-          Visit the business ${name} account
-        </span>
-
-      </a>
-    `);
-  });
-
-  if(contact.phone){
-
-    cards.push(`
-      <a
-        class="contact-card"
-        href="tel:${esc(contact.phone)}">
-
-        <span class="contact-icon">
-          <i data-lucide="phone"></i>
-        </span>
-
-        <span class="contact-name">
-          Phone
-        </span>
-
-        <span class="contact-description">
-          ${esc(contact.phone)}
-        </span>
-
-      </a>
-    `);
-  }
-
-  if(contact.email){
-
-    cards.push(`
-      <a
-        class="contact-card"
-        href="mailto:${esc(contact.email)}">
-
-        <span class="contact-icon">
-          <i data-lucide="mail"></i>
-        </span>
-
-        <span class="contact-name">
-          Email
-        </span>
-
-        <span class="contact-description">
-          ${esc(contact.email)}
-        </span>
-
-      </a>
-    `);
-  }
-
-  if(contact.website){
-
-    const url =
-      validUrl(contact.website);
-
-    if(url){
-
-      cards.push(`
-        <a
-          class="contact-card"
-          target="_blank"
-          rel="noopener"
-          href="${esc(url)}">
-
-          <span class="contact-icon">
-            <i data-lucide="globe"></i>
-          </span>
-
-          <span class="contact-name">
-            Website
-          </span>
-
-          <span class="contact-description">
-            Visit the business website
-          </span>
-
-        </a>
-      `);
-    }
-  }
-
-  return cards.join("");
-}
-
-async function renderContact(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Contact Owner</h1>
-        <p>
-          These are the public ways customers can reach the business.
-        </p>
-      </div>
-
-      <div id="contactArea">
-        Loading contact information...
-      </div>
-
-    </div>
-  `;
-
-  try{
-
-    await loadContact();
-
-    const c =
-      state.contact;
-
-    const cards =
-      contactCards(c);
-
-    document.getElementById(
-      "contactArea"
-    ).innerHTML = `
-
-      <div class="panel">
-
-        <div class="panel-body">
-
-          <div style="
-            margin-bottom:22px;
-          ">
-
-            <h2 style="
-              margin:0 0 7px;
-            ">
-              ${esc(
-                c.business_name ||
-                "Business"
-              )}
-            </h2>
-
-            <p style="
-              margin:0;
-              color:var(--muted);
-              line-height:1.6;
-            ">
-              ${esc(
-                c.description ||
-                "Contact us through any of the channels below."
-              )}
-            </p>
-
-            ${
-              c.address
-                ? `
-                  <p style="
-                    color:var(--muted);
-                    font-size:13px;
-                  ">
-                    <i data-lucide="map-pin"
-                       style="width:15px;
-                       vertical-align:middle">
-                    </i>
-                    ${esc(c.address)}
-                  </p>
-                `
-                : ""
-            }
-
+function openModal(
+  type,
+  id=null
+){
+
+  let title = "";
+  let html = "";
+  let save = null;
+
+  if(type === "customer"){
+
+    const item =
+      id
+        ? state.customers.find(
+            x => Number(x.id) === Number(id)
+          )
+        : null;
+
+    title =
+      id
+        ? "Edit customer"
+        : "Add customer";
+
+    html = `
+
+      <form id="dynamicForm">
+
+        <div class="form-grid">
+
+          <div class="fg full">
+            <label>Name</label>
+            <input
+              name="name"
+              value="${esc(item?.name || "")}"
+              required
+            >
           </div>
 
-          ${
-            cards
-              ? `
-                <div class="contact-grid">
-                  ${cards}
-                </div>
-              `
-              : `
-                <div class="empty">
-                  <i data-lucide="share-2"></i>
-                  <h3>No contact channels configured</h3>
-                  <p>
-                    Configure the owner's contact details
-                    from Settings.
-                  </p>
+          <div class="fg">
+            <label>Phone</label>
+            <input
+              name="phone"
+              value="${esc(item?.phone || "")}"
+            >
+          </div>
 
-                  <button
-                    class="btn primary"
-                    onclick="openPage('settings')">
-                    Configure contact
-                  </button>
-                </div>
-              `
-          }
+          <div class="fg">
+            <label>Email</label>
+            <input
+              name="email"
+              type="email"
+              value="${esc(item?.email || "")}"
+            >
+          </div>
 
-        </div>
+          <div class="fg full">
+            <label>Address</label>
+            <input
+              name="address"
+              value="${esc(item?.address || "")}"
+            >
+          </div>
 
-      </div>
-    `;
-
-    lucide.createIcons();
-
-  }catch(error){
-
-    document.getElementById(
-      "contactArea"
-    ).innerHTML =
-    `<div class="empty">
-      ${esc(error.message)}
-    </div>`;
-  }
-}
-
-/* =========================================================
-   SETTINGS / CONTACT EDITOR
-========================================================= */
-
-async function renderSettings(){
-
-  content.innerHTML = `
-    <div class="page">
-
-      <div class="hero">
-        <h1>Settings</h1>
-        <p>
-          Configure your business profile and customer contact channels.
-        </p>
-      </div>
-
-      <div class="panel settings-section">
-
-        <div class="panel-head">
-          <span class="panel-title">
-            Contact & Socials
-          </span>
-        </div>
-
-        <div class="panel-body">
-
-          <form id="contactForm">
-
-            <div class="form-grid">
-
-              <div class="field">
-                <label>Business name</label>
-                <input
-                  name="business_name"
-                  id="contactBusinessName">
-              </div>
-
-              <div class="field">
-                <label>Phone</label>
-                <input
-                  name="phone"
-                  id="contactPhone"
-                  placeholder="+234...">
-              </div>
-
-              <div class="field">
-                <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="contactEmail">
-              </div>
-
-              <div class="field">
-                <label>WhatsApp number</label>
-                <input
-                  name="whatsapp"
-                  id="contactWhatsApp"
-                  placeholder="2348012345678">
-              </div>
-
-              <div class="field">
-                <label>Facebook URL</label>
-                <input
-                  name="facebook"
-                  id="contactFacebook"
-                  placeholder="https://facebook.com/...">
-              </div>
-
-              <div class="field">
-                <label>Instagram URL</label>
-                <input
-                  name="instagram"
-                  id="contactInstagram"
-                  placeholder="https://instagram.com/...">
-              </div>
-
-              <div class="field">
-                <label>TikTok URL</label>
-                <input
-                  name="tiktok"
-                  id="contactTikTok"
-                  placeholder="https://tiktok.com/@...">
-              </div>
-
-              <div class="field">
-                <label>X URL</label>
-                <input
-                  name="x"
-                  id="contactX"
-                  placeholder="https://x.com/...">
-              </div>
-
-              <div class="field">
-                <label>Telegram URL</label>
-                <input
-                  name="telegram"
-                  id="contactTelegram"
-                  placeholder="https://t.me/...">
-              </div>
-
-              <div class="field">
-                <label>Website</label>
-                <input
-                  name="website"
-                  id="contactWebsite"
-                  placeholder="https://...">
-              </div>
-
-              <div class="field full">
-                <label>Business address</label>
-                <input
-                  name="address"
-                  id="contactAddress">
-              </div>
-
-              <div class="field full">
-                <label>Business description</label>
-                <textarea
-                  name="description"
-                  id="contactDescription"></textarea>
-              </div>
-
-              <div class="field full">
-                <label>
-                  WhatsApp pre-filled message
-                </label>
-
-                <textarea
-                  name="whatsapp_message"
-                  id="contactWhatsAppMessage"
-                  placeholder="Hello, I would like to make an enquiry."></textarea>
-              </div>
-
-            </div>
-
-          </form>
-
-          <div style="
-            display:flex;
-            justify-content:flex-end;
-            margin-top:18px;
-          ">
-
-            <button
-              class="btn primary"
-              onclick="saveContact()">
-              <i data-lucide="save"></i>
-              Save contact details
-            </button>
-
+          <div class="fg full">
+            <label>Notes</label>
+            <textarea name="notes">${esc(item?.notes || "")}</textarea>
           </div>
 
         </div>
 
-      </div>
-
-      <div class="panel">
-
-        <div class="panel-head">
-          <span class="panel-title">
-            Public contact page
-          </span>
-        </div>
-
-        <div class="panel-body">
-
-          <p style="
-            color:var(--muted);
-            line-height:1.6;
-          ">
-            Customers can access the public contact page
-            without entering the owner dashboard.
-          </p>
+        <div class="modal-actions">
 
           <button
-            class="btn"
-            onclick="
-              window.open(
-                window.location.href.split('?')[0] +
-                '?public=contact',
-                '_blank'
-              )
-            ">
-            <i data-lucide="external-link"></i>
-            Open public contact page
+            type="button"
+            class="secondary"
+            onclick="closeModal()"
+          >
+            Cancel
+          </button>
+
+          <button
+            class="primary"
+          >
+            Save customer
           </button>
 
         </div>
 
+      </form>
+
+    `;
+
+    save =
+      form =>
+        api(
+          id
+            ? `customers/${id}`
+            : "customers",
+          {
+            method:
+              id ? "PUT" : "POST",
+            body:
+              JSON.stringify(
+                Object.fromEntries(
+                  form.entries()
+                )
+              )
+          }
+        );
+
+  }
+
+
+  if(type === "product"){
+
+    const item =
+      id
+        ? state.products.find(
+            x => Number(x.id) === Number(id)
+          )
+        : null;
+
+    title =
+      id
+        ? "Edit product"
+        : "Add product";
+
+    html = `
+
+      <form id="dynamicForm">
+
+        <div class="form-grid">
+
+          <div class="fg full">
+            <label>Product name</label>
+            <input
+              name="name"
+              value="${esc(item?.name || "")}"
+              required
+            >
+          </div>
+
+          <div class="fg full">
+            <label>Description</label>
+            <textarea name="description">${esc(item?.description || "")}</textarea>
+          </div>
+
+          <div class="fg">
+            <label>Price</label>
+            <input
+              name="price"
+              type="number"
+              min="0"
+              step="0.01"
+              value="${Number(item?.price || 0)}"
+              required
+            >
+          </div>
+
+          <div class="fg">
+            <label>Stock</label>
+            <input
+              name="stock"
+              type="number"
+              min="0"
+              step="1"
+              value="${Number(item?.stock || 0)}"
+              required
+            >
+          </div>
+
+          <div class="fg full">
+            <label>Status</label>
+
+            <select name="status">
+
+              <option
+                value="active"
+                ${
+                  item?.status !== "inactive"
+                    ? "selected"
+                    : ""
+                }
+              >
+                Active
+              </option>
+
+              <option
+                value="inactive"
+                ${
+                  item?.status === "inactive"
+                    ? "selected"
+                    : ""
+                }
+              >
+                Inactive
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="secondary"
+            onclick="closeModal()"
+          >
+            Cancel
+          </button>
+
+          <button class="primary">
+            Save product
+          </button>
+
+        </div>
+
+      </form>
+
+    `;
+
+    save =
+      form =>
+        api(
+          id
+            ? `products/${id}`
+            : "products",
+          {
+            method:
+              id ? "PUT" : "POST",
+            body:
+              JSON.stringify(
+                Object.fromEntries(
+                  form.entries()
+                )
+              )
+          }
+        );
+
+  }
+
+
+  if(type === "task"){
+
+    title =
+      "Add task";
+
+    html = `
+
+      <form id="dynamicForm">
+
+        <div class="form-grid">
+
+          <div class="fg full">
+
+            <label>
+              Task title
+            </label>
+
+            <input
+              name="title"
+              required
+            >
+
+          </div>
+
+
+          <div class="fg full">
+
+            <label>
+              Description
+            </label>
+
+            <textarea
+              name="description"
+            ></textarea>
+
+          </div>
+
+
+          <div class="fg full">
+
+            <label>
+              Due date
+            </label>
+
+            <input
+              name="due_date"
+              type="date"
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="secondary"
+            onclick="closeModal()"
+          >
+            Cancel
+          </button>
+
+          <button class="primary">
+            Save task
+          </button>
+
+        </div>
+
+      </form>
+
+    `;
+
+    save =
+      form =>
+        api(
+          "tasks",
+          {
+            method:"POST",
+            body:
+              JSON.stringify(
+                Object.fromEntries(
+                  form.entries()
+                )
+              )
+          }
+        );
+
+  }
+
+
+  if(type === "message"){
+
+    title =
+      "New message";
+
+    html = `
+
+      <form id="dynamicForm">
+
+        <div class="form-grid">
+
+          <div class="fg full">
+
+            <label>
+              Customer
+            </label>
+
+            <select
+              name="customer_id"
+            >
+
+              <option value="">
+                General / no customer
+              </option>
+
+              ${
+                state.customers
+                  .map(
+                    customer =>
+                      `
+                        <option
+                          value="${customer.id}"
+                        >
+                          ${esc(customer.name)}
+                        </option>
+                      `
+                  )
+                  .join("")
+              }
+
+            </select>
+
+          </div>
+
+
+          <div class="fg">
+
+            <label>
+              Sender
+            </label>
+
+            <select name="sender">
+
+              <option value="customer">
+                Customer
+              </option>
+
+              <option value="owner">
+                Owner
+              </option>
+
+              <option value="ai">
+                AI
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="fg full">
+
+            <label>
+              Message
+            </label>
+
+            <textarea
+              name="message"
+              required
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="secondary"
+            onclick="closeModal()"
+          >
+            Cancel
+          </button>
+
+          <button class="primary">
+            Save message
+          </button>
+
+        </div>
+
+      </form>
+
+    `;
+
+    save =
+      form =>
+        api(
+          "messages",
+          {
+            method:"POST",
+            body:
+              JSON.stringify(
+                Object.fromEntries(
+                  form.entries()
+                )
+              )
+          }
+        );
+
+  }
+
+
+  if(type === "knowledge"){
+
+    title =
+      "Add knowledge";
+
+    html = `
+
+      <form id="dynamicForm">
+
+        <div class="form-grid">
+
+          <div class="fg full">
+
+            <label>
+              Title
+            </label>
+
+            <input
+              name="title"
+              required
+            >
+
+          </div>
+
+
+          <div class="fg full">
+
+            <label>
+              Category
+            </label>
+
+            <input
+              name="category"
+              placeholder="Products, policies, delivery..."
+            >
+
+          </div>
+
+
+          <div class="fg full">
+
+            <label>
+              Verified information
+            </label>
+
+            <textarea
+              name="content"
+              required
+              style="min-height:180px"
+            ></textarea>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="secondary"
+            onclick="closeModal()"
+          >
+            Cancel
+          </button>
+
+          <button class="primary">
+            Save knowledge
+          </button>
+
+        </div>
+
+      </form>
+
+    `;
+
+    save =
+      form =>
+        api(
+          "knowledge",
+          {
+            method:"POST",
+            body:
+              JSON.stringify(
+                Object.fromEntries(
+                  form.entries()
+                )
+              )
+          }
+        );
+
+  }
+
+
+  if(type === "order"){
+
+    title =
+      "Create order";
+
+    html = `
+
+      <form id="dynamicForm">
+
+        <div class="form-grid">
+
+          <div class="fg full">
+
+            <label>
+              Customer
+            </label>
+
+            <select
+              name="customer_id"
+              required
+            >
+
+              <option value="">
+                Select customer
+              </option>
+
+              ${
+                state.customers
+                  .map(
+                    customer =>
+                      `
+                        <option
+                          value="${customer.id}"
+                        >
+                          ${esc(customer.name)}
+                        </option>
+                      `
+                  )
+                  .join("")
+              }
+
+            </select>
+
+          </div>
+
+
+          <div class="fg">
+
+            <label>
+              Product
+            </label>
+
+            <select
+              name="product_id"
+              required
+            >
+
+              <option value="">
+                Select product
+              </option>
+
+              ${
+                state.products
+                  .filter(
+                    product =>
+                      product.status === "active"
+                  )
+                  .map(
+                    product =>
+                      `
+                        <option
+                          value="${product.id}"
+                        >
+                          ${esc(product.name)}
+                          ·
+                          ${money(product.price)}
+                          · stock ${Number(product.stock)}
+                        </option>
+                      `
+                  )
+                  .join("")
+              }
+
+            </select>
+
+          </div>
+
+
+          <div class="fg">
+
+            <label>
+              Quantity
+            </label>
+
+            <input
+              name="quantity"
+              type="number"
+              min="1"
+              step="1"
+              value="1"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="secondary"
+            onclick="closeModal()"
+          >
+            Cancel
+          </button>
+
+          <button class="primary">
+            Create order
+          </button>
+
+        </div>
+
+      </form>
+
+    `;
+
+    save =
+      form => {
+
+        const data =
+          Object.fromEntries(
+            form.entries()
+          );
+
+        return api(
+          "orders",
+          {
+            method:"POST",
+            body:
+              JSON.stringify({
+                customer_id:
+                  Number(
+                    data.customer_id
+                  ),
+                items:[
+                  {
+                    product_id:
+                      Number(
+                        data.product_id
+                      ),
+                    quantity:
+                      Number(
+                        data.quantity
+                      )
+                  }
+                ]
+              })
+          }
+        );
+
+      };
+
+  }
+
+
+  if(!save)
+    return;
+
+
+  $("modalRoot")
+    .innerHTML = `
+
+      <div
+        class="modal-bg"
+        id="modalBg"
+      >
+
+        <div class="modal">
+
+          <div class="modal-head">
+
+            <div>
+
+              <h2>
+                ${title}
+              </h2>
+
+              <p>
+                Saved directly to Cloudflare D1.
+              </p>
+
+            </div>
+
+            <button
+              class="close"
+              onclick="closeModal()"
+            >
+              ×
+            </button>
+
+          </div>
+
+          ${html}
+
+        </div>
+
       </div>
 
-    </div>
-  `;
+    `;
 
-  lucide.createIcons();
 
-  try{
+  $("dynamicForm")
+    .onsubmit =
+    async event => {
 
-    await loadContact();
+      event.preventDefault();
 
-    const c =
-      state.contact;
+      const button =
+        event.target
+          .querySelector(
+            ".primary"
+          );
 
-    document.getElementById(
-      "contactBusinessName"
-    ).value =
-      c.business_name || "";
+      button.disabled =
+        true;
 
-    document.getElementById(
-      "contactPhone"
-    ).value =
-      c.phone || "";
+      button.textContent =
+        "Saving...";
 
-    document.getElementById(
-      "contactEmail"
-    ).value =
-      c.email || "";
+      try{
 
-    document.getElementById(
-      "contactWhatsApp"
-    ).value =
-      c.whatsapp || "";
+        await save(
+          new FormData(
+            event.target
+          )
+        );
 
-    document.getElementById(
-      "contactFacebook"
-    ).value =
-      c.facebook || "";
+        closeModal();
 
-    document.getElementById(
-      "contactInstagram"
-    ).value =
-      c.instagram || "";
+        toast(
+          id
+            ? "Updated successfully."
+            : "Saved successfully."
+        );
 
-    document.getElementById(
-      "contactTikTok"
-    ).value =
-      c.tiktok || "";
+        if(type === "customer"){
 
-    document.getElementById(
-      "contactX"
-    ).value =
-      c.x || "";
+          await loadCustomers();
+          await loadDashboard();
 
-    document.getElementById(
-      "contactTelegram"
-    ).value =
-      c.telegram || "";
+        }
 
-    document.getElementById(
-      "contactWebsite"
-    ).value =
-      c.website || "";
+        if(type === "product"){
 
-    document.getElementById(
-      "contactAddress"
-    ).value =
-      c.address || "";
+          await loadProducts();
+          await loadDashboard();
 
-    document.getElementById(
-      "contactDescription"
-    ).value =
-      c.description || "";
+        }
 
-    document.getElementById(
-      "contactWhatsAppMessage"
-    ).value =
-      c.whatsapp_message ||
-      "Hello, I would like to make an enquiry.";
+        if(type === "task"){
 
-  }catch(error){
+          await loadTasks();
+          await loadDashboard();
 
-    toastMessage(error.message);
-  }
+        }
+
+        if(type === "message")
+          await loadMessages();
+
+        if(type === "knowledge")
+          await loadKnowledge();
+
+        if(type === "order"){
+
+          await loadOrders();
+          await loadProducts();
+          await loadDashboard();
+
+        }
+
+      }catch(error){
+
+        toast(
+          error.message
+        );
+
+        button.disabled =
+          false;
+
+        button.textContent =
+          "Try again";
+
+      }
+
+    };
+
+
+  $("modalBg").onclick =
+    event => {
+
+      if(
+        event.target.id ===
+        "modalBg"
+      ){
+        closeModal();
+      }
+
+    };
+
 }
 
-async function saveContact(){
 
-  const form =
-    document.getElementById(
-      "contactForm"
-    );
+function closeModal(){
 
-  const data =
-    Object.fromEntries(
-      new FormData(form)
-    );
+  $("modalRoot")
+    .innerHTML = "";
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+async function removeRecord(
+  endpoint,
+  id,
+  label
+){
+
+  if(
+    !confirm(
+      `Delete this ${label}?`
+    )
+  ){
+    return;
+  }
 
   try{
 
     await api(
-      "/settings/contact",
+      `${endpoint}/${id}`,
       {
-        method:"PUT",
-        body:JSON.stringify(data)
+        method:"DELETE"
       }
     );
 
-    toastMessage(
-      "Contact information saved"
+    toast(
+      `${label} deleted.`
     );
+
+    if(endpoint === "customers"){
+      await loadCustomers();
+      await loadDashboard();
+    }
+
+    if(endpoint === "products"){
+      await loadProducts();
+      await loadDashboard();
+    }
+
+    if(endpoint === "orders"){
+      await loadOrders();
+      await loadProducts();
+      await loadDashboard();
+    }
+
+    if(endpoint === "tasks"){
+      await loadTasks();
+      await loadDashboard();
+    }
+
+    if(endpoint === "messages")
+      await loadMessages();
+
+    if(endpoint === "knowledge")
+      await loadKnowledge();
 
   }catch(error){
 
-    toastMessage(error.message);
+    toast(
+      error.message
+    );
+
   }
+
 }
+
 
 /* =========================================================
-   INTEGRATIONS
+   OWNER AI
 ========================================================= */
 
-async function renderIntegrations(){
+function renderAi(){
 
-  content.innerHTML = `
-    <div class="page">
+  const el =
+    $("aiMessages");
 
-      <div class="hero">
-        <h1>Integrations</h1>
+  if(!state.aiHistory.length){
+
+    el.innerHTML = `
+
+      <div class="empty">
+
+        <div class="big">
+          ✦
+        </div>
+
+        <strong>
+          Owner AI is ready
+        </strong>
+
         <p>
-          Your current Cloudflare infrastructure.
+          Ask about customers, products, orders, tasks or your knowledge base.
         </p>
-      </div>
-
-      <div class="grid-3">
-
-        <div class="panel">
-          <div class="panel-body">
-
-            <div class="stat-icon">
-              <i data-lucide="cloud"></i>
-            </div>
-
-            <h3>Cloudflare Worker</h3>
-
-            <p style="
-              color:var(--muted);
-              font-size:13px;
-            ">
-              API layer
-            </p>
-
-            <span
-              class="badge blue"
-              id="workerStatus">
-              Checking...
-            </span>
-
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-
-            <div class="stat-icon">
-              <i data-lucide="database"></i>
-            </div>
-
-            <h3>D1 Database</h3>
-
-            <p style="
-              color:var(--muted);
-              font-size:13px;
-            ">
-              Business data storage
-            </p>
-
-            <span
-              class="badge blue"
-              id="dbStatus">
-              Checking...
-            </span>
-
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-body">
-
-            <div class="stat-icon">
-              <i data-lucide="sparkles"></i>
-            </div>
-
-            <h3>Workers AI</h3>
-
-            <p style="
-              color:var(--muted);
-              font-size:13px;
-            ">
-              Owner AI engine
-            </p>
-
-            <span
-              class="badge blue"
-              id="aiStatus">
-              Checking...
-            </span>
-
-          </div>
-        </div>
 
       </div>
 
-      <br>
+    `;
 
-      <button
-        class="btn primary"
-        onclick="testIntegration()">
-        <i data-lucide="refresh-cw"></i>
-        Test API
-      </button>
+    return;
 
-    </div>
-  `;
+  }
 
-  lucide.createIcons();
+  el.innerHTML =
+    state.aiHistory
+      .map(
+        message => `
 
-  await testIntegration();
+          <div
+            class="bubble ${
+              message.role === "user"
+                ? "user"
+                : "ai"
+            }"
+          >
+            ${esc(message.content)}
+          </div>
+
+        `
+      )
+      .join("");
+
+  el.scrollTop =
+    el.scrollHeight;
+
 }
 
-async function testIntegration(){
+
+async function sendAi(){
+
+  const input =
+    $("aiInput");
+
+  const button =
+    $("aiSend");
+
+  const message =
+    input.value.trim();
+
+  if(
+    !message ||
+    button.disabled
+  ){
+    return;
+  }
+
+  state.aiHistory.push({
+    role:"user",
+    content:message
+  });
+
+  localStorage.setItem(
+    "abh-ai-history",
+    JSON.stringify(
+      state.aiHistory
+    )
+  );
+
+  renderAi();
+
+  input.value = "";
+
+  button.disabled =
+    true;
+
+  $("aiThinking")
+    .hidden =
+    false;
 
   try{
 
     const data =
-      await api("/");
+      await api(
+        "ai",
+        {
+          method:"POST",
+          body:
+            JSON.stringify({
+              message,
+              mode:"owner",
+              history:
+                state.aiHistory
+                  .slice(-20)
+            })
+        }
+      );
 
-    document.getElementById(
-      "workerStatus"
-    ).textContent =
-      data.status || "Online";
+    state.aiHistory.push({
+      role:"assistant",
+      content:
+        data.reply ||
+        "No response received."
+    });
 
-    document.getElementById(
-      "dbStatus"
-    ).textContent =
+  }catch(error){
+
+    state.aiHistory.push({
+      role:"assistant",
+      content:
+        "I could not reach the AI service: " +
+        error.message
+    });
+
+  }finally{
+
+    localStorage.setItem(
+      "abh-ai-history",
+      JSON.stringify(
+        state.aiHistory
+      )
+    );
+
+    renderAi();
+
+    button.disabled =
+      false;
+
+    $("aiThinking")
+      .hidden =
+      true;
+
+    input.focus();
+
+  }
+
+}
+
+
+$("aiSend").onclick =
+  sendAi;
+
+
+$("aiInput").onkeydown =
+  event => {
+
+    if(
+      event.key === "Enter" &&
+      !event.shiftKey
+    ){
+
+      event.preventDefault();
+
+      sendAi();
+
+    }
+
+  };
+
+
+$("clearAi").onclick =
+  () => {
+
+    if(
+      !confirm(
+        "Clear the Owner AI conversation?"
+      )
+    ){
+      return;
+    }
+
+    state.aiHistory = [];
+
+    localStorage.removeItem(
+      "abh-ai-history"
+    );
+
+    renderAi();
+
+  };
+
+
+/* =========================================================
+   API STATUS
+========================================================= */
+
+async function checkApi(){
+
+  try{
+
+    const data =
+      await api("");
+
+    $("apiDot")
+      .classList.add(
+        "online"
+      );
+
+    $("apiStatus")
+      .textContent =
+      "API online";
+
+    $("workerBadge")
+      .className =
+      "badge success";
+
+    $("workerBadge")
+      .textContent =
+      "Online";
+
+    $("dbBadge")
+      .className =
+      data.database
+        ? "badge success"
+        : "badge cancelled";
+
+    $("dbBadge")
+      .textContent =
       data.database
         ? "Connected"
         : "Unavailable";
 
-    document.getElementById(
-      "aiStatus"
-    ).textContent =
+    $("aiBadge")
+      .className =
+      data.ai
+        ? "badge success"
+        : "badge cancelled";
+
+    $("aiBadge")
+      .textContent =
       data.ai
         ? "Connected"
         : "Unavailable";
 
   }catch(error){
 
-    [
-      "workerStatus",
-      "dbStatus",
-      "aiStatus"
-    ].forEach(id=>{
-      const el =
-        document.getElementById(id);
+    $("apiDot")
+      .classList.remove(
+        "online"
+      );
 
-      if(el){
-        el.textContent = "Offline";
-        el.className =
-          "badge red";
-      }
-    });
+    $("apiStatus")
+      .textContent =
+      "API offline";
 
-    toastMessage(error.message);
-  }
-}
+    $("workerBadge")
+      .className =
+      "badge cancelled";
 
-/* =========================================================
-   PUBLIC CONTACT PAGE
-========================================================= */
+    $("workerBadge")
+      .textContent =
+      "Offline";
 
-async function renderPublicContact(){
+    $("dbBadge")
+      .className =
+      "badge cancelled";
 
-  document.body.innerHTML = `
-    <div style="
-      min-height:100vh;
-      padding:30px 20px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:var(--bg);
-    ">
+    $("dbBadge")
+      .textContent =
+      "Unavailable";
 
-      <div style="
-        width:min(1000px,100%);
-      ">
+    $("aiBadge")
+      .className =
+      "badge cancelled";
 
-        <div class="panel">
+    $("aiBadge")
+      .textContent =
+      "Unavailable";
 
-          <div class="panel-body">
-
-            <div style="
-              text-align:center;
-              margin-bottom:30px;
-            ">
-
-              <div class="ai-avatar"
-                style="
-                  margin:auto;
-                  margin-bottom:15px;
-                ">
-                <i data-lucide="building-2"></i>
-              </div>
-
-              <h1 id="publicBusinessName">
-                Loading...
-              </h1>
-
-              <p
-                id="publicDescription"
-                style="
-                  color:var(--muted);
-                  line-height:1.6;
-                ">
-              </p>
-
-            </div>
-
-            <div id="publicContactCards">
-              Loading...
-            </div>
-
-            <div style="
-              text-align:center;
-              margin-top:25px;
-            ">
-
-              <a
-                href="${window.location.pathname}"
-                class="btn">
-                Open owner dashboard
-              </a>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  `;
-
-  lucide.createIcons();
-
-  try{
-
-    const data =
-      await api("/contact");
-
-    const c =
-      data.contact || {};
-
-    document.getElementById(
-      "publicBusinessName"
-    ).textContent =
-      c.business_name ||
-      "Business";
-
-    document.getElementById(
-      "publicDescription"
-    ).textContent =
-      c.description ||
-      "Contact us through any of the channels below.";
-
-    document.getElementById(
-      "publicContactCards"
-    ).innerHTML = `
-      <div class="contact-grid">
-        ${
-          contactCards(c) ||
-          `
-            <div class="empty"
-              style="grid-column:1/-1">
-              No contact channels have been configured yet.
-            </div>
-          `
-        }
-      </div>
-    `;
-
-    lucide.createIcons();
-
-  }catch(error){
-
-    document.getElementById(
-      "publicContactCards"
-    ).innerHTML =
-    `<div class="empty">
-      ${esc(error.message)}
-    </div>`;
-  }
-}
-
-/* =========================================================
-   ROUTER
-========================================================= */
-
-async function renderPage(page){
-
-  content.innerHTML = `
-    <div class="page">
-      <div class="empty">
-        Loading...
-      </div>
-    </div>
-  `;
-
-  switch(page){
-
-    case "dashboard":
-      await renderDashboard();
-      break;
-
-    case "owner-ai":
-      await renderOwnerAI();
-      break;
-
-    case "messages":
-      await renderMessages();
-      break;
-
-    case "orders":
-      await renderOrders();
-      break;
-
-    case "customers":
-      await renderCustomers();
-      break;
-
-    case "tasks":
-      await renderTasks();
-      break;
-
-    case "products":
-      await renderProducts();
-      break;
-
-    case "knowledge":
-      await renderKnowledge();
-      break;
-
-    case "contact":
-      await renderContact();
-      break;
-
-    case "integrations":
-      await renderIntegrations();
-      break;
-
-    case "settings":
-      await renderSettings();
-      break;
-
-    default:
-      await renderDashboard();
   }
 
-  if(window.lucide){
-    lucide.createIcons();
-  }
 }
 
-/* =========================================================
-   STARTUP
-========================================================= */
 
-const savedCollapsed =
-  localStorage.getItem(
-    "abh-sidebar-collapsed"
-  ) === "true";
+$("testApi").onclick =
+  async () => {
 
-if(
-  savedCollapsed &&
-  window.innerWidth > 1050
-){
-  app.classList.add(
-    "sidebar-collapsed"
-  );
-}
+    const out =
+      $("apiResult");
 
-updateThemeIcon();
+    out.textContent =
+      "Testing...";
 
-if(
-  new URLSearchParams(
-    window.location.search
-  ).get("public") === "contact"
-){
+    try{
 
-  renderPublicContact();
+      const data =
+        await checkApi();
 
-}else{
+      const response =
+        await fetch(
+          API_URL
+        );
 
-  openPage(currentPage);
+      out.textContent =
+        JSON.stringify(
+          await response.json(),
+          null,
+          2
+        );
 
-}
+    }catch(error){
 
-window.addEventListener(
-  "resize",
-  ()=>{
-    if(window.innerWidth > 1050){
-      closeMobileMenu();
+      out.textContent =
+        error.message;
+
     }
+
+  };
+
+
+/* =========================================================
+   PUBLIC MODE
+========================================================= */
+
+function bootPublicMode(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  if(
+    params.get("view") !==
+    "contact"
+  ){
+
+    return false;
+
   }
-);
+
+  $("app")
+    .style.display =
+    "none";
+
+  $("publicContactApp")
+    .hidden =
+    false;
+
+  loadContact();
+
+  renderPublicAi();
+
+  return true;
+
+}
+
+
+/* =========================================================
+   INITIAL START
+========================================================= */
+
+if(
+  !bootPublicMode()
+){
+
+  const savedPage =
+    localStorage.getItem(
+      "abh-current-page"
+    );
+
+  openPage(
+    savedPage &&
+    $(savedPage)
+      ? savedPage
+      : "dashboard",
+    false
+  );
+
+  loadContact();
+
+  checkApi();
+
+}
+
 </script>
 
 </body>
