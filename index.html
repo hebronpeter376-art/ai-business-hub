@@ -528,7 +528,7 @@ async function sendMessage(){
 }
 send.onclick=sendMessage;
 input.onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendMessage()}};
- const customersList = document.getElementById("customersList");
+const customersList = document.getElementById("customersList");
 const addCustomerBtn = document.getElementById("addCustomerBtn");
 const customerSearch = document.getElementById("customerSearch");
 
@@ -561,7 +561,7 @@ async function loadCustomers() {
       <div class="empty" style="margin-top:14px">
         <div class="big">⚠️</div>
         <h3>Could not load customers</h3>
-        <p>Check your API connection and try again.</p>
+        <p>Check your API connection.</p>
       </div>
     `;
   }
@@ -580,10 +580,21 @@ function renderCustomers(list) {
   }
 
   customersList.innerHTML = list.map(customer => `
-    <div class="card" style="margin-top:14px">
-      <h3>${escapeHTML(customer.name)}</h3>
-      <p>${escapeHTML(customer.phone || "No phone number")}</p>
-      <p>${escapeHTML(customer.email || "No email")}</p>
+    <div class="card customer-card" style="margin-top:14px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:15px">
+        <div>
+          <h3>${escapeHTML(customer.name)}</h3>
+          <p>${escapeHTML(customer.phone || "No phone number")}</p>
+          <p>${escapeHTML(customer.email || "No email")}</p>
+          ${customer.address ? `<p>${escapeHTML(customer.address)}</p>` : ""}
+        </div>
+
+        <button
+          class="danger"
+          onclick="deleteCustomer(${customer.id})">
+          Delete
+        </button>
+      </div>
     </div>
   `).join("");
 }
@@ -597,40 +608,124 @@ function escapeHTML(value) {
     .replace(/'/g, "&#039;");
 }
 
-addCustomerBtn.addEventListener("click", async () => {
-  const name = prompt("Customer name:");
+addCustomerBtn.addEventListener("click", () => {
+  showCustomerForm();
+});
 
-  if (!name || !name.trim()) return;
+function showCustomerForm() {
+  const form = document.createElement("div");
 
-  const phone = prompt("Phone number (optional):") || "";
-  const email = prompt("Email (optional):") || "";
+  form.id = "customerModal";
+
+  form.innerHTML = `
+    <div class="modal-overlay">
+      <div class="modal-box">
+
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <h2>Add customer</h2>
+            <p>Create a new customer record.</p>
+          </div>
+
+          <button type="button" class="modal-close" id="closeCustomerModal">×</button>
+        </div>
+
+        <form id="customerForm">
+
+          <label>Name</label>
+          <input id="customerName" required placeholder="Customer name">
+
+          <label>Phone</label>
+          <input id="customerPhone" placeholder="Phone number">
+
+          <label>Email</label>
+          <input id="customerEmail" type="email" placeholder="Email address">
+
+          <label>Address</label>
+          <input id="customerAddress" placeholder="Address">
+
+          <label>Notes</label>
+          <textarea id="customerNotes" placeholder="Additional notes"></textarea>
+
+          <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px">
+            <button type="button" class="secondary" id="cancelCustomer">Cancel</button>
+            <button type="submit" class="primary">Save customer</button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(form);
+
+  document.getElementById("closeCustomerModal").onclick = () => form.remove();
+  document.getElementById("cancelCustomer").onclick = () => form.remove();
+
+  document.getElementById("customerForm").addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const saveButton = event.target.querySelector("button[type='submit']");
+    saveButton.disabled = true;
+    saveButton.textContent = "Saving...";
+
+    try {
+      const response = await fetch(API_URL + "customers", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: document.getElementById("customerName").value.trim(),
+          phone: document.getElementById("customerPhone").value.trim(),
+          email: document.getElementById("customerEmail").value.trim(),
+          address: document.getElementById("customerAddress").value.trim(),
+          notes: document.getElementById("customerNotes").value.trim()
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Could not add customer");
+      }
+
+      form.remove();
+      await loadCustomers();
+
+    } catch (error) {
+      console.error(error);
+      alert(error.message || "Could not add customer.");
+      saveButton.disabled = false;
+      saveButton.textContent = "Save customer";
+    }
+  });
+}
+
+async function deleteCustomer(id) {
+  const confirmed = confirm("Delete this customer?");
+
+  if (!confirmed) return;
 
   try {
-    const response = await fetch(API_URL + "customers", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: name.trim(),
-        phone: phone.trim(),
-        email: email.trim()
-      })
+    const response = await fetch(API_URL + "customers/" + id, {
+      method: "DELETE"
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.error || "Could not add customer");
+      throw new Error(data.error || "Could not delete customer");
     }
 
     await loadCustomers();
 
   } catch (error) {
     console.error(error);
-    alert("Could not add customer.");
+    alert(error.message || "Could not delete customer.");
   }
-});
+}
 
 customerSearch.addEventListener("input", () => {
   const search = customerSearch.value.toLowerCase().trim();
