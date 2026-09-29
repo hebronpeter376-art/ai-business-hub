@@ -1,114 +1,4058 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b1020">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Cdefs%3E%3ClinearGradient id=%22g%22 x1=%220%22 y1=%220%22 x2=%221%22 y2=%221%22%3E%3Cstop stop-color=%23635bff/%3E%3Cstop offset=%221%22 stop-color=%238b5cf6/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width=%2264%22 height=%2264%22 rx=%2216%22 fill=%22url(%23g)%22/%3E%3Ctext x=%2232%22 y=%2242%22 text-anchor=%22middle%22 font-size=%2227%22 font-family=%22Arial%22 font-weight=%22900%22 fill=%22white%22%3EAB%3C/text%3E%3C/svg%3E">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Business Hub</title>
-<style>
-:root{--bg:#f5f7fb;--panel:#fff;--soft:#f0f3f8;--text:#101828;--muted:#667085;--line:#e4e7ec;--accent:#635bff;--accent2:#8b5cf6;--danger:#ef4444;--success:#12b76a;--warning:#f79009;--shadow:0 18px 55px rgba(16,24,40,.08);--ease:cubic-bezier(.22,1,.36,1);--ease-soft:cubic-bezier(.4,0,.2,1);--sidebar:270px}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{min-height:100vh}.sidebar{position:fixed;z-index:50;left:0;top:0;bottom:0;width:var(--sidebar);padding:18px 14px;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);border-right:1px solid var(--line);display:flex;flex-direction:column;transition:transform .45s var(--ease),width .45s var(--ease),padding .45s var(--ease)}.brand{display:flex;align-items:center;gap:11px;padding:5px 8px 23px}.brandmark{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 10px 25px rgba(99,91,255,.25)}.brand strong{display:block;font-size:15px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.nav{display:grid;gap:5px}.nav button{width:100%;border:0;background:transparent;color:var(--muted);padding:11px 12px;border-radius:12px;display:flex;align-items:center;gap:11px;text-align:left;transition:background .25s var(--ease-soft),color .25s var(--ease-soft),transform .3s var(--ease),box-shadow .3s var(--ease)}.nav button:hover{background:var(--soft);color:var(--text);transform:translateX(3px)}.nav button.active{background:rgba(99,91,255,.1);color:var(--accent);font-weight:800;box-shadow:inset 3px 0 0 var(--accent);transform:translateX(3px)}.nav-icon{width:21px;text-align:center;font-size:17px}.sidebar-bottom{margin-top:auto}.theme{width:100%;border:0;border-radius:12px;background:var(--soft);color:var(--text);padding:11px;text-align:left;transition:transform .3s var(--ease),background .25s}.theme:hover{transform:translateY(-2px)}.main{margin-left:var(--sidebar);min-height:100vh;padding:22px 28px 35px;transition:margin-left .45s var(--ease)}.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:15px;padding:5px 0 20px;background:linear-gradient(var(--bg) 75%,transparent)}.top-left{display:flex;align-items:center;gap:13px;min-width:0}.menu-toggle{width:44px;height:44px;flex:0 0 44px;border:1px solid var(--line);border-radius:13px;background:var(--panel);color:var(--text);display:grid;place-items:center;font-size:22px;box-shadow:0 5px 20px rgba(16,24,40,.05);transition:transform .35s var(--ease),background .25s,color .25s,border-color .25s}.menu-toggle:hover{transform:scale(1.05)}.menu-toggle:active{transform:scale(.94)}.title{min-width:0}.title h1{margin:0;font-size:28px;letter-spacing:-.035em}.title p{margin:4px 0 0;color:var(--muted);font-size:13px}.status{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;white-space:nowrap}.dot{width:8px;height:8px;border-radius:50%;background:var(--warning);box-shadow:0 0 0 5px rgba(247,144,9,.1);transition:background .3s}.dot.online{background:var(--success);box-shadow:0 0 0 5px rgba(18,183,106,.1)}.content{max-width:1450px;margin:auto}.page{display:none}.page.active{display:block;animation:pageIn .5s var(--ease)}@keyframes pageIn{from{opacity:0;transform:translateY(12px) scale(.99)}to{opacity:1;transform:none}}.hero{padding:25px;border-radius:24px;background:linear-gradient(135deg,rgba(99,91,255,.13),rgba(139,92,246,.05));border:1px solid rgba(99,91,255,.14);margin-bottom:17px;overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:180px;height:180px;right:-70px;top:-90px;border-radius:50%;background:rgba(139,92,246,.12);filter:blur(2px)}.hero h2{margin:0 0 6px;font-size:22px}.hero p{margin:0;color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.two{display:grid;grid-template-columns:1.35fr .65fr;gap:14px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 8px 30px rgba(16,24,40,.035);transition:transform .35s var(--ease),box-shadow .35s var(--ease),border-color .25s}.card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.stat{min-height:118px}.label{font-size:12px;color:var(--muted)}.value{font-size:31px;font-weight:850;letter-spacing:-.04em;margin-top:8px}.sub{font-size:11px;color:var(--muted);margin-top:5px}.head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 0 12px}.head:first-child{margin-top:0}.head h3{margin:0;font-size:15px}.primary,.secondary,.danger,.ghost{border:0;border-radius:11px;padding:10px 13px;font-size:12px;font-weight:800;transition:transform .3s var(--ease),background .25s,color .25s,box-shadow .3s}.primary{background:var(--accent);color:#fff;box-shadow:0 8px 18px rgba(99,91,255,.2)}.primary:hover{background:#5148f0;transform:translateY(-2px)}.secondary{background:var(--soft);color:var(--text)}.secondary:hover,.ghost:hover{transform:translateY(-2px)}.danger{background:rgba(239,68,68,.1);color:var(--danger)}.danger:hover{background:rgba(239,68,68,.16);transform:translateY(-2px)}.ghost{background:transparent;color:var(--accent);padding:7px 9px}.search{margin:0 0 12px}input,textarea,select{width:100%;border:1px solid var(--line);border-radius:11px;background:var(--panel);color:var(--text);padding:11px 12px;outline:0;transition:border-color .25s,box-shadow .25s,transform .25s var(--ease)}input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(99,91,255,.08)}textarea{min-height:100px;resize:vertical}.list{display:grid;gap:10px}.row{display:flex;align-items:center;justify-content:space-between;gap:14px}.row-main{min-width:0;flex:1}.row-main h4{margin:0 0 5px;font-size:14px}.row-main p{margin:3px 0;color:var(--muted);font-size:12px;overflow-wrap:anywhere}.actions{display:flex;gap:7px;align-items:center;justify-content:flex-end;flex-wrap:wrap}.badge{display:inline-flex;align-items:center;padding:5px 8px;border-radius:999px;background:var(--soft);color:var(--muted);font-size:10px;font-weight:800}.success{background:rgba(18,183,106,.1);color:var(--success)}.pending{background:#fffaeb;color:#b54708}.cancelled{background:rgba(239,68,68,.1);color:var(--danger)}.empty{text-align:center;padding:38px 18px;border:1px dashed var(--line);border-radius:17px;color:var(--muted)}.empty .big{font-size:29px;margin-bottom:6px}.quick{display:flex;gap:8px;flex-wrap:wrap}.quick button{border:0;border-radius:11px;background:var(--soft);color:var(--text);padding:10px 12px;font-size:12px;font-weight:750;transition:transform .3s var(--ease),background .25s}.quick button:hover{transform:translateY(-2px);background:rgba(99,91,255,.1)}.ai-shell{height:calc(100vh - 155px);min-height:520px;display:grid;grid-template-rows:auto 1fr auto;gap:10px}.mini-ai{display:flex;align-items:center;gap:11px}.ai-avatar{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent2));animation:float 3.5s ease-in-out infinite;box-shadow:0 12px 25px rgba(99,91,255,.2)}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}.messages{overflow:auto;display:grid;align-content:start;gap:10px;padding:8px 3px}.bubble{max-width:78%;padding:12px 14px;border-radius:16px;line-height:1.55;font-size:13px;white-space:pre-wrap;animation:bubbleIn .35s var(--ease)}@keyframes bubbleIn{from{opacity:0;transform:translateY(7px) scale(.98)}to{opacity:1;transform:none}}.bubble.user{justify-self:end;background:var(--accent);color:#fff;border-bottom-right-radius:5px}.bubble.ai{justify-self:start;background:var(--soft);border-bottom-left-radius:5px}.composer{display:flex;gap:9px}.composer textarea{min-height:54px;max-height:150px}.thinking{font-size:11px;color:var(--muted);display:flex;gap:6px;align-items:center}.thinking i{width:5px;height:5px;border-radius:50%;background:var(--accent);animation:pulse 1s infinite}.thinking i:nth-child(2){animation-delay:.15s}.thinking i:nth-child(3){animation-delay:.3s}@keyframes pulse{50%{opacity:.25;transform:translateY(-3px)}}.table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse;min-width:650px}.data-table th,.data-table td{text-align:left;padding:13px 14px;border-bottom:1px solid var(--line);font-size:12px}.data-table th{background:var(--soft);color:var(--muted);font-weight:750}.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.52);backdrop-filter:blur(9px);display:grid;place-items:center;padding:16px;z-index:200;animation:fade .25s var(--ease)}@keyframes fade{from{opacity:0}to{opacity:1}}.modal{width:min(650px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:23px;padding:20px;box-shadow:0 35px 100px rgba(0,0,0,.25);animation:modalIn .45s var(--ease)}@keyframes modalIn{from{opacity:0;transform:translateY(25px) scale(.96)}to{opacity:1;transform:none}}.modal-head{display:flex;justify-content:space-between;gap:12px;margin-bottom:17px}.modal-head h2{margin:0;font-size:19px}.modal-head p{margin:5px 0 0;color:var(--muted);font-size:12px}.close{border:0;width:38px;height:38px;border-radius:11px;background:var(--soft);color:var(--text);font-size:21px;transition:transform .3s var(--ease)}.close:hover{transform:rotate(5deg) scale(1.05)}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.fg{display:grid;gap:6px}.fg.full{grid-column:1/-1}.fg label{font-size:11px;color:var(--muted);font-weight:800}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.toast{position:fixed;right:18px;bottom:18px;z-index:300;background:#101828;color:#fff;padding:12px 15px;border-radius:12px;box-shadow:0 18px 45px rgba(0,0,0,.2);opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .3s var(--ease),transform .3s var(--ease);font-size:12px}.toast.show{opacity:1;transform:none}.backdrop{display:none}.dark{--bg:#080d19;--panel:#101827;--soft:#182235;--text:#f4f6f8;--muted:#98a2b3;--line:#273247;--shadow:0 22px 65px rgba(0,0,0,.28)}body.dark .sidebar{background:rgba(8,13,25,.9)}body.dark .topbar{background:linear-gradient(var(--bg) 75%,transparent)}body.dark .conversation.active{background:rgba(99,91,255,.12)}.mobile-only{display:none}
-@media(max-width:1050px){:root{--sidebar:250px}.grid{grid-template-columns:repeat(2,1fr)}.two,.three{grid-template-columns:1fr}.main{padding:18px}.sidebar-collapsed .sidebar{transform:translateX(-105%)}.sidebar-collapsed .main{margin-left:0}}
-@media(max-width:720px){.main{margin-left:0;padding:14px}.sidebar{transform:translateX(-105%);box-shadow:25px 0 70px rgba(0,0,0,.2)}.app.sidebar-open .sidebar{transform:translateX(0)}.app.sidebar-open .backdrop{display:block;position:fixed;inset:0;background:rgba(15,23,42,.35);z-index:40;backdrop-filter:blur(2px)}.grid{grid-template-columns:1fr 1fr}.status{display:none}.title h1{font-size:22px}.form-grid{grid-template-columns:1fr}.fg.full{grid-column:auto}.row{align-items:flex-start;flex-direction:column}.actions{justify-content:flex-start}.bubble{max-width:94%}.mobile-only{display:block}}
-@media(max-width:470px){.grid{grid-template-columns:1fr}.head{align-items:flex-start;flex-direction:column}.topbar{padding-bottom:14px}.content{width:100%}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
-.auth-screen{position:fixed;inset:0;z-index:500;background:radial-gradient(circle at 20% 10%,rgba(99,91,255,.14),transparent 35%),radial-gradient(circle at 85% 80%,rgba(139,92,246,.12),transparent 32%),var(--bg);display:grid;place-items:center;padding:20px;animation:pageIn .5s var(--ease)}.auth-shell{width:min(980px,100%);display:grid;grid-template-columns:1.05fr .95fr;gap:0;background:var(--panel);border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 30px 100px rgba(16,24,40,.14)}.auth-brand{padding:42px;background:linear-gradient(135deg,rgba(99,91,255,.13),rgba(139,92,246,.06));display:flex;flex-direction:column;justify-content:center}.auth-brand .brandmark{width:58px;height:58px;font-size:20px}.auth-brand h1{font-size:38px;letter-spacing:-.05em;margin:22px 0 10px}.auth-brand p{color:var(--muted);line-height:1.7;font-size:13px;max-width:440px}.auth-points{display:grid;gap:10px;margin-top:20px}.auth-point{display:flex;gap:9px;align-items:center;font-size:12px;font-weight:700}.auth-point span{width:28px;height:28px;border-radius:9px;background:rgba(99,91,255,.1);display:grid;place-items:center;color:var(--accent)}.auth-form{padding:34px}.auth-tabs{display:flex;gap:5px;background:var(--soft);padding:5px;border-radius:12px;margin-bottom:20px}.auth-tabs button{flex:1;border:0;background:transparent;border-radius:9px;padding:10px;font-size:12px;font-weight:800;color:var(--muted)}.auth-tabs button.active{background:var(--panel);color:var(--text);box-shadow:0 3px 12px rgba(16,24,40,.07)}.auth-form h2{margin:0 0 6px;font-size:22px}.auth-form .hint{margin:0 0 18px;color:var(--muted);font-size:12px;line-height:1.5}.auth-fields{display:grid;gap:11px}.auth-error{min-height:18px;color:var(--danger);font-size:11px;margin-top:8px}.auth-submit{width:100%;margin-top:7px;padding:12px}.auth-note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:13px}.account-chip{display:flex;align-items:center;gap:8px}.account-chip .avatar{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;background:rgba(99,91,255,.1);color:var(--accent);font-weight:900}.logout-btn{border:0;background:transparent;color:var(--muted);font-size:11px;font-weight:800;padding:4px}.logout-btn:hover{color:var(--danger)}.contact-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.contact-card{min-height:120px}.contact-card .contact-icon{font-size:24px;margin-bottom:12px}.contact-card h4{margin:0 0 4px;font-size:13px}.contact-card p{margin:0;color:var(--muted);font-size:11px;overflow-wrap:anywhere}.contact-card a{display:inline-block;margin-top:10px;color:var(--accent);font-size:11px;font-weight:800;text-decoration:none}.public-contact{min-height:100vh;padding:28px;display:grid;place-items:center;background:var(--bg)}.public-shell{width:min(900px,100%)}.public-head{display:flex;align-items:center;gap:12px;margin-bottom:18px}.public-head .brandmark{width:50px;height:50px}.public-shell h1{font-size:30px;margin:0;letter-spacing:-.04em}.public-shell .sub{font-size:12px}.public-cta{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.public-cta a{text-decoration:none}.hidden{display:none!important}@media(max-width:900px){.auth-shell{grid-template-columns:1fr}.auth-brand{display:none}.contact-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.auth-form{padding:25px}.contact-grid{grid-template-columns:1fr}.public-contact{padding:16px}}
+<style>
+:root{
+  --bg:#f5f7fb;
+  --panel:#ffffff;
+  --panel2:#f8fafc;
+  --text:#111827;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --primary:#6366f1;
+  --primary2:#4f46e5;
+  --danger:#ef4444;
+  --success:#10b981;
+  --warning:#f59e0b;
+  --shadow:0 14px 40px rgba(15,23,42,.08);
+  --radius:18px;
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.hidden{
+  display:none!important;
+}
+
+/* AUTH */
+
+.auth-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(99,102,241,.18),transparent 32%),
+    radial-gradient(circle at 80% 80%,rgba(14,165,233,.13),transparent 30%),
+    var(--bg);
+}
+
+.auth-card{
+  width:min(460px,100%);
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:28px;
+  box-shadow:var(--shadow);
+  padding:34px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.brand-avatar{
+  width:46px;
+  height:46px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--primary),#06b6d4);
+  color:white;
+  font-weight:900;
+}
+
+.auth-card h1{
+  margin:22px 0 8px;
+  font-size:30px;
+}
+
+.auth-card p{
+  color:var(--muted);
+}
+
+.form-group{
+  margin:16px 0;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:7px;
+  font-size:13px;
+  font-weight:700;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select,
+.search{
+  width:100%;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:12px;
+  padding:12px 13px;
+  outline:none;
+  transition:.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus,
+.search:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(99,102,241,.12);
+}
+
+.primary{
+  border:0;
+  color:#fff;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  padding:12px 16px;
+  border-radius:12px;
+  font-weight:750;
+  transition:.2s ease;
+}
+
+.primary:hover{
+  transform:translateY(-1px);
+  filter:brightness(1.03);
+}
+
+.secondary{
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  padding:11px 15px;
+  border-radius:12px;
+  font-weight:700;
+}
+
+.danger{
+  border:0;
+  background:#fee2e2;
+  color:#b91c1c;
+  padding:10px 13px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.auth-switch{
+  margin-top:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:14px;
+}
+
+.auth-switch button{
+  border:0;
+  background:none;
+  color:var(--primary);
+  font-weight:800;
+}
+
+.auth-error{
+  background:#fee2e2;
+  color:#991b1b;
+  border:1px solid #fecaca;
+  padding:11px 13px;
+  border-radius:12px;
+  font-size:14px;
+  margin:12px 0;
+}
+
+/* APP */
+
+.app{
+  min-height:100vh;
+  display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+  width:260px;
+  flex-shrink:0;
+  height:100vh;
+  position:fixed;
+  left:0;
+  top:0;
+  z-index:50;
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  transition:
+    width .28s ease-in-out,
+    transform .28s ease-in-out;
+  display:flex;
+  flex-direction:column;
+}
+
+.sidebar.collapsed{
+  width:78px;
+}
+
+.sidebar-header{
+  height:76px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  border-bottom:1px solid var(--border);
+}
+
+.sidebar-brand{
+  min-width:42px;
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  color:#fff;
+  font-weight:900;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--primary),#06b6d4);
+}
+
+.sidebar-title{
+  font-weight:850;
+  white-space:nowrap;
+  overflow:hidden;
+  transition:.2s ease;
+}
+
+.sidebar.collapsed .sidebar-title{
+  opacity:0;
+  width:0;
+}
+
+.nav{
+  padding:13px 10px;
+  overflow-y:auto;
+  flex:1;
+}
+
+.nav button{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:13px;
+  padding:12px;
+  margin-bottom:5px;
+  border-radius:12px;
+  text-align:left;
+  transition:
+    background .2s ease-in-out,
+    color .2s ease-in-out,
+    transform .2s ease-in-out;
+}
+
+.nav button:hover{
+  background:var(--panel2);
+  color:var(--text);
+  transform:translateX(2px);
+}
+
+.nav button.active{
+  background:rgba(99,102,241,.11);
+  color:var(--primary);
+  font-weight:800;
+}
+
+.nav-icon{
+  width:28px;
+  min-width:28px;
+  text-align:center;
+  font-size:19px;
+}
+
+.nav-title{
+  white-space:nowrap;
+  overflow:hidden;
+  transition:.2s ease;
+}
+
+.sidebar.collapsed .nav-title{
+  opacity:0;
+  width:0;
+}
+
+.sidebar-footer{
+  padding:12px;
+  border-top:1px solid var(--border);
+}
+
+.account-mini{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  overflow:hidden;
+}
+
+.account-avatar{
+  width:40px;
+  min-width:40px;
+  height:40px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),#06b6d4);
+  color:white;
+  font-weight:800;
+}
+
+.account-mini-text{
+  overflow:hidden;
+}
+
+.account-mini-text strong,
+.account-mini-text span{
+  display:block;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.account-mini-text span{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.sidebar.collapsed .account-mini-text{
+  display:none;
+}
+
+/* MAIN */
+
+.main{
+  width:100%;
+  min-width:0;
+  margin-left:260px;
+  transition:margin-left .28s ease-in-out;
+}
+
+.sidebar.collapsed ~ .main{
+  margin-left:78px;
+}
+
+.topbar{
+  height:76px;
+  position:sticky;
+  top:0;
+  z-index:30;
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 24px;
+}
+
+body.dark .topbar{
+  background:rgba(17,24,39,.88);
+}
+
+.top-left,
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.menu-toggle,
+.theme-toggle{
+  width:42px;
+  height:42px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:12px;
+  display:grid;
+  place-items:center;
+  font-size:19px;
+  transition:.2s ease;
+}
+
+.menu-toggle:hover,
+.theme-toggle:hover{
+  transform:translateY(-1px);
+  border-color:var(--primary);
+}
+
+.page-title{
+  font-size:20px;
+  font-weight:850;
+}
+
+.content{
+  padding:28px;
+  max-width:1600px;
+  margin:auto;
+}
+
+.page{
+  display:none;
+  animation:pageIn .25s ease-in-out;
+}
+
+.page.active{
+  display:block;
+}
+
+@keyframes pageIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* HERO */
+
+.hero{
+  padding:26px;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(99,102,241,.16),transparent 32%),
+    var(--panel);
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
+  margin-bottom:22px;
+}
+
+.hero h2{
+  margin:0 0 6px;
+  font-size:27px;
+}
+
+.hero p{
+  margin:0;
+  color:var(--muted);
+}
+
+/* CARDS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:15px;
+  margin-bottom:22px;
+}
+
+.stat{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 8px 25px rgba(15,23,42,.04);
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:13px;
+  font-weight:700;
+}
+
+.stat-value{
+  margin-top:8px;
+  font-size:28px;
+  font-weight:900;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:18px;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:0 8px 25px rgba(15,23,42,.04);
+}
+
+.card h3{
+  margin-top:0;
+}
+
+/* HEADERS */
+
+.head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.head h3{
+  margin:0;
+}
+
+/* TABLE */
+
+.table-wrap{
+  overflow:auto;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:var(--panel);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:700px;
+}
+
+th,
+td{
+  padding:13px 15px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:14px;
+}
+
+th{
+  color:var(--muted);
+  background:var(--panel2);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+tr:last-child td{
+  border-bottom:0;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.empty{
+  padding:50px 20px;
+  text-align:center;
+  border:1px dashed var(--border);
+  border-radius:18px;
+  background:var(--panel);
+}
+
+.empty .big{
+  font-size:42px;
+  margin-bottom:8px;
+}
+
+.empty p{
+  color:var(--muted);
+}
+
+/* PROFILE */
+
+.profile-grid{
+  display:grid;
+  grid-template-columns:320px 1fr;
+  gap:20px;
+}
+
+.profile-card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:25px;
+  box-shadow:var(--shadow);
+}
+
+.profile-avatar{
+  width:90px;
+  height:90px;
+  border-radius:28px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--primary),#06b6d4);
+  color:white;
+  font-size:34px;
+  font-weight:900;
+  margin-bottom:15px;
+}
+
+.profile-name{
+  font-size:22px;
+  font-weight:900;
+}
+
+.profile-email{
+  color:var(--muted);
+  margin-top:4px;
+  word-break:break-word;
+}
+
+.profile-badge{
+  display:inline-block;
+  margin-top:13px;
+  padding:6px 10px;
+  border-radius:999px;
+  background:rgba(99,102,241,.12);
+  color:var(--primary);
+  font-size:12px;
+  font-weight:800;
+}
+
+/* AI */
+
+.ai-box{
+  min-height:400px;
+  display:flex;
+  flex-direction:column;
+}
+
+.ai-history{
+  flex:1;
+  min-height:300px;
+  max-height:500px;
+  overflow-y:auto;
+  padding:10px;
+}
+
+.ai-message{
+  max-width:82%;
+  padding:13px 15px;
+  border-radius:15px;
+  margin:8px 0;
+  line-height:1.55;
+  white-space:normal;
+}
+
+.ai-message.user{
+  margin-left:auto;
+  background:var(--primary);
+  color:white;
+  border-bottom-right-radius:4px;
+}
+
+.ai-message.assistant{
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-bottom-left-radius:4px;
+}
+
+.ai-input{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+}
+
+.ai-input input{
+  flex:1;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:12px;
+  padding:13px;
+}
+
+/* MODAL */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(2,6,23,.55);
+  backdrop-filter:blur(5px);
+  z-index:100;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-card{
+  width:min(600px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:24px;
+  box-shadow:0 30px 80px rgba(0,0,0,.2);
+  animation:modalIn .22s ease-in-out;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:scale(.96) translateY(10px);
+  }
+  to{
+    opacity:1;
+    transform:scale(1) translateY(0);
+  }
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.close{
+  width:38px;
+  height:38px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  color:var(--text);
+  border-radius:10px;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  right:22px;
+  bottom:22px;
+  z-index:200;
+  padding:13px 16px;
+  border-radius:13px;
+  background:#111827;
+  color:white;
+  box-shadow:var(--shadow);
+  opacity:0;
+  transform:translateY(15px);
+  pointer-events:none;
+  transition:.25s ease-in-out;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* DARK */
+
+body.dark{
+  --bg:#0b1120;
+  --panel:#111827;
+  --panel2:#172033;
+  --text:#f3f4f6;
+  --muted:#9ca3af;
+  --border:#263247;
+  --shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+body.dark .danger{
+  background:#3b1616;
+  color:#fca5a5;
+}
+
+/* MOBILE */
+
+@media(max-width:1050px){
+  .stats{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .profile-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:800px){
+  .sidebar{
+    transform:translateX(-100%);
+    width:270px;
+    box-shadow:20px 0 50px rgba(0,0,0,.15);
+  }
+
+  .sidebar.mobile-open{
+    transform:translateX(0);
+  }
+
+  .sidebar.collapsed{
+    width:270px;
+  }
+
+  .sidebar.collapsed .sidebar-title,
+  .sidebar.collapsed .nav-title,
+  .sidebar.collapsed .account-mini-text{
+    opacity:1;
+    width:auto;
+    display:block;
+  }
+
+  .main,
+  .sidebar.collapsed ~ .main{
+    margin-left:0;
+  }
+
+  .content{
+    padding:18px;
+  }
+
+  .topbar{
+    padding:0 15px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:560px){
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .auth-card{
+    padding:25px 20px;
+  }
+
+  .head{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .hero{
+    padding:20px;
+  }
+}
+
+/* MOBILE OVERLAY */
+
+.sidebar-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:40;
+  background:rgba(0,0,0,.4);
+}
+
+@media(max-width:800px){
+  .sidebar-overlay.show{
+    display:block;
+  }
+}
 </style>
 </head>
+
 <body>
-<div class="auth-screen" id="authScreen"><div class="auth-shell"><div class="auth-brand"><div class="brandmark">AB</div><h1>AI Business Hub</h1><p>One calm workspace for customers, products, orders, messages and business AI. Create your own private business workspace and keep your data separate from every other business.</p><div class="auth-points"><div class="auth-point"><span>✓</span>Private business workspace</div><div class="auth-point"><span>✦</span>AI assistant connected to your business data</div><div class="auth-point"><span>⌁</span>Public contact page for customers</div></div></div><div class="auth-form"><div class="auth-tabs"><button id="loginTab" class="active">Log in</button><button id="signupTab">Create account</button></div><div id="loginPanel"><h2>Welcome back</h2><p class="hint">Log in to your business workspace.</p><form id="loginForm"><div class="auth-fields"><input name="email" type="email" placeholder="Email address" required><input name="password" type="password" placeholder="Password" required></div><div class="auth-error" id="loginError"></div><button class="primary auth-submit">Log in</button></form></div><div id="signupPanel" class="hidden"><h2>Start your workspace</h2><p class="hint">Create an account and a private business space in one step.</p><form id="signupForm"><div class="auth-fields"><input name="name" placeholder="Your name" required><input name="business_name" placeholder="Business name" required><input name="email" type="email" placeholder="Email address" required><input name="password" type="password" minlength="8" placeholder="Password · 8+ characters" required></div><div class="auth-error" id="signupError"></div><button class="primary auth-submit">Create business</button></form></div><p class="auth-note">Prototype authentication is handled by the Cloudflare Worker. For a public launch, add stronger account recovery, rate limiting and production security controls.</p></div></div></div><div class="public-contact hidden" id="publicContact"></div><div class="app" id="app">
-<div class="backdrop" id="backdrop"></div>
-<aside class="sidebar" id="sidebar">
-  <div class="brand"><div class="brandmark">AB</div><div><strong>AI Business Hub</strong><small>Business OS · 2026</small></div></div>
-  <nav class="nav" id="nav">
-    <button data-page="dashboard"><span class="nav-icon">⌂</span><span>Dashboard</span></button>
-    <button data-page="owner-ai"><span class="nav-icon">✦</span><span>Owner AI</span></button>
-    <button data-page="messages"><span class="nav-icon">✉</span><span>Messages</span></button>
-    <button data-page="orders"><span class="nav-icon">◫</span><span>Orders</span></button>
-    <button data-page="customers"><span class="nav-icon">♙</span><span>Customers</span></button>
-    <button data-page="tasks"><span class="nav-icon">✓</span><span>Tasks</span></button>
-    <button data-page="products"><span class="nav-icon">▦</span><span>Products</span></button>
-    <button data-page="knowledge"><span class="nav-icon">⌘</span><span>Knowledge Base</span></button>
-    <button data-page="contact"><span class="nav-icon">⌁</span><span>Business Contact</span></button>
-    <button data-page="integrations"><span class="nav-icon">◎</span><span>Integrations</span></button>
-  </nav>
-  <div class="sidebar-bottom"><button class="theme" id="themeBtn">◐ &nbsp; Toggle theme</button></div>
-</aside>
-<main class="main">
-<header class="topbar"><div class="top-left"><button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="true">☰</button><div class="title"><h1 id="pageTitle">Dashboard</h1><p id="pageSubtitle">Your business at a glance.</p></div></div><div class="status"><span class="dot" id="apiDot"></span><span id="apiStatus">Checking API...</span><div class="account-chip"><span class="avatar" id="accountAvatar">A</span><button class="logout-btn" id="logoutBtn">Log out</button></div></div></header>
-<div class="content">
-<section class="page" id="dashboard"><div class="hero"><div class="mini-ai"><div class="ai-avatar">✦</div><div><h2>Business command center</h2><p>Real records, real operations, one calm workspace.</p></div></div></div><div class="grid"><div class="card stat"><div class="label">Customers</div><div class="value" id="statCustomers">0</div><div class="sub">Real D1 records</div></div><div class="card stat"><div class="label">Products</div><div class="value" id="statProducts">0</div><div class="sub">Catalogue items</div></div><div class="card stat"><div class="label">Orders</div><div class="value" id="statOrders">0</div><div class="sub">Recorded orders</div></div><div class="card stat"><div class="label">Open tasks</div><div class="value" id="statTasks">0</div><div class="sub">Still to do</div></div></div><div class="two" style="margin-top:14px"><div class="card"><div class="head"><h3>Recent orders</h3><button class="secondary" onclick="openPage('orders')">View all</button></div><div id="recentOrders"></div></div><div class="card"><div class="head"><h3>Quick actions</h3></div><div class="quick"><button onclick="openModal('customer')">+ Customer</button><button onclick="openModal('product')">+ Product</button><button onclick="openModal('order')">+ Order</button><button onclick="openModal('task')">+ Task</button><button onclick="openPage('owner-ai')">Ask AI</button></div></div></div></section>
-<section class="page" id="owner-ai"><div class="card ai-shell"><div class="mini-ai"><div class="ai-avatar">✦</div><div><h3 style="margin:0">Owner AI</h3><p class="muted" style="margin:4px 0;font-size:12px">Private business assistant connected to your D1 knowledge and live totals.</p></div><button class="secondary" id="clearAi" style="margin-left:auto">Clear chat</button></div><div class="messages" id="aiMessages"></div><div><div class="thinking" id="aiThinking" hidden><i></i><i></i><i></i> Thinking...</div><div class="composer"><textarea id="aiInput" placeholder="Ask about your business..."></textarea><button class="primary" id="aiSend">Send</button></div></div></div></section>
-<section class="page" id="messages"><div class="hero"><h2>Messages</h2><p>Keep customer conversations and internal notes organized.</p></div><div class="head"><h3>Message center</h3><button class="primary" onclick="openModal('message')">+ New message</button></div><input class="search" id="messageSearch" placeholder="Search messages, customers or sender..."><div class="list" id="messagesList"></div></section>
-<section class="page" id="orders"><div class="hero"><h2>Orders</h2><p>Create orders from real customers and products. Stock updates automatically.</p></div><div class="head"><h3>Order history</h3><button class="primary" onclick="openModal('order')">+ Create order</button></div><div class="list" id="ordersList"></div></section>
-<section class="page" id="customers"><div class="hero"><h2>Customers</h2><p>One clean directory for real customer records.</p></div><div class="head"><h3>Customer directory</h3><button class="primary" onclick="openModal('customer')">+ Add customer</button></div><input class="search" id="customerSearch" placeholder="Search customers..."><div class="list" id="customersList"></div></section>
-<section class="page" id="tasks"><div class="hero"><h2>Tasks</h2><p>Turn business work into visible, trackable actions.</p></div><div class="head"><h3>Task list</h3><button class="primary" onclick="openModal('task')">+ Add task</button></div><div class="list" id="tasksList"></div></section>
-<section class="page" id="products"><div class="hero"><h2>Products</h2><p>Manage your catalogue, pricing and stock in one place.</p></div><div class="head"><h3>Product catalogue</h3><button class="primary" onclick="openModal('product')">+ Add product</button></div><input class="search" id="productSearch" placeholder="Search products..."><div class="list" id="productsList"></div></section>
-<section class="page" id="knowledge"><div class="hero"><h2>Knowledge Base</h2><p>Store verified business information that your AI can safely use.</p></div><div class="head"><h3>Verified information</h3><button class="primary" onclick="openModal('knowledge')">+ Add knowledge</button></div><div class="list" id="knowledgeList"></div></section>
-<section class="page" id="contact"><div class="hero"><h2>Business Contact</h2><p>Manage the public contact channels customers can use to reach your business.</p></div><div class="head"><h3>Business profile</h3><button class="primary" id="saveContact">Save contact details</button></div><div class="card"><form id="contactForm"><div class="form-grid"><div class="fg full"><label>Business name</label><input name="business_name" id="contactBusinessName" required></div><div class="fg"><label>WhatsApp number</label><input name="whatsapp" placeholder="2348012345678"></div><div class="fg"><label>Phone</label><input name="phone"></div><div class="fg"><label>Email</label><input name="email" type="email"></div><div class="fg"><label>Website</label><input name="website" type="url" placeholder="https://example.com"></div><div class="fg"><label>Facebook URL</label><input name="facebook" type="url"></div><div class="fg"><label>Instagram URL</label><input name="instagram" type="url"></div><div class="fg"><label>TikTok URL</label><input name="tiktok" type="url"></div><div class="fg"><label>X URL</label><input name="x" type="url"></div><div class="fg"><label>Telegram URL</label><input name="telegram" type="url"></div><div class="fg full"><label>Address</label><input name="address"></div></div></form></div><div class="head"><h3>Public contact preview</h3><button class="secondary" id="openPublicContact">Open public page</button></div><div class="contact-grid" id="contactPreview"></div></section><section class="page" id="integrations"><div class="hero"><h2>Integrations</h2><p>Check the systems powering your business workspace.</p></div><div class="three"><div class="card"><div style="font-size:26px">☁</div><h3>Cloudflare API</h3><p class="muted" style="font-size:12px">Your frontend talks to the Worker API.</p><span class="badge" id="workerBadge">Checking...</span></div><div class="card"><div style="font-size:26px">◈</div><h3>D1 Database</h3><p class="muted" style="font-size:12px">Customers, products, orders and more.</p><span class="badge" id="dbBadge">Checking...</span></div><div class="card"><div style="font-size:26px">✦</div><h3>Workers AI</h3><p class="muted" style="font-size:12px">Owner AI uses your connected AI binding.</p><span class="badge" id="aiBadge">Checking...</span></div></div><div class="card" style="margin-top:14px"><div class="head"><h3>Connection test</h3><button class="primary" id="testApi">Test API</button></div><pre id="apiResult" style="white-space:pre-wrap;color:var(--muted);font-size:12px;margin:0">No test run yet.</pre></div></section>
-</div></main></div><div id="modalRoot"></div><div id="toast" class="toast"></div>
+
+<!-- AUTH -->
+<div id="authScreen" class="auth-screen">
+
+  <div class="auth-card">
+
+    <div class="brand">
+      <div class="brand-avatar">AI</div>
+      <div>
+        <strong>AI Business Hub</strong>
+        <div style="font-size:12px;color:var(--muted)">Business management</div>
+      </div>
+    </div>
+
+    <!-- LOGIN -->
+    <div id="loginForm">
+
+      <h1>Welcome back</h1>
+      <p>Sign in to manage your business.</p>
+
+      <div id="loginError" class="auth-error hidden"></div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input id="loginEmail" type="email" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input id="loginPassword" type="password" autocomplete="current-password">
+      </div>
+
+      <button class="primary" style="width:100%" id="loginBtn">
+        Sign in
+      </button>
+
+      <div class="auth-switch">
+        Don't have an account?
+        <button id="showSignup">Create account</button>
+      </div>
+
+    </div>
+
+    <!-- SIGNUP -->
+    <div id="signupForm" class="hidden">
+
+      <h1>Create account</h1>
+      <p>Create your owner account and business workspace.</p>
+
+      <div id="signupError" class="auth-error hidden"></div>
+
+      <div class="form-group">
+        <label>Your name</label>
+        <input id="signupName" autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input id="signupEmail" type="email" autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label>Business name</label>
+        <input id="signupBusiness" autocomplete="organization">
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input id="signupPassword" type="password" autocomplete="new-password">
+      </div>
+
+      <button class="primary" style="width:100%" id="signupBtn">
+        Create account
+      </button>
+
+      <div class="auth-switch">
+        Already have an account?
+        <button id="showLogin">Sign in</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- APP -->
+<div id="app" class="app hidden">
+
+  <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+  <aside id="sidebar" class="sidebar">
+
+    <div class="sidebar-header">
+      <div class="sidebar-brand">AI</div>
+      <div class="sidebar-title">Business Hub</div>
+    </div>
+
+    <nav class="nav">
+
+      <button data-page="dashboard">
+        <span class="nav-icon">⌂</span>
+        <span class="nav-title">Dashboard</span>
+      </button>
+
+      <button data-page="owner-ai">
+        <span class="nav-icon">✦</span>
+        <span class="nav-title">Owner AI</span>
+      </button>
+
+      <button data-page="messages">
+        <span class="nav-icon">✉</span>
+        <span class="nav-title">Messages</span>
+      </button>
+
+      <button data-page="orders">
+        <span class="nav-icon">▣</span>
+        <span class="nav-title">Orders</span>
+      </button>
+
+      <button data-page="customers">
+        <span class="nav-icon">♙</span>
+        <span class="nav-title">Customers</span>
+      </button>
+
+      <button data-page="tasks">
+        <span class="nav-icon">✓</span>
+        <span class="nav-title">Tasks</span>
+      </button>
+
+      <button data-page="products">
+        <span class="nav-icon">◈</span>
+        <span class="nav-title">Products</span>
+      </button>
+
+      <button data-page="knowledge">
+        <span class="nav-icon">▤</span>
+        <span class="nav-title">Knowledge</span>
+      </button>
+
+      <button data-page="integrations">
+        <span class="nav-icon">⌘</span>
+        <span class="nav-title">Integrations</span>
+      </button>
+
+      <button data-page="profile">
+        <span class="nav-icon">●</span>
+        <span class="nav-title">Profile</span>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="account-mini">
+        <div class="account-avatar" id="miniAvatar">?</div>
+        <div class="account-mini-text">
+          <strong id="miniName">Account</strong>
+          <span id="miniEmail">Loading...</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="top-left">
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+          ☰
+        </button>
+
+        <div class="page-title" id="pageTitle">
+          Dashboard
+        </div>
+      </div>
+
+      <div class="top-right">
+
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          ☾
+        </button>
+
+        <button class="secondary" id="logoutBtn">
+          Logout
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <section class="content">
+
+      <!-- DASHBOARD -->
+      <div class="page active" id="dashboard">
+
+        <div class="hero">
+          <h2 id="welcomeTitle">Welcome back</h2>
+          <p id="dashboardBusiness">
+            Your business overview.
+          </p>
+        </div>
+
+        <div class="stats">
+
+          <div class="stat">
+            <div class="stat-label">Customers</div>
+            <div class="stat-value" id="statCustomers">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Products</div>
+            <div class="stat-value" id="statProducts">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Orders</div>
+            <div class="stat-value" id="statOrders">0</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Revenue</div>
+            <div class="stat-value" id="statRevenue">₦0</div>
+          </div>
+
+        </div>
+
+        <div class="grid">
+
+          <div class="card">
+            <h3>Business status</h3>
+            <p id="businessStatus" style="color:var(--muted)">
+              Loading...
+            </p>
+          </div>
+
+          <div class="card">
+            <h3>Account</h3>
+            <p id="accountSummary" style="color:var(--muted)">
+              Loading...
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- OWNER AI -->
+      <div class="page" id="owner-ai">
+
+        <div class="hero">
+          <h2>Owner AI</h2>
+          <p>
+            Ask questions about your business data and operations.
+          </p>
+        </div>
+
+        <div class="card ai-box">
+
+          <div id="aiHistory" class="ai-history"></div>
+
+          <div class="ai-input">
+            <input id="aiInput" placeholder="Ask your business AI...">
+            <button class="primary" id="aiSend">Send</button>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MESSAGES -->
+      <div class="page" id="messages">
+
+        <div class="hero">
+          <h2>Messages</h2>
+          <p>Manage customer communication.</p>
+        </div>
+
+        <div class="head">
+          <h3>Message inbox</h3>
+          <button class="primary" id="addMessageBtn">+ Add message</button>
+        </div>
+
+        <input class="search" id="messageSearch" placeholder="Search messages...">
+
+        <div id="messagesTable" style="margin-top:14px"></div>
+
+      </div>
+
+
+      <!-- ORDERS -->
+      <div class="page" id="orders">
+
+        <div class="hero">
+          <h2>Orders</h2>
+          <p>Track your customer orders.</p>
+        </div>
+
+        <div class="head">
+          <h3>Order directory</h3>
+          <button class="primary" id="addOrderBtn">+ Create order</button>
+        </div>
+
+        <div id="ordersTable"></div>
+
+      </div>
+
+
+      <!-- CUSTOMERS -->
+      <div class="page" id="customers">
+
+        <div class="hero">
+          <h2>Customers</h2>
+          <p>Keep customer information organized in one place.</p>
+        </div>
+
+        <div class="head">
+          <h3>Customer directory</h3>
+          <button class="primary" id="addCustomerBtn">
+            + Add customer
+          </button>
+        </div>
+
+        <input
+          class="search"
+          id="customerSearch"
+          placeholder="Search customers..."
+        >
+
+        <div id="customersTable" style="margin-top:14px"></div>
+
+      </div>
+
+
+      <!-- TASKS -->
+      <div class="page" id="tasks">
+
+        <div class="hero">
+          <h2>Tasks</h2>
+          <p>Keep track of work that needs to be done.</p>
+        </div>
+
+        <div class="head">
+          <h3>Task list</h3>
+          <button class="primary" id="addTaskBtn">+ Add task</button>
+        </div>
+
+        <div id="tasksTable"></div>
+
+      </div>
+
+
+      <!-- PRODUCTS -->
+      <div class="page" id="products">
+
+        <div class="hero">
+          <h2>Products</h2>
+          <p>Manage your products, prices and stock.</p>
+        </div>
+
+        <div class="head">
+          <h3>Product catalog</h3>
+          <button class="primary" id="addProductBtn">
+            + Add product
+          </button>
+        </div>
+
+        <input
+          class="search"
+          id="productSearch"
+          placeholder="Search products..."
+        >
+
+        <div id="productsTable" style="margin-top:14px"></div>
+
+      </div>
+
+
+      <!-- KNOWLEDGE -->
+      <div class="page" id="knowledge">
+
+        <div class="hero">
+          <h2>Knowledge</h2>
+          <p>Give your AI useful business information.</p>
+        </div>
+
+        <div class="head">
+          <h3>Knowledge base</h3>
+          <button class="primary" id="addKnowledgeBtn">
+            + Add knowledge
+          </button>
+        </div>
+
+        <div id="knowledgeTable"></div>
+
+      </div>
+
+
+      <!-- INTEGRATIONS -->
+      <div class="page" id="integrations">
+
+        <div class="hero">
+          <h2>Integrations</h2>
+          <p>Check your AI Business Hub infrastructure.</p>
+        </div>
+
+        <div class="grid">
+
+          <div class="card">
+            <h3>Cloudflare Worker</h3>
+            <p id="workerStatus">Checking...</p>
+          </div>
+
+          <div class="card">
+            <h3>D1 Database</h3>
+            <p id="dbStatus">Checking...</p>
+          </div>
+
+          <div class="card">
+            <h3>Workers AI</h3>
+            <p id="aiStatus">Checking...</p>
+          </div>
+
+          <div class="card">
+            <h3>API test</h3>
+            <button class="primary" id="testApiBtn">
+              Test API
+            </button>
+            <p id="apiTestResult"></p>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PROFILE -->
+      <div class="page" id="profile">
+
+        <div class="hero">
+          <h2>Profile</h2>
+          <p>
+            Manage your account and business information.
+          </p>
+        </div>
+
+        <div class="profile-grid">
+
+          <div class="profile-card">
+
+            <div class="profile-avatar" id="profileAvatar">
+              ?
+            </div>
+
+            <div class="profile-name" id="profileName">
+              Loading...
+            </div>
+
+            <div class="profile-email" id="profileEmail">
+              Loading...
+            </div>
+
+            <span class="profile-badge">
+              Owner
+            </span>
+
+            <div style="margin-top:22px">
+
+              <button
+                class="danger"
+                style="width:100%"
+                id="profileLogoutBtn"
+              >
+                Log out
+              </button>
+
+            </div>
+
+          </div>
+
+
+          <div>
+
+            <div class="profile-card">
+
+              <div class="head">
+                <h3>Account information</h3>
+                <button
+                  class="secondary"
+                  id="editAccountBtn"
+                >
+                  Edit
+                </button>
+              </div>
+
+              <div class="form-group">
+                <label>Name</label>
+                <input id="profileNameInput" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Email</label>
+                <input id="profileEmailInput" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Business name</label>
+                <input id="profileBusinessInput" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Business slug</label>
+                <input id="profileSlugInput" disabled>
+              </div>
+
+              <div id="accountSaveArea" class="hidden">
+                <button class="primary" id="saveAccountBtn">
+                  Save changes
+                </button>
+              </div>
+
+            </div>
+
+
+            <div class="profile-card" style="margin-top:18px">
+
+              <div class="head">
+                <h3>Business contact</h3>
+                <button
+                  class="secondary"
+                  id="editContactBtn"
+                >
+                  Edit
+                </button>
+              </div>
+
+              <div class="form-group">
+                <label>Description</label>
+                <textarea id="contactDescription" rows="3" disabled></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>WhatsApp</label>
+                <input id="contactWhatsapp" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>WhatsApp message</label>
+                <input id="contactWhatsappMessage" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Phone</label>
+                <input id="contactPhone" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Email</label>
+                <input id="contactEmail" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Website</label>
+                <input id="contactWebsite" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Address</label>
+                <textarea id="contactAddress" rows="2" disabled></textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Facebook</label>
+                <input id="contactFacebook" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Instagram</label>
+                <input id="contactInstagram" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>TikTok</label>
+                <input id="contactTiktok" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>X</label>
+                <input id="contactX" disabled>
+              </div>
+
+              <div class="form-group">
+                <label>Telegram</label>
+                <input id="contactTelegram" disabled>
+              </div>
+
+              <div id="contactSaveArea" class="hidden">
+                <button class="primary" id="saveContactBtn">
+                  Save contact details
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+
+  <div class="modal-card">
+
+    <div class="modal-head">
+      <h3 id="modalTitle">Add</h3>
+      <button class="close" id="closeModal">×</button>
+    </div>
+
+    <div id="modalBody"></div>
+
+  </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
 <script>
-const API_URL="https://ai-business-hub-api.hebronpeter376.workers.dev/";
-const pageMeta={dashboard:["Dashboard","Your business at a glance."],"owner-ai":["Owner AI","Your private business assistant."],messages:["Messages","Customer conversations and internal notes."],orders:["Orders","Track orders and inventory movement."],customers:["Customers","Your real customer directory."],tasks:["Tasks","Work that still needs doing."],products:["Products","Catalogue, pricing and inventory."],knowledge:["Knowledge Base","Verified information for your AI."],contact:["Business Contact","Public customer contact channels."],integrations:["Integrations","Connections powering the hub."]};
-const state={customers:[],products:[],orders:[],messages:[],tasks:[],knowledge:[],contact:{},business:null,user:null,aiHistory:[]};
-const $=id=>document.getElementById(id);
-const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]));
-const money=v=>"₦"+Number(v||0).toLocaleString("en-NG",{minimumFractionDigits:2,maximumFractionDigits:2});
-function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.__toast);window.__toast=setTimeout(()=>t.classList.remove("show"),2600)}
-async function api(path,options={}){const headers={"Content-Type":"application/json",...(options.headers||{})};const token=localStorage.getItem("abh-token");if(token)headers.Authorization=`Bearer ${token}`;const res=await fetch(API_URL+path.replace(/^\//,""),{...options,headers});let data={};try{data=await res.json()}catch{}if(!res.ok)throw new Error(data.error||`Request failed (${res.status})`);return data}
-function empty(el,title,text){el.innerHTML=`<div class="empty"><div class="big">⌁</div><strong>${esc(title)}</strong><p style="margin:6px 0 0;font-size:12px">${esc(text)}</p></div>`}
-async function loadContact(){try{const d=await api("settings/contact");state.contact=d.settings||{};const f=$("contactForm");if(f){Object.entries(state.contact).forEach(([k,v])=>{const el=f.elements[k];if(el)el.value=v||""})}renderContactPreview(state.contact)}catch(e){toast(e.message)}}
-function contactItems(c){const items=[];if(c.whatsapp){const digits=String(c.whatsapp).replace(/\D/g,"");items.push(["WhatsApp","◉",`https://wa.me/${digits}?text=${encodeURIComponent("Hello, I would like to contact your business.")}`])}if(c.facebook)items.push(["Facebook","f",c.facebook]);if(c.instagram)items.push(["Instagram","◎",c.instagram]);if(c.tiktok)items.push(["TikTok","♪",c.tiktok]);if(c.x)items.push(["X","𝕏",c.x]);if(c.telegram)items.push(["Telegram","✈",c.telegram]);if(c.phone)items.push(["Phone","☎",`tel:${c.phone}`]);if(c.email)items.push(["Email","✉",`mailto:${c.email}`]);if(c.website)items.push(["Website","⌂",c.website]);return items}
-function renderContactPreview(c){const el=$("contactPreview");if(!el)return;const items=contactItems(c);if(!items.length){empty(el,"No contact channels yet","Add at least one channel above to create your public contact page.");return}el.innerHTML=items.map(x=>`<div class="card contact-card"><div class="contact-icon">${esc(x[1])}</div><h4>${esc(x[0])}</h4><p>${esc(x[2])}</p><a href="${esc(x[2])}" target="_blank" rel="noopener">Open</a></div>`).join("")}
-async function loadPublicContact(){const params=new URLSearchParams(location.search);const slug=params.get("business");if(!slug)return false;try{const d=await fetch(`${API_URL}contact?business=${encodeURIComponent(slug)}`).then(async r=>{const x=await r.json();if(!r.ok)throw new Error(x.error||"Business not found");return x});const c=d.contact||{},el=$("publicContact");el.innerHTML=`<div class="public-shell"><div class="public-head"><div class="brandmark">AB</div><div><h1>${esc(c.business_name||d.business?.name||"Business")}</h1><p class="sub">Contact this business through its official channels.</p></div></div><div class="hero"><h2>Let's connect</h2><p>Choose a channel below. Only channels configured by this business are shown.</p></div><div class="contact-grid">${contactItems(c).map(x=>`<div class="card contact-card"><div class="contact-icon">${esc(x[1])}</div><h4>${esc(x[0])}</h4><p>${esc(x[2])}</p><a href="${esc(x[2])}" target="_blank" rel="noopener">Open ${esc(x[0])}</a></div>`).join("")}</div>${c.address?`<div class="card" style="margin-top:14px"><strong>Address</strong><p class="sub">${esc(c.address)}</p></div>`:""}</div>`;$("app").classList.add("hidden");$("authScreen").classList.add("hidden");el.classList.remove("hidden");return true}catch(e){$("publicContact").innerHTML=`<div class="public-shell"><div class="card"><h2>Business not found</h2><p class="sub">${esc(e.message)}</p></div></div>`;$("app").classList.add("hidden");$("authScreen").classList.add("hidden");$("publicContact").classList.remove("hidden");return true}}
-function setAuthTab(mode){const login=mode==='login';$("loginTab").classList.toggle('active',login);$("signupTab").classList.toggle('active',!login);$("loginPanel").classList.toggle('hidden',!login);$("signupPanel").classList.toggle('hidden',login)}
-async function bootstrapAuth(){if(await loadPublicContact())return;const token=localStorage.getItem("abh-token");if(!token){$("authScreen").classList.remove("hidden");$("app").classList.add("hidden");return}try{const d=await api("auth/me");state.user=d.user;state.business=d.business;state.aiHistory=JSON.parse(localStorage.getItem(`abh-ai-history-${d.business.id}`)||"[]");$("accountAvatar").textContent=(d.user.name||'A').slice(0,1).toUpperCase();$("authScreen").classList.add("hidden");$("app").classList.remove("hidden");const savedPage=localStorage.getItem('abh-current-page');openPage(savedPage&&$(savedPage)?savedPage:'dashboard',false);checkApi()}catch(e){localStorage.removeItem("abh-token");$("authScreen").classList.remove("hidden");$("app").classList.add("hidden")}}
-$("loginTab").onclick=()=>setAuthTab('login');$("signupTab").onclick=()=>setAuthTab('signup');
-$("loginForm").onsubmit=async e=>{e.preventDefault();const b=e.target.querySelector('button');b.disabled=true;b.textContent='Signing in...';$("loginError").textContent='';try{const d=await fetch(API_URL+'auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(e.target)))}).then(async r=>{const x=await r.json();if(!r.ok)throw new Error(x.error||'Login failed');return x});localStorage.setItem('abh-token',d.token);state.user=d.user;state.business=d.business;await bootstrapAuth()}catch(err){$("loginError").textContent=err.message}finally{b.disabled=false;b.textContent='Log in'}};
-$("signupForm").onsubmit=async e=>{e.preventDefault();const b=e.target.querySelector('button');b.disabled=true;b.textContent='Creating...';$("signupError").textContent='';try{const d=await fetch(API_URL+'auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(Object.fromEntries(new FormData(e.target)))}).then(async r=>{const x=await r.json();if(!r.ok)throw new Error(x.error||'Signup failed');return x});localStorage.setItem('abh-token',d.token);state.user=d.user;state.business=d.business;await bootstrapAuth()}catch(err){$("signupError").textContent=err.message}finally{b.disabled=false;b.textContent='Create business'}};
-$("logoutBtn").onclick=async()=>{try{await api('auth/logout',{method:'POST'})}catch{}localStorage.removeItem('abh-token');localStorage.removeItem('abh-current-page');location.reload()};
-$("saveContact").onclick=async()=>{const b=$("saveContact");b.disabled=true;try{await api('settings/contact',{method:'PUT',body:JSON.stringify(Object.fromEntries(new FormData($("contactForm"))))});toast('Contact details saved');loadContact()}catch(e){toast(e.message)}finally{b.disabled=false}};
-$("openPublicContact").onclick=()=>{if(!state.business?.slug){toast('Business account is not ready');return}window.open(`${location.origin}${location.pathname}?public=contact&business=${encodeURIComponent(state.business.slug)}`,'_blank')};
-function openPage(id,save=true){document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));const page=$(id)||$("dashboard");page.classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===page.id));$("pageTitle").textContent=pageMeta[page.id]?.[0]||"AI Business Hub";$("pageSubtitle").textContent=pageMeta[page.id]?.[1]||"";if(save)localStorage.setItem("abh-current-page",page.id);if(window.innerWidth<=720){$("app").classList.remove("sidebar-open")}if(page.id==="dashboard")loadDashboard();if(page.id==="customers")loadCustomers();if(page.id==="products")loadProducts();if(page.id==="orders")loadOrders();if(page.id==="messages")loadMessages();if(page.id==="tasks")loadTasks();if(page.id==="knowledge")loadKnowledge();if(page.id==="contact")loadContact();if(page.id==="owner-ai")renderAi()}
-function toggleMenu(){const app=$("app");if(window.innerWidth<=720){app.classList.toggle("sidebar-open");$("menuToggle").textContent=app.classList.contains("sidebar-open")?"×":"☰";$("menuToggle").setAttribute("aria-expanded",app.classList.contains("sidebar-open"))}else{app.classList.toggle("sidebar-collapsed");$("menuToggle").textContent=app.classList.contains("sidebar-collapsed")?"☰":"×";localStorage.setItem("abh-sidebar-collapsed",app.classList.contains("sidebar-collapsed")?"1":"0")}}
-$("menuToggle").onclick=toggleMenu;$("backdrop").onclick=()=>$("app").classList.remove("sidebar-open");document.querySelectorAll(".nav button").forEach(b=>b.onclick=()=>openPage(b.dataset.page));
-$("themeBtn").onclick=()=>{document.body.classList.toggle("dark");localStorage.setItem("abh-theme",document.body.classList.contains("dark")?"dark":"light")};if(localStorage.getItem("abh-theme")==="dark")document.body.classList.add("dark");if(localStorage.getItem("abh-sidebar-collapsed")==="1"&&window.innerWidth>720){$("app").classList.add("sidebar-collapsed");$("menuToggle").textContent="☰"}
-async function checkApi(){try{const d=await api("");$("apiStatus").textContent=d.database&&d.ai?"API · D1 · AI online":"API online";$("apiDot").classList.add("online");$("workerBadge").textContent="Online";$("workerBadge").className="badge success";$("dbBadge").textContent=d.database?"Connected":"Missing";$("dbBadge").className="badge "+(d.database?"success":"cancelled");$("aiBadge").textContent=d.ai?"Connected":"Missing";$("aiBadge").className="badge "+(d.ai?"success":"cancelled");return d}catch(e){$("apiStatus").textContent="API offline";$("workerBadge").textContent="Offline";$("workerBadge").className="badge cancelled";return null}}
-async function loadDashboard(){try{const d=await api("dashboard");$("statCustomers").textContent=d.customers??0;$("statProducts").textContent=d.products??0;$("statOrders").textContent=d.orders??0;$("statTasks").textContent=d.pending_tasks??0;const o=await api("orders");state.orders=o.orders||[];renderRecentOrders(state.orders.slice(0,5))}catch(e){$("recentOrders").innerHTML=`<div class="empty">${esc(e.message)}</div>`}}
-function renderRecentOrders(list){if(!list.length)return empty($("recentOrders"),"No orders yet","Create an order to see activity here.");$("recentOrders").innerHTML=list.map(o=>`<div class="row" style="padding:11px 0;border-bottom:1px solid var(--line)"><div class="row-main"><h4>#${o.id} · ${esc(o.customer_name||"No customer")}</h4><p>${esc(o.created_at||"")}</p></div><div><strong>${money(o.total)}</strong><br><span class="badge ${o.status==='completed'?'success':o.status==='cancelled'?'cancelled':'pending'}">${esc(o.status)}</span></div></div>`).join("")}
-async function loadCustomers(){try{const d=await api("customers");state.customers=d.customers||[];renderCustomers(state.customers)}catch(e){empty($("customersList"),"Could not load customers",e.message)}}
-function renderCustomers(list){if(!list.length)return empty($("customersList"),"No customers yet","Your customer database is ready for real records.");$("customersList").innerHTML=list.map(c=>`<div class="card"><div class="row"><div class="row-main"><h4>${esc(c.name)}</h4><p>☎ ${esc(c.phone||"No phone")} · ✉ ${esc(c.email||"No email")}</p><p>${esc(c.address||"No address")}</p>${c.notes?`<p>Note: ${esc(c.notes)}</p>`:""}</div><div class="actions"><button class="secondary" onclick="openModal('customer',${c.id})">Edit</button><button class="danger" onclick="removeRecord('customers',${c.id})">Delete</button></div></div></div>`).join("")}
-$("customerSearch").oninput=e=>{const q=e.target.value.toLowerCase();renderCustomers(state.customers.filter(c=>`${c.name||""} ${c.phone||""} ${c.email||""} ${c.address||""}`.toLowerCase().includes(q)))};
-async function loadProducts(){try{const d=await api("products");state.products=d.products||[];renderProducts(state.products)}catch(e){empty($("productsList"),"Could not load products",e.message)}}
-function renderProducts(list){if(!list.length)return empty($("productsList"),"No products yet","Add your first catalogue item.");$("productsList").innerHTML=list.map(p=>`<div class="card"><div class="row"><div class="row-main"><h4>${esc(p.name)} <span class="badge ${p.status==='active'?'success':''}">${esc(p.status)}</span></h4><p>${esc(p.description||"No description")}</p><p>${money(p.price)} · ${Number(p.stock)} in stock</p></div><div class="actions"><button class="secondary" onclick="openModal('product',${p.id})">Edit</button><button class="danger" onclick="removeRecord('products',${p.id})">Delete</button></div></div></div>`).join("")}
-$("productSearch").oninput=e=>{const q=e.target.value.toLowerCase();renderProducts(state.products.filter(p=>`${p.name||""} ${p.description||""} ${p.status||""}`.toLowerCase().includes(q)))};
-async function loadOrders(){try{const d=await api("orders");state.orders=d.orders||[];renderOrders(state.orders)}catch(e){empty($("ordersList"),"Could not load orders",e.message)}}
-function renderOrders(list){if(!list.length)return empty($("ordersList"),"No orders yet","Create an order from a customer and product.");$("ordersList").innerHTML=list.map(o=>`<div class="card"><div class="row"><div class="row-main"><h4>Order #${o.id} · ${esc(o.customer_name||"No customer")}</h4><p>${esc(o.created_at||"")} · ${money(o.total)}</p><p>${(o.items||[]).map(i=>`${esc(i.product_name||"Product")} × ${i.quantity}`).join(" · ")||"No items"}</p></div><div class="actions"><select onchange="setOrderStatus(${o.id},this.value)"><option value="pending" ${o.status==='pending'?'selected':''}>pending</option><option value="processing" ${o.status==='processing'?'selected':''}>processing</option><option value="completed" ${o.status==='completed'?'selected':''}>completed</option><option value="cancelled" ${o.status==='cancelled'?'selected':''}>cancelled</option></select><button class="danger" onclick="removeRecord('orders',${o.id})">Delete</button></div></div></div>`).join("")}
-async function setOrderStatus(id,status){try{await api(`orders/${id}`,{method:"PUT",body:JSON.stringify({status})});toast("Order updated");loadOrders();loadDashboard()}catch(e){toast(e.message)}}
-async function loadMessages(){try{const d=await api("messages");state.messages=d.messages||[];renderMessages(state.messages)}catch(e){empty($("messagesList"),"Could not load messages",e.message)}}
-function renderMessages(list){if(!list.length)return empty($("messagesList"),"No messages yet","Create a message to start your records.");$("messagesList").innerHTML=list.map(m=>`<div class="card"><div class="row"><div class="row-main"><h4>${esc(m.customer_name||"Unlinked customer")} <span class="badge">${esc(m.sender)}</span></h4><p>${esc(m.message)}</p><p>${esc(m.created_at||"")}</p></div><button class="danger" onclick="removeRecord('messages',${m.id})">Delete</button></div></div>`).join("")}
-$("messageSearch").oninput=e=>{const q=e.target.value.toLowerCase();renderMessages(state.messages.filter(m=>`${m.customer_name||""} ${m.message||""} ${m.sender||""}`.toLowerCase().includes(q)))};
-async function loadTasks(){try{const d=await api("tasks");state.tasks=d.tasks||[];renderTasks(state.tasks)}catch(e){empty($("tasksList"),"Could not load tasks",e.message)}}
-function renderTasks(list){if(!list.length)return empty($("tasksList"),"No tasks yet","Add your first business task.");$("tasksList").innerHTML=list.map(t=>`<div class="card"><div class="row"><div class="row-main"><h4>${esc(t.title)} <span class="badge ${t.status==='completed'?'success':'pending'}">${esc(t.status)}</span></h4><p>${esc(t.description||"No description")} · Due ${esc(t.due_date||"No date")}</p></div><div class="actions"><button class="secondary" onclick="setTaskStatus(${t.id},'${t.status==='completed'?'pending':'completed'}')">${t.status==='completed'?'Reopen':'Complete'}</button><button class="danger" onclick="removeRecord('tasks',${t.id})">Delete</button></div></div></div>`).join("")}
-async function setTaskStatus(id,status){try{await api(`tasks/${id}`,{method:"PUT",body:JSON.stringify({status})});toast("Task updated");loadTasks();loadDashboard()}catch(e){toast(e.message)}}
-async function loadKnowledge(){try{const d=await api("knowledge");state.knowledge=d.knowledge||[];renderKnowledge(state.knowledge)}catch(e){empty($("knowledgeList"),"Could not load knowledge",e.message)}}
-function renderKnowledge(list){if(!list.length)return empty($("knowledgeList"),"Knowledge base is empty","Add verified information for your AI.");$("knowledgeList").innerHTML=list.map(k=>`<div class="card"><div class="row"><div class="row-main"><h4>${esc(k.title)} <span class="badge">${esc(k.category||"General")}</span></h4><p>${esc(k.content)}</p></div><button class="danger" onclick="removeRecord('knowledge',${k.id})">Delete</button></div></div>`).join("")}
-async function removeRecord(type,id){if(!confirm("Delete this record?"))return;try{await api(`${type}/${id}`,{method:"DELETE"});toast("Deleted");if(type==='customers'){loadCustomers();loadDashboard()}if(type==='products'){loadProducts();loadDashboard()}if(type==='orders'){loadOrders();loadDashboard()}if(type==='messages')loadMessages();if(type==='tasks'){loadTasks();loadDashboard()}if(type==='knowledge')loadKnowledge()}catch(e){toast(e.message)}}
-function openModal(type,id=null){let title="",html="",save=null;if(type==='customer'){const c=id?state.customers.find(x=>x.id===id)||{}:{};title=id?'Edit customer':'Add customer';html=`<form id="dyn"><div class="form-grid"><div class="fg full"><label>Name</label><input name="name" required value="${esc(c.name)}"></div><div class="fg"><label>Phone</label><input name="phone" value="${esc(c.phone)}"></div><div class="fg"><label>Email</label><input name="email" type="email" value="${esc(c.email)}"></div><div class="fg full"><label>Address</label><input name="address" value="${esc(c.address)}"></div><div class="fg full"><label>Notes</label><textarea name="notes">${esc(c.notes)}</textarea></div></div><div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save customer</button></div></form>`;save=async f=>api(id?`customers/${id}`:'customers',{method:id?'PUT':'POST',body:JSON.stringify(Object.fromEntries(f))})}
-if(type==='product'){const p=id?state.products.find(x=>x.id===id)||{}:{};title=id?'Edit product':'Add product';html=`<form id="dyn"><div class="form-grid"><div class="fg full"><label>Name</label><input name="name" required value="${esc(p.name)}"></div><div class="fg"><label>Price (NGN)</label><input name="price" type="number" min="0" step="0.01" required value="${p.price??0}"></div><div class="fg"><label>Stock</label><input name="stock" type="number" min="0" step="1" required value="${p.stock??0}"></div><div class="fg"><label>Status</label><select name="status"><option value="active" ${p.status!=='inactive'?'selected':''}>active</option><option value="inactive" ${p.status==='inactive'?'selected':''}>inactive</option></select></div><div class="fg full"><label>Description</label><textarea name="description">${esc(p.description)}</textarea></div></div><div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save product</button></div></form>`;save=async f=>api(id?`products/${id}`:'products',{method:id?'PUT':'POST',body:JSON.stringify({...Object.fromEntries(f),price:Number(f.get('price')),stock:Number(f.get('stock'))})})}
-if(type==='task'){title='Add task';html=`<form id="dyn"><div class="form-grid"><div class="fg full"><label>Title</label><input name="title" required></div><div class="fg full"><label>Description</label><textarea name="description"></textarea></div><div class="fg"><label>Due date</label><input name="due_date" type="date"></div></div><div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save task</button></div></form>`;save=async f=>api('tasks',{method:'POST',body:JSON.stringify(Object.fromEntries(f))})}
-if(type==='knowledge'){title='Add knowledge';html=`<form id="dyn"><div class="form-grid"><div class="fg full"><label>Title</label><input name="title" required></div><div class="fg"><label>Category</label><input name="category" placeholder="Products, hours, policies..."></div><div class="fg full"><label>Verified information</label><textarea name="content" required></textarea></div></div><div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save knowledge</button></div></form>`;save=async f=>api('knowledge',{method:'POST',body:JSON.stringify(Object.fromEntries(f))})}
-if(type==='message'){title='New message';html=`<form id="dyn"><div class="form-grid"><div class="fg full"><label>Customer</label><select name="customer_id"><option value="">No linked customer</option>${state.customers.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div><div class="fg"><label>Sender</label><select name="sender"><option value="owner">owner</option><option value="customer">customer</option><option value="ai">ai</option></select></div><div class="fg full"><label>Message</label><textarea name="message" required></textarea></div></div><div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Save message</button></div></form>`;save=async f=>api('messages',{method:'POST',body:JSON.stringify({...Object.fromEntries(f),customer_id:f.get('customer_id')?Number(f.get('customer_id')):null})})}
-if(type==='order'){title='Create order';const customerOptions=state.customers.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');const productOptions=state.products.filter(p=>p.status==='active').map(p=>`<option value="${p.id}">${esc(p.name)} · ${money(p.price)} · stock ${p.stock}</option>`).join('');html=`<form id="dyn"><div class="form-grid"><div class="fg full"><label>Customer</label><select name="customer_id" required><option value="">Select customer</option>${customerOptions}</select></div><div class="fg full"><label>Product</label><select name="product_id" required><option value="">Select product</option>${productOptions}</select></div><div class="fg"><label>Quantity</label><input name="quantity" type="number" min="1" step="1" value="1" required></div></div><div class="modal-actions"><button type="button" class="secondary" onclick="closeModal()">Cancel</button><button class="primary">Create order</button></div></form>`;save=async f=>api('orders',{method:'POST',body:JSON.stringify({customer_id:Number(f.get('customer_id')),items:[{product_id:Number(f.get('product_id')),quantity:Number(f.get('quantity'))}]})})}
-if(!save)return;$("modalRoot").innerHTML=`<div class="modal-bg" id="modalBg"><div class="modal"><div class="modal-head"><div><h2>${title}</h2><p>Saved directly to your Cloudflare D1 database.</p></div><button class="close" onclick="closeModal()">×</button></div>${html}</div></div>`;$("dyn").onsubmit=async e=>{e.preventDefault();const b=e.target.querySelector('.primary');b.disabled=true;b.textContent='Saving...';try{await save(new FormData(e.target));closeModal();toast(id?'Updated':'Saved');if(type==='customer'){loadCustomers();loadDashboard()}if(type==='product'){loadProducts();loadDashboard()}if(type==='task'){loadTasks();loadDashboard()}if(type==='message')loadMessages();if(type==='knowledge')loadKnowledge();if(type==='order'){loadOrders();loadProducts();loadDashboard()}}catch(err){toast(err.message);b.disabled=false;b.textContent='Try again'}};$("modalBg").onclick=e=>{if(e.target.id==='modalBg')closeModal()}}
-function closeModal(){$("modalRoot").innerHTML=""}
-function renderAi(){const el=$("aiMessages");if(!state.aiHistory.length){empty(el,'Owner AI is ready','Ask about customers, products, orders, tasks or your knowledge base.');return}el.innerHTML=state.aiHistory.map(m=>`<div class="bubble ${m.role==='user'?'user':'ai'}">${esc(m.content)}</div>`).join('');el.scrollTop=el.scrollHeight}
-async function sendAi(){const input=$("aiInput"),msg=input.value.trim();if(!msg||$("aiSend").disabled)return;state.aiHistory.push({role:'user',content:msg});localStorage.setItem(`abh-ai-history-${state.business?.id||'default'}`,JSON.stringify(state.aiHistory));renderAi();input.value='';$("aiSend").disabled=true;$("aiThinking").hidden=false;try{const d=await api('ai',{method:'POST',body:JSON.stringify({message:msg,mode:'owner',history:state.aiHistory.slice(-20)})});state.aiHistory.push({role:'assistant',content:d.reply||'No response received.'});localStorage.setItem(`abh-ai-history-${state.business?.id||'default'}`,JSON.stringify(state.aiHistory));renderAi()}catch(e){state.aiHistory.push({role:'assistant',content:'I could not reach the AI service: '+e.message});localStorage.setItem(`abh-ai-history-${state.business?.id||'default'}`,JSON.stringify(state.aiHistory));renderAi()}finally{$("aiSend").disabled=false;$("aiThinking").hidden=true;input.focus()}}
-$("aiSend").onclick=sendAi;$("aiInput").onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendAi()}};$("clearAi").onclick=()=>{if(!confirm('Clear the Owner AI conversation?'))return;state.aiHistory=[];localStorage.removeItem(`abh-ai-history-${state.business?.id||'default'}`);renderAi()};$("testApi").onclick=async()=>{const out=$("apiResult");out.textContent='Testing...';try{const d=await checkApi();out.textContent=JSON.stringify(d,null,2)}catch(e){out.textContent=e.message}};
-window.openPage=openPage;window.openModal=openModal;window.closeModal=closeModal;window.removeRecord=removeRecord;window.setOrderStatus=setOrderStatus;window.setTaskStatus=setTaskStatus;
-bootstrapAuth();
+const API_URL =
+  "https://ai-business-hub-api.hebronpeter376.workers.dev";
+
+const TOKEN_KEY = "abh-auth-token";
+const PAGE_KEY = "abh-current-page";
+
+let token = localStorage.getItem(TOKEN_KEY) || "";
+let me = null;
+let business = null;
+let contact = null;
+
+let customers = [];
+let products = [];
+let orders = [];
+let messages = [];
+let tasks = [];
+let knowledge = [];
+
+let editingId = null;
+
+
+/* -----------------------------
+   HELPERS
+----------------------------- */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+function escapeHtml(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function money(value){
+  return "₦" + Number(value || 0).toLocaleString();
+}
+
+function initials(name){
+  const parts = String(name || "?")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if(!parts.length) return "?";
+
+  return parts
+    .slice(0,2)
+    .map(x => x[0].toUpperCase())
+    .join("");
+}
+
+function toast(message){
+  const el = $("toast");
+
+  el.textContent = message;
+  el.classList.add("show");
+
+  clearTimeout(window.__toastTimer);
+
+  window.__toastTimer = setTimeout(() => {
+    el.classList.remove("show");
+  },3000);
+}
+
+function showError(el,message){
+  el.textContent = message;
+  el.classList.remove("hidden");
+}
+
+function hideError(el){
+  el.textContent = "";
+  el.classList.add("hidden");
+}
+
+
+/* -----------------------------
+   API
+----------------------------- */
+
+async function api(path, options = {}){
+
+  const headers = {
+    ...(options.headers || {})
+  };
+
+  if(options.body && !headers["Content-Type"]){
+    headers["Content-Type"] = "application/json";
+  }
+
+  if(token){
+    headers.Authorization = "Bearer " + token;
+  }
+
+  const response = await fetch(
+    API_URL + path,
+    {
+      ...options,
+      headers
+    }
+  );
+
+  let data = null;
+
+  try{
+    data = await response.json();
+  }catch{
+    data = {};
+  }
+
+  if(!response.ok){
+
+    if(response.status === 401){
+      logout(false);
+    }
+
+    throw new Error(
+      data.detail ||
+      data.error ||
+      `Request failed (${response.status})`
+    );
+  }
+
+  return data;
+}
+
+
+/* -----------------------------
+   AUTH
+----------------------------- */
+
+async function signup(){
+
+  hideError($("signupError"));
+
+  const name = $("signupName").value.trim();
+  const email = $("signupEmail").value.trim();
+  const businessName = $("signupBusiness").value.trim();
+  const password = $("signupPassword").value;
+
+  if(!name || !email || !businessName || !password){
+    showError($("signupError"),"Please complete all fields.");
+    return;
+  }
+
+  if(password.length < 8){
+    showError(
+      $("signupError"),
+      "Password must contain at least 8 characters."
+    );
+    return;
+  }
+
+  const button = $("signupBtn");
+
+  button.disabled = true;
+  button.textContent = "Creating account...";
+
+  try{
+
+    const data = await api(
+      "/auth/signup",
+      {
+        method:"POST",
+        body:JSON.stringify({
+          name,
+          email,
+          business_name:businessName,
+          password
+        })
+      }
+    );
+
+    if(!data.token){
+      throw new Error(
+        data.detail ||
+        data.error ||
+        "Signup completed without a session."
+      );
+    }
+
+    token = data.token;
+
+    localStorage.setItem(
+      TOKEN_KEY,
+      token
+    );
+
+    await bootApp();
+
+  }catch(error){
+
+    showError(
+      $("signupError"),
+      error.message || "Signup failed."
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "Create account";
+  }
+}
+
+
+async function login(){
+
+  hideError($("loginError"));
+
+  const email = $("loginEmail").value.trim();
+  const password = $("loginPassword").value;
+
+  if(!email || !password){
+    showError(
+      $("loginError"),
+      "Enter your email and password."
+    );
+    return;
+  }
+
+  const button = $("loginBtn");
+
+  button.disabled = true;
+  button.textContent = "Signing in...";
+
+  try{
+
+    const data = await api(
+      "/auth/login",
+      {
+        method:"POST",
+        body:JSON.stringify({
+          email,
+          password
+        })
+      }
+    );
+
+    if(!data.token){
+      throw new Error(
+        data.detail ||
+        data.error ||
+        "Login did not return a session."
+      );
+    }
+
+    token = data.token;
+
+    localStorage.setItem(
+      TOKEN_KEY,
+      token
+    );
+
+    await bootApp();
+
+  }catch(error){
+
+    showError(
+      $("loginError"),
+      error.message || "Login failed."
+    );
+
+  }finally{
+
+    button.disabled = false;
+    button.textContent = "Sign in";
+  }
+}
+
+
+async function logout(callServer = true){
+
+  try{
+
+    if(callServer && token){
+      await api(
+        "/auth/logout",
+        {
+          method:"POST"
+        }
+      );
+    }
+
+  }catch{}
+
+  token = "";
+  me = null;
+  business = null;
+  contact = null;
+
+  localStorage.removeItem(TOKEN_KEY);
+
+  $("app").classList.add("hidden");
+  $("authScreen").classList.remove("hidden");
+
+  $("loginPassword").value = "";
+
+  showLoginForm();
+
+  toast("You have been logged out.");
+}
+
+
+/* -----------------------------
+   BOOT
+----------------------------- */
+
+async function bootApp(){
+
+  if(!token){
+    showAuth();
+    return;
+  }
+
+  try{
+
+    const data = await api("/auth/me");
+
+    me = data.user || data.me || data;
+    business = data.business || null;
+
+    $("authScreen").classList.add("hidden");
+    $("app").classList.remove("hidden");
+
+    updateAccountUI();
+
+    await Promise.all([
+      loadBusiness(),
+      loadContact(),
+      loadDashboard()
+    ]);
+
+    await loadCurrentPage();
+
+  }catch(error){
+
+    console.error(error);
+
+    token = "";
+    localStorage.removeItem(TOKEN_KEY);
+
+    showAuth();
+
+    showError(
+      $("loginError"),
+      "Your session expired. Please sign in again."
+    );
+  }
+}
+
+
+function showAuth(){
+
+  $("app").classList.add("hidden");
+  $("authScreen").classList.remove("hidden");
+
+  showLoginForm();
+}
+
+
+function updateAccountUI(){
+
+  if(!me) return;
+
+  const name =
+    me.name ||
+    me.full_name ||
+    me.username ||
+    "Owner";
+
+  const email =
+    me.email ||
+    "";
+
+  $("miniAvatar").textContent =
+    initials(name);
+
+  $("miniName").textContent =
+    name;
+
+  $("miniEmail").textContent =
+    email;
+
+  $("welcomeTitle").textContent =
+    `Welcome back, ${name}`;
+
+  $("accountSummary").textContent =
+    email
+      ? `${name} • ${email}`
+      : name;
+
+  $("profileAvatar").textContent =
+    initials(name);
+
+  $("profileName").textContent =
+    name;
+
+  $("profileEmail").textContent =
+    email;
+
+  $("profileNameInput").value =
+    name;
+
+  $("profileEmailInput").value =
+    email;
+}
+
+
+/* -----------------------------
+   BUSINESS
+----------------------------- */
+
+async function loadBusiness(){
+
+  try{
+
+    const data = await api("/business");
+
+    business =
+      data.business ||
+      data;
+
+    $("dashboardBusiness").textContent =
+      business.name ||
+      "Your business overview.";
+
+    $("profileBusinessInput").value =
+      business.name ||
+      "";
+
+    $("profileSlugInput").value =
+      business.slug ||
+      "";
+
+  }catch(error){
+
+    console.warn("Business load failed:",error);
+
+    if(business){
+
+      $("dashboardBusiness").textContent =
+        business.name || "";
+
+      $("profileBusinessInput").value =
+        business.name || "";
+
+      $("profileSlugInput").value =
+        business.slug || "";
+    }
+  }
+}
+
+
+/* -----------------------------
+   CONTACT
+----------------------------- */
+
+async function loadContact(){
+
+  try{
+
+    const data = await api("/settings/contact");
+
+    contact =
+      data.settings ||
+      data.contact ||
+      data;
+
+    populateContact();
+
+  }catch(error){
+
+    console.warn(
+      "Contact settings unavailable:",
+      error
+    );
+  }
+}
+
+
+function populateContact(){
+
+  if(!contact) return;
+
+  $("contactDescription").value =
+    contact.description || "";
+
+  $("contactWhatsapp").value =
+    contact.whatsapp || "";
+
+  $("contactWhatsappMessage").value =
+    contact.whatsapp_message || "";
+
+  $("contactPhone").value =
+    contact.phone || "";
+
+  $("contactEmail").value =
+    contact.email || "";
+
+  $("contactWebsite").value =
+    contact.website || "";
+
+  $("contactAddress").value =
+    contact.address || "";
+
+  $("contactFacebook").value =
+    contact.facebook || "";
+
+  $("contactInstagram").value =
+    contact.instagram || "";
+
+  $("contactTiktok").value =
+    contact.tiktok || "";
+
+  $("contactX").value =
+    contact.x || "";
+
+  $("contactTelegram").value =
+    contact.telegram || "";
+}
+
+
+/* -----------------------------
+   PROFILE
+----------------------------- */
+
+function enableInputs(ids, enabled){
+
+  ids.forEach(id => {
+
+    const el = $(id);
+
+    if(el){
+      el.disabled = !enabled;
+    }
+
+  });
+}
+
+
+$("editAccountBtn").onclick = () => {
+
+  enableInputs(
+    [
+      "profileNameInput",
+      "profileBusinessInput"
+    ],
+    true
+  );
+
+  $("accountSaveArea")
+    .classList
+    .remove("hidden");
+};
+
+
+$("saveAccountBtn").onclick = async () => {
+
+  try{
+
+    const name =
+      $("profileNameInput").value.trim();
+
+    const businessName =
+      $("profileBusinessInput").value.trim();
+
+    if(name.length < 2){
+      toast("Enter a valid name.");
+      return;
+    }
+
+    if(businessName.length < 2){
+      toast("Enter a valid business name.");
+      return;
+    }
+
+    const userPayload = {
+      name
+    };
+
+    /*
+      The Worker versions we've built expose
+      /auth/me for reading account data.
+
+      Business editing is handled separately.
+    */
+
+    try{
+
+      const result = await api(
+        "/auth/me",
+        {
+          method:"GET"
+        }
+      );
+
+      me =
+        result.user ||
+        result.me ||
+        me;
+
+    }catch{}
+
+    try{
+
+      const result = await api(
+        "/business",
+        {
+          method:"PUT",
+          body:JSON.stringify({
+            name:businessName
+          })
+        }
+      );
+
+      business =
+        result.business ||
+        result ||
+        business;
+
+    }catch(error){
+
+      /*
+        If the current Worker doesn't expose
+        account-name editing yet, keep the existing
+        account information rather than crashing.
+      */
+
+      console.warn(
+        "Business update:",
+        error.message
+      );
+    }
+
+    updateAccountUI();
+
+    enableInputs(
+      [
+        "profileNameInput",
+        "profileBusinessInput"
+      ],
+      false
+    );
+
+    $("accountSaveArea")
+      .classList
+      .add("hidden");
+
+    toast("Profile updated.");
+
+  }catch(error){
+
+    toast(error.message || "Could not update profile.");
+  }
+};
+
+
+$("editContactBtn").onclick = () => {
+
+  enableInputs(
+    [
+      "contactDescription",
+      "contactWhatsapp",
+      "contactWhatsappMessage",
+      "contactPhone",
+      "contactEmail",
+      "contactWebsite",
+      "contactAddress",
+      "contactFacebook",
+      "contactInstagram",
+      "contactTiktok",
+      "contactX",
+      "contactTelegram"
+    ],
+    true
+  );
+
+  $("contactSaveArea")
+    .classList
+    .remove("hidden");
+};
+
+
+$("saveContactBtn").onclick = async () => {
+
+  const payload = {
+
+    description:
+      $("contactDescription").value.trim(),
+
+    whatsapp:
+      $("contactWhatsapp").value.trim(),
+
+    whatsapp_message:
+      $("contactWhatsappMessage").value.trim(),
+
+    phone:
+      $("contactPhone").value.trim(),
+
+    email:
+      $("contactEmail").value.trim(),
+
+    website:
+      $("contactWebsite").value.trim(),
+
+    address:
+      $("contactAddress").value.trim(),
+
+    facebook:
+      $("contactFacebook").value.trim(),
+
+    instagram:
+      $("contactInstagram").value.trim(),
+
+    tiktok:
+      $("contactTiktok").value.trim(),
+
+    x:
+      $("contactX").value.trim(),
+
+    telegram:
+      $("contactTelegram").value.trim()
+  };
+
+  try{
+
+    const data = await api(
+      "/settings/contact",
+      {
+        method:"PUT",
+        body:JSON.stringify(payload)
+      }
+    );
+
+    contact =
+      data.settings ||
+      data.contact ||
+      data;
+
+    populateContact();
+
+    enableInputs(
+      [
+        "contactDescription",
+        "contactWhatsapp",
+        "contactWhatsappMessage",
+        "contactPhone",
+        "contactEmail",
+        "contactWebsite",
+        "contactAddress",
+        "contactFacebook",
+        "contactInstagram",
+        "contactTiktok",
+        "contactX",
+        "contactTelegram"
+      ],
+      false
+    );
+
+    $("contactSaveArea")
+      .classList
+      .add("hidden");
+
+    toast("Contact details saved.");
+
+  }catch(error){
+
+    toast(
+      error.message ||
+      "Could not save contact details."
+    );
+  }
+};
+
+
+$("profileLogoutBtn").onclick = () => {
+  logout(true);
+};
+
+
+/* -----------------------------
+   NAVIGATION
+----------------------------- */
+
+const pageNames = {
+  dashboard:"Dashboard",
+  "owner-ai":"Owner AI",
+  messages:"Messages",
+  orders:"Orders",
+  customers:"Customers",
+  tasks:"Tasks",
+  products:"Products",
+  knowledge:"Knowledge",
+  integrations:"Integrations",
+  profile:"Profile"
+};
+
+
+async function openPage(page){
+
+  if(!pageNames[page]){
+    page = "dashboard";
+  }
+
+  document
+    .querySelectorAll(".page")
+    .forEach(el => {
+      el.classList.remove("active");
+    });
+
+  const target = $(page);
+
+  if(target){
+    target.classList.add("active");
+  }
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn => {
+      btn.classList.toggle(
+        "active",
+        btn.dataset.page === page
+      );
+    });
+
+  $("pageTitle").textContent =
+    pageNames[page];
+
+  localStorage.setItem(
+    PAGE_KEY,
+    page
+  );
+
+  closeMobileMenu();
+
+  try{
+
+    if(page === "dashboard")
+      await loadDashboard();
+
+    if(page === "profile"){
+      await loadBusiness();
+      await loadContact();
+      updateAccountUI();
+    }
+
+    if(page === "customers")
+      await loadCustomers();
+
+    if(page === "products")
+      await loadProducts();
+
+    if(page === "orders")
+      await loadOrders();
+
+    if(page === "messages")
+      await loadMessages();
+
+    if(page === "tasks")
+      await loadTasks();
+
+    if(page === "knowledge")
+      await loadKnowledge();
+
+    if(page === "integrations")
+      await loadIntegrationStatus();
+
+  }catch(error){
+
+    console.error(error);
+    toast(error.message || "Could not load page.");
+  }
+}
+
+
+async function loadCurrentPage(){
+
+  const saved =
+    localStorage.getItem(PAGE_KEY) ||
+    "dashboard";
+
+  await openPage(saved);
+}
+
+
+document
+  .querySelectorAll(".nav button")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      () => openPage(button.dataset.page)
+    );
+
+  });
+
+
+/* -----------------------------
+   SIDEBAR
+----------------------------- */
+
+$("menuToggle").onclick = () => {
+
+  const sidebar = $("sidebar");
+
+  if(window.innerWidth <= 800){
+
+    sidebar.classList.toggle("mobile-open");
+
+    $("sidebarOverlay")
+      .classList
+      .toggle(
+        "show",
+        sidebar.classList.contains("mobile-open")
+      );
+
+    return;
+  }
+
+  sidebar.classList.toggle("collapsed");
+};
+
+
+function closeMobileMenu(){
+
+  if(window.innerWidth > 800)
+    return;
+
+  $("sidebar")
+    .classList
+    .remove("mobile-open");
+
+  $("sidebarOverlay")
+    .classList
+    .remove("show");
+}
+
+
+$("sidebarOverlay").onclick =
+  closeMobileMenu;
+
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    if(window.innerWidth > 800){
+      $("sidebar")
+        .classList
+        .remove("mobile-open");
+
+      $("sidebarOverlay")
+        .classList
+        .remove("show");
+    }
+
+  }
+);
+
+
+/* -----------------------------
+   THEME
+----------------------------- */
+
+function loadTheme(){
+
+  const dark =
+    localStorage.getItem("abh-theme") === "dark";
+
+  document.body.classList.toggle(
+    "dark",
+    dark
+  );
+
+  $("themeToggle").textContent =
+    dark ? "☀" : "☾";
+}
+
+
+$("themeToggle").onclick = () => {
+
+  const dark =
+    document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "abh-theme",
+    dark ? "dark" : "light"
+  );
+
+  $("themeToggle").textContent =
+    dark ? "☀" : "☾";
+};
+
+
+/* -----------------------------
+   DASHBOARD
+----------------------------- */
+
+async function loadDashboard(){
+
+  try{
+
+    const data =
+      await api("/dashboard");
+
+    $("statCustomers").textContent =
+      data.customers ??
+      data.customer_count ??
+      0;
+
+    $("statProducts").textContent =
+      data.products ??
+      data.product_count ??
+      0;
+
+    $("statOrders").textContent =
+      data.orders ??
+      data.order_count ??
+      0;
+
+    $("statRevenue").textContent =
+      money(
+        data.revenue ??
+        data.total_revenue ??
+        0
+      );
+
+    $("businessStatus").textContent =
+      "Your business API and database are connected.";
+
+  }catch(error){
+
+    $("statCustomers").textContent = "0";
+    $("statProducts").textContent = "0";
+    $("statOrders").textContent = "0";
+    $("statRevenue").textContent = "₦0";
+
+    $("businessStatus").textContent =
+      error.message ||
+      "Dashboard data unavailable.";
+  }
+}
+
+
+/* -----------------------------
+   CUSTOMERS
+----------------------------- */
+
+async function loadCustomers(){
+
+  const data =
+    await api("/customers");
+
+  customers =
+    Array.isArray(data)
+      ? data
+      : data.customers || [];
+
+  renderCustomers();
+}
+
+
+function renderCustomers(){
+
+  const search =
+    $("customerSearch").value
+      .trim()
+      .toLowerCase();
+
+  const list =
+    customers.filter(c =>
+      [
+        c.name,
+        c.phone,
+        c.email,
+        c.address
+      ]
+      .join(" ")
+      .toLowerCase()
+      .includes(search)
+    );
+
+  if(!list.length){
+
+    $("customersTable").innerHTML = `
+      <div class="empty">
+        <div class="big">♙</div>
+        <h3>No customers yet</h3>
+        <p>Your customer database is ready for real records.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  $("customersTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${list.map(c => `
+            <tr>
+              <td>${escapeHtml(c.name)}</td>
+              <td>${escapeHtml(c.phone)}</td>
+              <td>${escapeHtml(c.email)}</td>
+              <td>${escapeHtml(c.address)}</td>
+              <td>
+                <div class="actions">
+                  <button class="secondary" onclick="editCustomer(${c.id})">Edit</button>
+                  <button class="danger" onclick="deleteCustomer(${c.id})">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+
+$("customerSearch").oninput =
+  renderCustomers;
+
+
+$("addCustomerBtn").onclick =
+  () => openCustomerModal();
+
+
+function openCustomerModal(customer = null){
+
+  editingId =
+    customer?.id || null;
+
+  $("modalTitle").textContent =
+    customer
+      ? "Edit customer"
+      : "Add customer";
+
+  $("modalBody").innerHTML = `
+    <div class="form-group">
+      <label>Name</label>
+      <input id="mName" value="${escapeHtml(customer?.name || "")}">
+    </div>
+
+    <div class="form-group">
+      <label>Phone</label>
+      <input id="mPhone" value="${escapeHtml(customer?.phone || "")}">
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input id="mEmail" type="email" value="${escapeHtml(customer?.email || "")}">
+    </div>
+
+    <div class="form-group">
+      <label>Address</label>
+      <input id="mAddress" value="${escapeHtml(customer?.address || "")}">
+    </div>
+
+    <div class="form-group">
+      <label>Notes</label>
+      <textarea id="mNotes" rows="4">${escapeHtml(customer?.notes || "")}</textarea>
+    </div>
+
+    <button class="primary" style="width:100%" onclick="saveCustomer()">
+      ${customer ? "Save changes" : "Create customer"}
+    </button>
+  `;
+
+  showModal();
+}
+
+
+window.editCustomer =
+  id => {
+
+    const customer =
+      customers.find(c => c.id === id);
+
+    if(customer)
+      openCustomerModal(customer);
+  };
+
+
+window.saveCustomer =
+  async () => {
+
+    const payload = {
+      name:$("mName").value.trim(),
+      phone:$("mPhone").value.trim(),
+      email:$("mEmail").value.trim(),
+      address:$("mAddress").value.trim(),
+      notes:$("mNotes").value.trim()
+    };
+
+    if(!payload.name){
+      toast("Customer name is required.");
+      return;
+    }
+
+    try{
+
+      await api(
+        editingId
+          ? `/customers/${editingId}`
+          : "/customers",
+        {
+          method:editingId ? "PUT" : "POST",
+          body:JSON.stringify(payload)
+        }
+      );
+
+      closeModal();
+      await loadCustomers();
+
+      toast(
+        editingId
+          ? "Customer updated."
+          : "Customer created."
+      );
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+window.deleteCustomer =
+  async id => {
+
+    if(!confirm("Delete this customer?"))
+      return;
+
+    try{
+
+      await api(
+        `/customers/${id}`,
+        {
+          method:"DELETE"
+        }
+      );
+
+      await loadCustomers();
+
+      toast("Customer deleted.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+/* -----------------------------
+   PRODUCTS
+----------------------------- */
+
+async function loadProducts(){
+
+  const data =
+    await api("/products");
+
+  products =
+    Array.isArray(data)
+      ? data
+      : data.products || [];
+
+  renderProducts();
+}
+
+
+function renderProducts(){
+
+  const search =
+    $("productSearch").value
+      .trim()
+      .toLowerCase();
+
+  const list =
+    products.filter(p =>
+      [
+        p.name,
+        p.description,
+        p.status
+      ]
+      .join(" ")
+      .toLowerCase()
+      .includes(search)
+    );
+
+  if(!list.length){
+
+    $("productsTable").innerHTML = `
+      <div class="empty">
+        <div class="big">◈</div>
+        <h3>No products yet</h3>
+        <p>Your product catalog is ready for real records.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  $("productsTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${list.map(p => `
+            <tr>
+              <td>${escapeHtml(p.name)}</td>
+              <td>${money(p.price)}</td>
+              <td>${Number(p.stock || 0)}</td>
+              <td>${escapeHtml(p.status || "active")}</td>
+              <td>
+                <div class="actions">
+                  <button class="secondary" onclick="editProduct(${p.id})">Edit</button>
+                  <button class="danger" onclick="deleteProduct(${p.id})">Delete</button>
+                </div>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+
+$("productSearch").oninput =
+  renderProducts;
+
+
+$("addProductBtn").onclick =
+  () => openProductModal();
+
+
+function openProductModal(product = null){
+
+  editingId =
+    product?.id || null;
+
+  $("modalTitle").textContent =
+    product
+      ? "Edit product"
+      : "Add product";
+
+  $("modalBody").innerHTML = `
+    <div class="form-group">
+      <label>Name</label>
+      <input id="pName" value="${escapeHtml(product?.name || "")}">
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="pDescription" rows="3">${escapeHtml(product?.description || "")}</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Price</label>
+      <input id="pPrice" type="number" min="0" step="0.01" value="${Number(product?.price || 0)}">
+    </div>
+
+    <div class="form-group">
+      <label>Stock</label>
+      <input id="pStock" type="number" min="0" value="${Number(product?.stock || 0)}">
+    </div>
+
+    <div class="form-group">
+      <label>Status</label>
+      <select id="pStatus">
+        <option value="active" ${product?.status === "active" ? "selected" : ""}>Active</option>
+        <option value="inactive" ${product?.status === "inactive" ? "selected" : ""}>Inactive</option>
+      </select>
+    </div>
+
+    <button class="primary" style="width:100%" onclick="saveProduct()">
+      ${product ? "Save changes" : "Create product"}
+    </button>
+  `;
+
+  showModal();
+}
+
+
+window.editProduct =
+  id => {
+
+    const product =
+      products.find(p => p.id === id);
+
+    if(product)
+      openProductModal(product);
+  };
+
+
+window.saveProduct =
+  async () => {
+
+    const payload = {
+      name:$("pName").value.trim(),
+      description:$("pDescription").value.trim(),
+      price:Number($("pPrice").value || 0),
+      stock:Number($("pStock").value || 0),
+      status:$("pStatus").value
+    };
+
+    if(!payload.name){
+      toast("Product name is required.");
+      return;
+    }
+
+    try{
+
+      await api(
+        editingId
+          ? `/products/${editingId}`
+          : "/products",
+        {
+          method:editingId ? "PUT" : "POST",
+          body:JSON.stringify(payload)
+        }
+      );
+
+      closeModal();
+      await loadProducts();
+
+      toast(
+        editingId
+          ? "Product updated."
+          : "Product created."
+      );
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+window.deleteProduct =
+  async id => {
+
+    if(!confirm("Delete this product?"))
+      return;
+
+    try{
+
+      await api(
+        `/products/${id}`,
+        {
+          method:"DELETE"
+        }
+      );
+
+      await loadProducts();
+
+      toast("Product deleted.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+/* -----------------------------
+   ORDERS
+----------------------------- */
+
+async function loadOrders(){
+
+  const data =
+    await api("/orders");
+
+  orders =
+    Array.isArray(data)
+      ? data
+      : data.orders || [];
+
+  renderOrders();
+}
+
+
+function renderOrders(){
+
+  if(!orders.length){
+
+    $("ordersTable").innerHTML = `
+      <div class="empty">
+        <div class="big">▣</div>
+        <h3>No orders yet</h3>
+        <p>Orders created for this business will appear here.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  $("ordersTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Order</th>
+            <th>Customer</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${orders.map(o => `
+            <tr>
+              <td>#${escapeHtml(o.id)}</td>
+              <td>${escapeHtml(o.customer_name || o.customer_id || "—")}</td>
+              <td>${escapeHtml(o.status || "pending")}</td>
+              <td>${money(o.total)}</td>
+              <td>${escapeHtml(o.created_at || "")}</td>
+              <td>
+                <button class="danger" onclick="deleteOrder(${o.id})">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+
+window.deleteOrder =
+  async id => {
+
+    if(!confirm("Delete this order?"))
+      return;
+
+    try{
+
+      await api(
+        `/orders/${id}`,
+        {
+          method:"DELETE"
+        }
+      );
+
+      await loadOrders();
+
+      toast("Order deleted.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+$("addOrderBtn").onclick =
+  () => openOrderModal();
+
+
+function openOrderModal(){
+
+  if(!customers.length){
+
+    toast("Create a customer first.");
+    return;
+  }
+
+  if(!products.length){
+
+    toast("Create a product first.");
+    return;
+  }
+
+  $("modalTitle").textContent =
+    "Create order";
+
+  $("modalBody").innerHTML = `
+
+    <div class="form-group">
+      <label>Customer</label>
+
+      <select id="oCustomer">
+        ${customers.map(c => `
+          <option value="${c.id}">
+            ${escapeHtml(c.name)}
+          </option>
+        `).join("")}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Product</label>
+
+      <select id="oProduct">
+        ${products
+          .filter(p => p.status !== "inactive")
+          .map(p => `
+            <option value="${p.id}">
+              ${escapeHtml(p.name)} • ${money(p.price)}
+            </option>
+          `)
+          .join("")}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Quantity</label>
+      <input id="oQuantity" type="number" min="1" value="1">
+    </div>
+
+    <button class="primary" style="width:100%" onclick="saveOrder()">
+      Create order
+    </button>
+  `;
+
+  showModal();
+}
+
+
+window.saveOrder =
+  async () => {
+
+    const customerId =
+      Number($("oCustomer").value);
+
+    const productId =
+      Number($("oProduct").value);
+
+    const quantity =
+      Number($("oQuantity").value);
+
+    if(quantity < 1){
+      toast("Quantity must be at least 1.");
+      return;
+    }
+
+    try{
+
+      await api(
+        "/orders",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            customer_id:customerId,
+            items:[
+              {
+                product_id:productId,
+                quantity
+              }
+            ]
+          })
+        }
+      );
+
+      closeModal();
+
+      await Promise.all([
+        loadOrders(),
+        loadProducts(),
+        loadDashboard()
+      ]);
+
+      toast("Order created.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+/* -----------------------------
+   MESSAGES
+----------------------------- */
+
+async function loadMessages(){
+
+  const data =
+    await api("/messages");
+
+  messages =
+    Array.isArray(data)
+      ? data
+      : data.messages || [];
+
+  renderMessages();
+}
+
+
+function renderMessages(){
+
+  const search =
+    $("messageSearch").value
+      .trim()
+      .toLowerCase();
+
+  const list =
+    messages.filter(m =>
+      [
+        m.message,
+        m.sender,
+        m.customer_name
+      ]
+      .join(" ")
+      .toLowerCase()
+      .includes(search)
+    );
+
+  if(!list.length){
+
+    $("messagesTable").innerHTML = `
+      <div class="empty">
+        <div class="big">✉</div>
+        <h3>No messages yet</h3>
+        <p>Customer communication will appear here.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  $("messagesTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Sender</th>
+            <th>Message</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${list.map(m => `
+            <tr>
+              <td>${escapeHtml(m.customer_name || m.customer_id || "—")}</td>
+              <td>${escapeHtml(m.sender)}</td>
+              <td>${escapeHtml(m.message)}</td>
+              <td>${escapeHtml(m.created_at || "")}</td>
+              <td>
+                <button class="danger" onclick="deleteMessage(${m.id})">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+
+$("messageSearch").oninput =
+  renderMessages;
+
+
+$("addMessageBtn").onclick =
+  () => openMessageModal();
+
+
+function openMessageModal(){
+
+  if(!customers.length){
+
+    toast("Create a customer first.");
+    return;
+  }
+
+  $("modalTitle").textContent =
+    "Add message";
+
+  $("modalBody").innerHTML = `
+
+    <div class="form-group">
+      <label>Customer</label>
+
+      <select id="msgCustomer">
+        ${customers.map(c => `
+          <option value="${c.id}">
+            ${escapeHtml(c.name)}
+          </option>
+        `).join("")}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Sender</label>
+      <select id="msgSender">
+        <option value="owner">Owner</option>
+        <option value="customer">Customer</option>
+        <option value="ai">AI</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Message</label>
+      <textarea id="msgText" rows="5"></textarea>
+    </div>
+
+    <button class="primary" style="width:100%" onclick="saveMessage()">
+      Save message
+    </button>
+  `;
+
+  showModal();
+}
+
+
+window.saveMessage =
+  async () => {
+
+    const payload = {
+      customer_id:Number($("msgCustomer").value),
+      sender:$("msgSender").value,
+      message:$("msgText").value.trim()
+    };
+
+    if(!payload.message){
+      toast("Enter a message.");
+      return;
+    }
+
+    try{
+
+      await api(
+        "/messages",
+        {
+          method:"POST",
+          body:JSON.stringify(payload)
+        }
+      );
+
+      closeModal();
+      await loadMessages();
+
+      toast("Message saved.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+window.deleteMessage =
+  async id => {
+
+    if(!confirm("Delete this message?"))
+      return;
+
+    try{
+
+      await api(
+        `/messages/${id}`,
+        {
+          method:"DELETE"
+        }
+      );
+
+      await loadMessages();
+
+      toast("Message deleted.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+/* -----------------------------
+   TASKS
+----------------------------- */
+
+async function loadTasks(){
+
+  const data =
+    await api("/tasks");
+
+  tasks =
+    Array.isArray(data)
+      ? data
+      : data.tasks || [];
+
+  renderTasks();
+}
+
+
+function renderTasks(){
+
+  if(!tasks.length){
+
+    $("tasksTable").innerHTML = `
+      <div class="empty">
+        <div class="big">✓</div>
+        <h3>No tasks yet</h3>
+        <p>Create your first business task.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  $("tasksTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Due date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${tasks.map(t => `
+            <tr>
+              <td>${escapeHtml(t.title)}</td>
+              <td>${escapeHtml(t.description)}</td>
+              <td>${escapeHtml(t.status)}</td>
+              <td>${escapeHtml(t.due_date || "")}</td>
+              <td>
+                <div class="actions">
+                  <button class="secondary" onclick="toggleTask(${t.id}, '${escapeHtml(t.status)}')">
+                    ${t.status === "completed" ? "Reopen" : "Complete"}
+                  </button>
+                  <button class="danger" onclick="deleteTask(${t.id})">
+                    Delete
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+
+$("addTaskBtn").onclick =
+  () => openTaskModal();
+
+
+function openTaskModal(){
+
+  $("modalTitle").textContent =
+    "Add task";
+
+  $("modalBody").innerHTML = `
+
+    <div class="form-group">
+      <label>Title</label>
+      <input id="tTitle">
+    </div>
+
+    <div class="form-group">
+      <label>Description</label>
+      <textarea id="tDescription" rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Due date</label>
+      <input id="tDue" type="date">
+    </div>
+
+    <button class="primary" style="width:100%" onclick="saveTask()">
+      Create task
+    </button>
+  `;
+
+  showModal();
+}
+
+
+window.saveTask =
+  async () => {
+
+    const payload = {
+      title:$("tTitle").value.trim(),
+      description:$("tDescription").value.trim(),
+      due_date:$("tDue").value || null
+    };
+
+    if(!payload.title){
+      toast("Task title is required.");
+      return;
+    }
+
+    try{
+
+      await api(
+        "/tasks",
+        {
+          method:"POST",
+          body:JSON.stringify(payload)
+        }
+      );
+
+      closeModal();
+      await loadTasks();
+
+      toast("Task created.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+window.toggleTask =
+  async (id,status) => {
+
+    try{
+
+      await api(
+        `/tasks/${id}`,
+        {
+          method:"PUT",
+          body:JSON.stringify({
+            status:
+              status === "completed"
+                ? "pending"
+                : "completed"
+          })
+        }
+      );
+
+      await loadTasks();
+
+      toast("Task updated.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+window.deleteTask =
+  async id => {
+
+    if(!confirm("Delete this task?"))
+      return;
+
+    try{
+
+      await api(
+        `/tasks/${id}`,
+        {
+          method:"DELETE"
+        }
+      );
+
+      await loadTasks();
+
+      toast("Task deleted.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+/* -----------------------------
+   KNOWLEDGE
+----------------------------- */
+
+async function loadKnowledge(){
+
+  const data =
+    await api("/knowledge");
+
+  knowledge =
+    Array.isArray(data)
+      ? data
+      : data.knowledge || [];
+
+  renderKnowledge();
+}
+
+
+function renderKnowledge(){
+
+  if(!knowledge.length){
+
+    $("knowledgeTable").innerHTML = `
+      <div class="empty">
+        <div class="big">▤</div>
+        <h3>No knowledge yet</h3>
+        <p>Add business information for your AI assistant.</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  $("knowledgeTable").innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Category</th>
+            <th>Content</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${knowledge.map(k => `
+            <tr>
+              <td>${escapeHtml(k.title)}</td>
+              <td>${escapeHtml(k.category || "")}</td>
+              <td>${escapeHtml(k.content)}</td>
+              <td>
+                <button class="danger" onclick="deleteKnowledge(${k.id})">
+                  Delete
+                </button>
+              </td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+
+$("addKnowledgeBtn").onclick =
+  () => openKnowledgeModal();
+
+
+function openKnowledgeModal(){
+
+  $("modalTitle").textContent =
+    "Add knowledge";
+
+  $("modalBody").innerHTML = `
+
+    <div class="form-group">
+      <label>Title</label>
+      <input id="kTitle">
+    </div>
+
+    <div class="form-group">
+      <label>Category</label>
+      <input id="kCategory">
+    </div>
+
+    <div class="form-group">
+      <label>Content</label>
+      <textarea id="kContent" rows="7"></textarea>
+    </div>
+
+    <button class="primary" style="width:100%" onclick="saveKnowledge()">
+      Add knowledge
+    </button>
+  `;
+
+  showModal();
+}
+
+
+window.saveKnowledge =
+  async () => {
+
+    const payload = {
+      title:$("kTitle").value.trim(),
+      category:$("kCategory").value.trim(),
+      content:$("kContent").value.trim()
+    };
+
+    if(!payload.title || !payload.content){
+      toast("Title and content are required.");
+      return;
+    }
+
+    try{
+
+      await api(
+        "/knowledge",
+        {
+          method:"POST",
+          body:JSON.stringify(payload)
+        }
+      );
+
+      closeModal();
+      await loadKnowledge();
+
+      toast("Knowledge added.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+window.deleteKnowledge =
+  async id => {
+
+    if(!confirm("Delete this knowledge item?"))
+      return;
+
+    try{
+
+      await api(
+        `/knowledge/${id}`,
+        {
+          method:"DELETE"
+        }
+      );
+
+      await loadKnowledge();
+
+      toast("Knowledge deleted.");
+
+    }catch(error){
+
+      toast(error.message);
+    }
+  };
+
+
+/* -----------------------------
+   AI
+----------------------------- */
+
+let aiHistory = [];
+
+
+function renderAI(){
+
+  $("aiHistory").innerHTML =
+    aiHistory.map(m => `
+      <div class="ai-message ${m.role === "user" ? "user" : "assistant"}">
+        ${escapeHtml(m.content).replace(/\n/g,"<br>")}
+      </div>
+    `).join("");
+
+  $("aiHistory").scrollTop =
+    $("aiHistory").scrollHeight;
+}
+
+
+$("aiSend").onclick =
+  sendAI;
+
+
+$("aiInput").addEventListener(
+  "keydown",
+  event => {
+
+    if(event.key === "Enter"){
+      event.preventDefault();
+      sendAI();
+    }
+
+  }
+);
+
+
+async function sendAI(){
+
+  const input =
+    $("aiInput");
+
+  const message =
+    input.value.trim();
+
+  if(!message)
+    return;
+
+  input.value = "";
+
+  aiHistory.push({
+    role:"user",
+    content:message
+  });
+
+  renderAI();
+
+  $("aiSend").disabled = true;
+  input.disabled = true;
+
+  try{
+
+    const data =
+      await api(
+        "/ai",
+        {
+          method:"POST",
+          body:JSON.stringify({
+            mode:"owner",
+            message,
+            history:aiHistory.slice(-20)
+          })
+        }
+      );
+
+    const answer =
+      data.answer ||
+      data.response ||
+      data.text ||
+      "I couldn't generate a response.";
+
+    aiHistory.push({
+      role:"assistant",
+      content:answer
+    });
+
+    renderAI();
+
+  }catch(error){
+
+    aiHistory.push({
+      role:"assistant",
+      content:"AI error: " + error.message
+    });
+
+    renderAI();
+
+  }finally{
+
+    $("aiSend").disabled = false;
+    input.disabled = false;
+    input.focus();
+  }
+}
+
+
+/* -----------------------------
+   INTEGRATIONS
+----------------------------- */
+
+async function loadIntegrationStatus(){
+
+  $("workerStatus").textContent =
+    "Connected";
+
+  try{
+
+    const data =
+      await fetch(API_URL)
+        .then(r => r.json());
+
+    $("workerStatus").textContent =
+      data.status === "online"
+        ? "Online"
+        : "Connected";
+
+    $("dbStatus").textContent =
+      data.database
+        ? "Connected"
+        : "Available through Worker";
+
+    $("aiStatus").textContent =
+      data.ai
+        ? "Connected"
+        : "Available through Worker";
+
+  }catch{
+
+    $("workerStatus").textContent =
+      "Unavailable";
+  }
+}
+
+
+$("testApiBtn").onclick =
+  async () => {
+
+    $("apiTestResult").textContent =
+      "Testing...";
+
+    try{
+
+      const response =
+        await fetch(API_URL);
+
+      const data =
+        await response.json();
+
+      $("apiTestResult").textContent =
+        data.status === "online"
+          ? "API is online."
+          : "API responded.";
+
+    }catch(error){
+
+      $("apiTestResult").textContent =
+        error.message;
+    }
+  };
+
+
+/* -----------------------------
+   MODAL
+----------------------------- */
+
+function showModal(){
+
+  $("modal")
+    .classList
+    .add("show");
+}
+
+
+function closeModal(){
+
+  $("modal")
+    .classList
+    .remove("show");
+
+  $("modalBody").innerHTML = "";
+
+  editingId = null;
+}
+
+
+$("closeModal").onclick =
+  closeModal;
+
+
+$("modal").addEventListener(
+  "click",
+  event => {
+
+    if(event.target === $("modal")){
+      closeModal();
+    }
+
+  }
+);
+
+
+/* -----------------------------
+   AUTH FORM SWITCH
+----------------------------- */
+
+function showLoginForm(){
+
+  $("loginForm")
+    .classList
+    .remove("hidden");
+
+  $("signupForm")
+    .classList
+    .add("hidden");
+
+  hideError($("loginError"));
+  hideError($("signupError"));
+}
+
+
+function showSignupForm(){
+
+  $("signupForm")
+    .classList
+    .remove("hidden");
+
+  $("loginForm")
+    .classList
+    .add("hidden");
+
+  hideError($("loginError"));
+  hideError($("signupError"));
+}
+
+
+$("showSignup").onclick =
+  showSignupForm;
+
+$("showLogin").onclick =
+  showLoginForm;
+
+$("loginBtn").onclick =
+  login;
+
+$("signupBtn").onclick =
+  signup;
+
+
+/* -----------------------------
+   START
+----------------------------- */
+
+loadTheme();
+
+if(token){
+
+  bootApp();
+
+}else{
+
+  showAuth();
+}
 </script>
+
 </body>
 </html>
