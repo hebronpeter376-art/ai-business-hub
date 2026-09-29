@@ -1541,6 +1541,7 @@ let tasks = [];
 let knowledge = [];
 
 let editingId = null;
+  let authReady = false;
 
 
 /* -----------------------------
@@ -1651,7 +1652,55 @@ async function api(path, options = {}){
 
   return data;
 }
+async function restoreSession(){
+  if(!token){
+    authReady = true;
+    showAuth();
+    return;
+  }
 
+  try{
+    const data = await api("/auth/me", {
+      method: "GET"
+    });
+
+    if(!data || !data.user){
+      throw new Error("Session expired");
+    }
+
+    me = data.user;
+
+    authReady = true;
+
+    localStorage.setItem(
+      "abh-user",
+      JSON.stringify(me)
+    );
+
+    showApp();
+
+    if(typeof renderProfile === "function"){
+      renderProfile();
+    }
+
+    if(typeof loadDashboard === "function"){
+      await loadDashboard();
+    }
+
+  }catch(error){
+    console.warn("Session restore failed:", error);
+
+    token = "";
+    me = null;
+
+    localStorage.removeItem(TOKEN_KEY);
+    localStorage.removeItem("abh-user");
+
+    authReady = true;
+
+    showAuth();
+  }
+}
 
 /* -----------------------------
    AUTH
@@ -4052,6 +4101,9 @@ if(token){
 
   showAuth();
 }
+  window.addEventListener("DOMContentLoaded", async () => {
+  await restoreSession();
+});
 </script>
 
 </body>
